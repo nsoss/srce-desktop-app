@@ -1,0 +1,14 @@
+{
+  "description": "Desktop application for Centar Srce",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nsoss/srce-desktop-app.git"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "4.1.4"
+  }
+}

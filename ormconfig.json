@@ -1,0 +1,16 @@
+{
+   "name": "default",
+   "type": "sqlite",
+   "database": "src/database/srce.db",
+   "synchronize": true,
+   "logging": true,
+   "entities": [
+      "src/database/schema/**/*.js"
+   ],
+   "migrations": [
+      "src/database/migration/**/*.js"
+   ],
+   "subscribers": [
+      "src/database/subscriber/**/*.js"
+   ]
+}

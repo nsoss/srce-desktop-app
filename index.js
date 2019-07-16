@@ -43,10 +43,12 @@ function createWindow() {
         width: 640,
         height: 480
     });
-    window.loadFile('index.html');
+    window.loadFile('public/index.html');
     window.on('closed', () => {
         window = null;
     });
+
+    window.setMenu(null);
 }
 
 function databaseOperations() {

@@ -10,5 +10,7 @@ cloning this repository, and every time `package.json` changes.
 
 `npm start` will run the app as a desktop application.
 
-`npm build` will create an `App.js` file, which is currently used by
+`npm build` will create an `public/App.js` file, which is currently used by
 `index.html` for loading JavaScript.
+
+`npm dev` will track live changes for CSS and JS files

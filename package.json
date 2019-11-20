@@ -6,9 +6,10 @@
     "url": "https://github.com/nsoss/srce-desktop-app.git"
   },
   "scripts": {
-    "start": "electron .",
-    "build": "webpack",
-    "dev": "webpack --watch"
+    "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "react-start": "react-scripts start",
+    "build": "react-scripts build",
+    "postinstall": "electron-builder install-app-deps"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
@@ -18,8 +19,8 @@
     "babel-loader": "^8.0.6",
     "bootstrap": "^4.3.1",
     "css-loader": "^2.1.1",
-    "electron": "4.1.4",
-    "eslint": "^5.16.0",
+    "electron": "^5.0.3",
+    "electron-builder": "^21.2.0",
     "html-webpack-plugin": "^3.2.0",
     "jquery": "^3.4.0",
     "node-sass": "^4.12.0",
@@ -28,23 +29,32 @@
     "prettier": "^1.17.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-scripts": "3.2.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1"
   },
   "dependencies": {
-    "electron-rebuild": "^1.8.4",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-import-resolver-webpack": "^0.11.1",
-    "eslint-plugin-import": "^2.17.3",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.13.0",
+    "bcryptjs": "^2.4.3",
+    "cli.js": "^1.0.2",
+    "concurrently": "^5.0.0",
     "react-router-dom": "^5.0.1",
+    "rebuild": "^0.1.2",
     "reflect-metadata": "^0.1.13",
-    "sqlite3": "^4.0.8",
-    "typeorm": "^0.2.17"
+    "sqlite3": "^4.1.0",
+    "typeorm": "^0.2.17",
+    "wait-on": "^3.3.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

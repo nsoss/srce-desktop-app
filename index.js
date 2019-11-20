@@ -43,7 +43,7 @@ function createWindow() {
         width: 640,
         height: 480
     });
-    window.loadFile('public/index.html');
+    window.loadURL('http://localhost:3000');
     window.on('closed', () => {
         window = null;
     });

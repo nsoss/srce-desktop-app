@@ -40,8 +40,8 @@ function createWindow() {
     Menu.setApplicationMenu(menu);
 
     window = new BrowserWindow({
-        width: 640,
-        height: 480
+        width: "max",
+        height: "max"
     });
     window.loadURL('http://localhost:3000');
     window.on('closed', () => {

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const dbHelper = require('./src/database/dbHelper');
 
 let window;
@@ -23,12 +23,20 @@ function createWindow() {
     Menu.setApplicationMenu(menu);
 
     window = new BrowserWindow({
-        width: "max",
-        height: "max"
+        webPreferences: {
+            nodeIntegration: true
+        },
+        width: 'max',
+        height: 'max'
     });
     window.loadURL('http://localhost:3000');
     window.on('closed', () => {
         window = null;
+    });
+
+    ipcMain.on('getVolunteerNames', async function() {
+        const result = await dbHelper.getVolunteerNames();
+        window.webContents.send('volunteerNamesSent', result);
     });
 
     window.setMenu(null);
@@ -39,4 +47,3 @@ function databaseOperations() {
 
 app.on('ready', databaseOperations);
 app.on('ready', createWindow);
-

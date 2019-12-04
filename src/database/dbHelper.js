@@ -60,3 +60,15 @@ volunteer.findOne({where: {volunteer_id: 55}}).then(vol =>{
 });
 
 sequelize.sync();
+
+exports.getVolunteerNames = () => {
+  const rows = volunteer
+      .findAll({
+          attributes: ['first_name', 'last_name'],
+          raw: true
+      })
+      .then(volunteers => {
+          return volunteers;
+      });
+  return rows;
+};

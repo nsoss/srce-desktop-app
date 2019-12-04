@@ -10,6 +10,10 @@ import {
     Button
 } from 'react-bootstrap';
 
+const electron = window.require('electron');
+const fs = electron.remote.require('fs');
+const ipcRenderer = electron.ipcRenderer;
+
 class SingleCallsView extends Component {
     state = {
         // Call
@@ -28,7 +32,8 @@ class SingleCallsView extends Component {
         maritalStatus: 'Bracno stanje',
         numOfCall: 'Koji put zove',
         planInvolvement: 'Ukljucenost u plan',
-        volunteer: 'Volonter',
+        volunteer: [],
+        selectedVolunteer: 'Volonter',
 
         // Call Desc
         problemType: 'Vrsta problema',
@@ -38,6 +43,13 @@ class SingleCallsView extends Component {
         shortContent: '',
         note: ''
     };
+
+    componentDidMount() {
+        ipcRenderer.send('getVolunteerNames');
+        ipcRenderer.on('volunteerNamesSent', (event, volunteerNames) => {
+            this.setState({ volunteer: volunteerNames });
+        });
+    }
 
     handleChangeInput = event => {
         const target = event.target;
@@ -325,26 +337,19 @@ class SingleCallsView extends Component {
                             <DropdownButton
                                 variant="light"
                                 id="dropdown-basic-button"
-                                title={this.state.volunteer}
+                                title={this.state.selectedVolunteer}
                             >
-                                <Dropdown.Item
-                                    name="volunteer"
-                                    onClick={this.handleChangeInput}
-                                >
-                                    Vol1
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                    name="volunteer"
-                                    onClick={this.handleChangeInput}
-                                >
-                                    Vol2
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                    name="volunteer"
-                                    onClick={this.handleChangeInput}
-                                >
-                                    Vol3
-                                </Dropdown.Item>
+                                {this.state.volunteer.map((v, i) => {
+                                    return (
+                                        <Dropdown.Item
+                                            key={i}
+                                            name="selectedVolunteer"
+                                            onClick={this.handleChangeInput}
+                                        >
+                                            {v.first_name + ' ' + v.last_name}
+                                        </Dropdown.Item>
+                                    );
+                                })}
                             </DropdownButton>
                         </Form>
                     </Col>

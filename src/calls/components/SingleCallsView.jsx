@@ -10,6 +10,9 @@ import {
     Button
 } from 'react-bootstrap';
 
+import { ExportToCsv } from 'export-to-csv';
+import { format } from 'date-fns';
+
 const electron = window.require('electron');
 const fs = electron.remote.require('fs');
 const ipcRenderer = electron.ipcRenderer;
@@ -76,7 +79,70 @@ class SingleCallsView extends Component {
     };
 
     handleExportToExcel = () => {
-        console.log('ExportToExcel');
+        const callData = [
+            {
+                call_id: 1,
+                date: '12/11/2201',
+                duration: 51,
+                person: 'Joca',
+                type: 'Potrebna pomoc',
+                risk: 'veliki',
+                volunteer: 'Stojkovic'
+            },
+            {
+                call_id: 2,
+                date: '12/11/2051',
+                duration: 33,
+                person: 'Ceca',
+                type: 'Potrebna pomoc',
+                risk: 'mali',
+                volunteer: 'Marko'
+            },
+            {
+                call_id: 3,
+                date: '12/11/2011',
+                duration: 15,
+                person: 'Naca',
+                type: 'Hitan slucaj',
+                risk: 'srednji',
+                volunteer: 'Ljilja'
+            },
+            {
+                call_id: 4,
+                date: '12/11/2031',
+                duration: 24,
+                person: 'Zaca',
+                type: 'Hitan slucaj',
+                risk: 'srednji',
+                volunteer: 'Ljilja'
+            },
+            {
+                call_id: 5,
+                date: '24/11/2019',
+                duration: 87,
+                person: 'Kaca',
+                type: 'Hitan slucaj',
+                risk: 'srednji',
+                volunteer: 'Ljilja'
+            }
+        ];
+
+        const options = {
+            filename: 'callData-' + format(new Date(), 'dd-MM-yyyy_hh-mm'),
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalSeparator: '.',
+            showLabels: true,
+            showTitle: true,
+            title: 'Call data',
+            useTextFile: false,
+            useBom: true,
+            useKeysAsHeaders: true
+        };
+
+        const csvExporter = new ExportToCsv(options);
+
+        csvExporter.generateCsv(callData);
     };
 
     handleExit = () => {
@@ -514,7 +580,7 @@ class SingleCallsView extends Component {
                                 onClick={this.handleExportToExcel}
                                 variant="success"
                             >
-                                Prebaci u XLS
+                                Prebaci u CSV
                             </Button>
                             <Button onClick={this.handleExit} variant="danger">
                                 Izadji

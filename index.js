@@ -39,6 +39,21 @@ function createWindow() {
         window.webContents.send('volunteerNamesSent', result);
     });
 
+    ipcMain.on('getVolunteers', async function() {
+        const result = await dbHelper.getVolunteers();
+        window.webContents.send('volunteersSent', result);
+    });
+
+    ipcMain.on('deleteVolunteer', async (event, id) => {
+        const result = await dbHelper.deleteVolunteer(id);
+        window.webContents.send('volunteerDeleted', result);
+    });
+
+    ipcMain.on('insertVolunteer', async (event, volunteer) => {
+        const insertedID = await dbHelper.insertVolunteer(volunteer);
+        window.webContents.send('volunteerInserted', insertedID);
+    });
+
     window.setMenu(null);
 }
 function databaseOperations() {

@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import Calendar from './Calendar';
+import {
+    Container,
+    Row,
+    Col,
+    Button,
+    Table,
+    ButtonGroup
+} from 'react-bootstrap';
 import { format } from 'date-fns';
+import { IoMdList } from 'react-icons/io';
 
 class CallsView extends Component {
     constructor(props) {
@@ -74,7 +83,7 @@ class CallsView extends Component {
         return this.state.items.map((item, index) => {
             const { id, time, duration, person, type, risk, volonter } = item; //destructuring
             return (
-                <tr key={id}>
+                <tr className="text-center" key={id}>
                     <td>{id}</td>
                     <td>{time}</td>
                     <td>{duration}</td>
@@ -89,51 +98,59 @@ class CallsView extends Component {
 
     render() {
         return (
-            <div className="container-fluid col-lg-12">
-                <div className="col-lg-2 d-inline-block button-group">
-                    <button
-                        type="button"
-                        className="btn btn-primary d-inline-block btn-sm"
-                    >
-                        Add
-                    </button>
-                    <button
-                        type="button"
-                        className="btn btn-danger d-inline-block btn-sm"
-                    >
-                        Delete
-                    </button>
-                    <button
-                        type="button"
-                        className="btn btn-success d-inline-block btn-sm"
-                    >
-                        Details
-                    </button>
-                </div>
+            <Container>
+                <Row>
+                    <Col>
+                        <ButtonGroup vertical size="sm">
+                            <Button variant="outline-dark">
+                                Detalji poziva
+                            </Button>
 
-                <div className="col-lg-6 d-inline-block">
-                    <span>Kalendar</span>
-                    <Calendar
-                        onDateSelect={date => this.handleChangeTableData(date)}
-                    />
-                </div>
-                <div className="col-lg-12 placeHold tableFixHead">
-                    <table className="table tableCalls table-striped header-fixed">
-                        <thead>
-                            <tr>
-                                <th scope="col"> ID </th>
-                                <th scope="col">Vreme</th>
-                                <th scope="col">Trajanje</th>
-                                <th scope="col">Pozivar</th>
-                                <th scope="col">Vrsta poziva</th>
-                                <th scope="col">Suic. rizik</th>
-                                <th scope="col">Volonter</th>
-                            </tr>
-                        </thead>
-                        <tbody>{this.renderTableData()}</tbody>
-                    </table>
-                </div>
-            </div>
+                            <br></br>
+
+                            <Button variant="outline-success">
+                                Unos poziva
+                            </Button>
+                            <Button variant="outline-danger">
+                                Brisanje poziva
+                            </Button>
+                        </ButtonGroup>
+                    </Col>
+                    <Col>
+                        <Calendar
+                            onDateSelect={date =>
+                                this.handleChangeTableData(date)
+                            }
+                        />
+                        <br></br>
+
+                        <h3 className="text-center bg-warning">
+                            <IoMdList />
+                            &nbsp;Lista poziva
+                        </h3>
+                        {this.state.items.length > 0 ? (
+                            <Table striped hover className="callData">
+                                <thead className="bg-light">
+                                    <tr className="text-center">
+                                        <th>ID</th>
+                                        <th>Vreme</th>
+                                        <th>Trajanje</th>
+                                        <th>Pozivar</th>
+                                        <th>Vrsta poziva</th>
+                                        <th>Suic. rizik</th>
+                                        <th>Volonter</th>
+                                    </tr>
+                                </thead>
+                                <tbody>{this.renderTableData()}</tbody>
+                            </Table>
+                        ) : (
+                            <h6 className="text-center">
+                                Nema poziva na izabrani datum.
+                            </h6>
+                        )}
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }

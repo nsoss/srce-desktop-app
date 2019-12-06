@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import {
+    Dropdown,
+    DropdownButton,
+    ButtonToolbar,
+    Table
+} from 'react-bootstrap';
+import {
     startOfMonth,
     getDaysInMonth,
     getDay,
@@ -16,6 +22,7 @@ import {
     endOfMonth,
     subYears
 } from 'date-fns';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const months = [
     'Jan',
@@ -165,7 +172,7 @@ class Calendar extends Component {
                     <td
                         key={i + 'd'}
                         onClick={this.handleOnDateClickCurrentMonth}
-                        className="text-center btn-success"
+                        className="text-center selectedDate"
                     >
                         {i}
                     </td>
@@ -218,85 +225,73 @@ class Calendar extends Component {
         }
 
         return (
-            <table className="table-condensed table-bordered table-striped">
+            <Table className="callData table-borderless calendar">
                 <thead>
                     <tr>
-                        <td className="text-center" colSpan="7">
-                            {format(selectedDate, 'dd')}
-
-                            <div className="btn-group">
-                                <button
-                                    className="btn btn-secondary btn-sm dropdown-toggle"
-                                    type="button"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
+                        <td
+                            onClick={this.handleMonthBackward}
+                            colSpan="2"
+                            className="text-center"
+                        >
+                            <IoIosArrowBack />
+                        </td>
+                        <td className="text-center chooseDate" colSpan="3">
+                            <ButtonToolbar>
+                                <DropdownButton
+                                    title={format(selectedDate, 'MMM')}
+                                    size="sm"
+                                    variant="outline-primary"
                                 >
-                                    {format(selectedDate, 'MMM')}
-                                </button>
-                                <div className="dropdown-menu">
                                     {months.map((m, i) => {
                                         return (
-                                            <button
+                                            <Dropdown.Item
                                                 key={m + i}
                                                 onClick={
                                                     this.handleChangeInputMonth
                                                 }
-                                                className="dropdown-item"
-                                                type="button"
+                                                active={
+                                                    m ===
+                                                    format(selectedDate, 'MMM')
+                                                }
                                             >
                                                 {m}
-                                            </button>
+                                            </Dropdown.Item>
                                         );
                                     })}
-                                </div>
-                            </div>
-                            <div className="btn-group">
-                                <button
-                                    className="btn btn-secondary btn-sm dropdown-toggle"
-                                    type="button"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
+                                </DropdownButton>
+                                <DropdownButton
+                                    title={format(selectedDate, 'yyyy')}
+                                    size="sm"
+                                    variant="outline-primary"
                                 >
-                                    {format(selectedDate, 'yyyy')}
-                                </button>
-                                <div className="dropdown-menu">
                                     {years.map((y, i) => {
                                         return (
-                                            <button
+                                            <Dropdown.Item
                                                 key={y + i}
                                                 onClick={
                                                     this.handleChangeInputYear
                                                 }
-                                                className="dropdown-item"
-                                                type="button"
+                                                active={
+                                                    format(y, 'yyyy') ===
+                                                    format(selectedDate, 'yyyy')
+                                                }
                                             >
                                                 {y.getFullYear()}
-                                            </button>
+                                            </Dropdown.Item>
                                         );
                                     })}
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td
-                            className="text-center"
-                            colSpan="4"
-                            onClick={this.handleMonthBackward}
-                        >
-                            -
+                                </DropdownButton>
+                            </ButtonToolbar>
                         </td>
                         <td
-                            className="text-center"
-                            colSpan="3"
                             onClick={this.handleMonthForward}
+                            colSpan="2"
+                            className="text-center"
                         >
-                            +
+                            <IoIosArrowForward />
                         </td>
                     </tr>
-                    <tr>
+                    <tr className="text-center">
                         <th>PON</th>
                         <th>UTO</th>
                         <th>SRE</th>
@@ -307,7 +302,7 @@ class Calendar extends Component {
                     </tr>
                 </thead>
                 <tbody>{daysInMonth}</tbody>
-            </table>
+            </Table>
         );
     }
 }

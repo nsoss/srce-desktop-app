@@ -1,42 +1,37 @@
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 
-.tableCalls{
-    tab-size: 90%;
-    color: black;
-
-}
-
-.tableHeader{
-    position: sticky; 
-    top: 0;
-}
-
-.placeHold{
-    margin-top: 95pt;
-    width: max($numbers: 1);
-    height: 180pt;
-    overflow-y: auto;
-}
-
-.buttonGroup{
+.buttonGroup {
     margin-top: 20pt;
     margin-left: 65pt;
 }
 
-button{
+button {
     margin-left: 10pt;
 }
 
-.callendarSpace{
-    background-color: chartreuse;
+.callData {
+    width: 700px;
+    table-layout: fixed;
+
+    td {
+        width: 7em;
+        padding: 0.5em 2em 0.5em 2em;
+        vertical-align: middle;
+    }
 }
 
-.container {
-    justify-content: flex-start;
-  }
+.calendar {
+    td:hover {
+        cursor: pointer;
+        background-color: #f8f9fa;
+    }
+}
 
-.tableFixHead thead th { 
-    position: sticky; 
-    top: 0; 
-    background-color: blueviolet; 
+tr {
+    .selectedDate {
+        background-color: #f0f3f7;
+        border: 0.2em solid #428bca;
+        border-top-style: hidden;
+        border-bottom-style: hidden;
+    }
 }

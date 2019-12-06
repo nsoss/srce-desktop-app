@@ -48,7 +48,7 @@ class SingleCallsView extends Component {
 
     componentDidMount() {
         ipcRenderer.send('getVolunteerNames');
-        ipcRenderer.on('volunteerNamesSent', (event, volunteerNames) => {
+        ipcRenderer.once('volunteerNamesSent', (event, volunteerNames) => {
             this.setState({ volunteer: volunteerNames });
         });
     }

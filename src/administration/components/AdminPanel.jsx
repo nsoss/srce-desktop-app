@@ -14,7 +14,7 @@ class Admin extends Component {
     };
     componentDidMount() {
         ipcRenderer.send('getVolunteers');
-        ipcRenderer.on('volunteersSent', (event, volunteers) => {
+        ipcRenderer.once('volunteersSent', (event, volunteers) => {
             this.setState({ volunteers: volunteers });
         });
     }
@@ -27,18 +27,11 @@ class Admin extends Component {
     };
     handleAddVolunteer = newVolunteer => {
         ipcRenderer.send('insertVolunteer', newVolunteer);
-        ipcRenderer.on('volunteerInserted', (event, insertedID) => {
-            console.log(insertedID);
+        ipcRenderer.once('volunteerInserted', (event, insertedID) => {
             if (insertedID) {
-                let updatedVolunteers = this.state.volunteers;
-                updatedVolunteers.push({
-                    volunteer_id: insertedID,
-                    first_name: newVolunteer.first_name,
-                    last_name: newVolunteer.last_name,
-                    created_at: newVolunteer.created_at
-                });
+                newVolunteer.volunteer_id = insertedID;
                 this.setState({
-                    volunteers: updatedVolunteers,
+                    volunteers: [...this.state.volunteers, newVolunteer],
                     inputFirstName: '',
                     inputLastName: ''
                 });
@@ -49,7 +42,7 @@ class Admin extends Component {
     };
     handleDeleteVolunteer = id => {
         ipcRenderer.send('deleteVolunteer', id);
-        ipcRenderer.on('volunteerDeleted', (event, isDeleted) => {
+        ipcRenderer.once('volunteerDeleted', (event, isDeleted) => {
             if (isDeleted) {
                 this.setState({
                     volunteers: this.state.volunteers.filter(

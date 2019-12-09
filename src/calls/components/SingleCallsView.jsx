@@ -16,6 +16,16 @@ import { format } from 'date-fns';
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
 
+const localizedCallColumns = {
+    call_id: 'ID poziva',
+    date: 'Datum',
+    duration: 'Trajanje',
+    person: 'Osoba',
+    type: 'Tip',
+    risk: 'Rizik',
+    volunteer: 'Volonter'
+};
+
 class SingleCallsView extends Component {
     state = {
         // Call
@@ -86,6 +96,7 @@ class SingleCallsView extends Component {
                 person: 'Joca',
                 type: 'Potrebna pomoc',
                 risk: 'veliki',
+                novo: 'novo',
                 volunteer: 'Stojkovic'
             },
             {
@@ -126,17 +137,20 @@ class SingleCallsView extends Component {
             }
         ];
 
+        const headers = Object.keys(callData[0]).map(
+            (key, index) => localizedCallColumns[key]
+        );
+
         const options = {
             filename: 'callData-' + format(new Date(), 'dd-MM-yyyy_hh-mm'),
             fieldSeparator: ',',
             quoteStrings: '"',
             decimalSeparator: '.',
             showLabels: true,
-            showTitle: true,
-            title: 'Call data',
+            showTitle: false,
             useTextFile: false,
             useBom: true,
-            useKeysAsHeaders: true
+            headers
         };
 
         const csvExporter = new ExportToCsv(options);

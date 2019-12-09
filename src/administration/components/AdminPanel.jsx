@@ -3,7 +3,6 @@ import { FaUserMinus, FaUserPlus, FaPencilAlt } from 'react-icons/fa';
 import { format } from 'date-fns';
 
 const electron = window.require('electron');
-const fs = electron.remote.require('fs');
 const ipcRenderer = electron.ipcRenderer;
 
 class Admin extends Component {
@@ -55,10 +54,10 @@ class Admin extends Component {
                 this.setState({
                     volunteers: this.state.volunteers.filter(
                         v => v.volunteer_id !== id
-                    )
+                    ),
+                    inputFirstName: '',
+                    inputLastName: ''
                 });
-                this.state.inputFirstName = '';
-                this.state.inputLastName = '';
             } else {
                 console.log('Volunteer with id: ' + id + ' does not exists.');
             }

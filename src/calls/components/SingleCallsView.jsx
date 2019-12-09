@@ -14,7 +14,6 @@ import { ExportToCsv } from 'export-to-csv';
 import { format } from 'date-fns';
 
 const electron = window.require('electron');
-const fs = electron.remote.require('fs');
 const ipcRenderer = electron.ipcRenderer;
 
 class SingleCallsView extends Component {

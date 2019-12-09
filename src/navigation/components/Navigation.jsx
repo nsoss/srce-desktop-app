@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter, Route, Link } from 'react-router-dom';
-import SingleCallsView from '../../calls/components/SingleCallsView.jsx';
-import CallsView from '../../calls/components/CallsView.jsx';
+import { Link } from 'react-router-dom';
 
 class Navigation extends Component {
     render() {

@@ -1,4 +1,15 @@
 import React, { Component } from 'react';
+import {
+    Container,
+    Row,
+    Col,
+    Table,
+    Form,
+    Dropdown,
+    DropdownButton,
+    ButtonToolbar,
+    Button
+} from 'react-bootstrap';
 import { FaUserMinus, FaUserPlus, FaPencilAlt } from 'react-icons/fa';
 import { format } from 'date-fns';
 
@@ -58,8 +69,8 @@ class Admin extends Component {
     };
     render() {
         return (
-            <div className="container-fluid col-lg-12">
-                <table className="table">
+            <Container fluid>
+                <Table>
                     <thead className="thead-light">
                         <tr>
                             <th scope="col">ID</th>
@@ -83,18 +94,19 @@ class Admin extends Component {
                                         )}
                                     </td>
                                     <td>
-                                        <button
-                                            type="button"
-                                            className="btn btn-danger btn-sm"
+                                        <Button
+                                            variant="danger"
+                                            size="sm"
                                             onClick={() =>
                                                 this.handleDeleteVolunteer(
                                                     v.volunteer_id
                                                 )
                                             }
                                         >
+                                            {' '}
                                             Izbriši &nbsp;
                                             <FaUserMinus />
-                                        </button>
+                                        </Button>
                                     </td>
                                 </tr>
                             );
@@ -105,11 +117,9 @@ class Admin extends Component {
                                 <h4 className="text-muted">
                                     <FaPencilAlt /> &nbsp;Unos novog volontera
                                 </h4>
-                                <form>
-                                    <div className="form-group">
-                                        <label htmlFor="exampleInputFirstName">
-                                            Ime
-                                        </label>
+                                <Form>
+                                    <Form.Group controlId="formBasicFirstName">
+                                        <Form.Label>Ime</Form.Label>
                                         <input
                                             type="text"
                                             name="inputFirstName"
@@ -119,30 +129,27 @@ class Admin extends Component {
                                             id="exampleInputFirstName1"
                                             placeholder="Unesite ime volontera"
                                         />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="exampleInputLastName">
-                                            Prezime
-                                        </label>
-                                        <input
+                                    </Form.Group>
+                                    <Form.Group controlId="formBasicLastName">
+                                        <Form.Label>Prezime</Form.Label>
+                                        <Form.Control
                                             type="text"
                                             name="inputLastName"
                                             value={this.state.inputLastName}
                                             onChange={this.handleChangeInput}
                                             className="form-control"
-                                            id="exampleInputLastName1"
                                             placeholder="Unesite prezime volontera"
                                         />
-                                    </div>
-                                    <button
-                                        type="button"
+                                    </Form.Group>
+                                    <Button
+                                        variant="success"
+                                        size="sm"
                                         disabled={
                                             !(
                                                 this.state.inputFirstName &&
                                                 this.state.inputLastName
                                             )
                                         }
-                                        className="btn btn-success btn-sm"
                                         onClick={() =>
                                             this.handleAddVolunteer({
                                                 first_name: this.state
@@ -155,13 +162,13 @@ class Admin extends Component {
                                     >
                                         Dodaj &nbsp;
                                         <FaUserPlus />
-                                    </button>
-                                </form>
+                                    </Button>
+                                </Form>
                             </td>
                         </tr>
                     </tbody>
-                </table>
-            </div>
+                </Table>
+            </Container>
         );
     }
 }

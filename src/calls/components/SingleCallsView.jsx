@@ -9,6 +9,8 @@ import {
     ButtonToolbar,
     Button
 } from 'react-bootstrap';
+import { FaSave, FaPencilAlt, FaCopy, FaFileCsv } from 'react-icons/fa';
+import { IoIosExit } from 'react-icons/io';
 
 import { ExportToCsv } from 'export-to-csv';
 import { format } from 'date-fns';
@@ -181,7 +183,7 @@ class SingleCallsView extends Component {
                             </Form.Group>
 
                             <DropdownButton
-                                variant="light"
+                                variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.contactType}
                             >
@@ -246,7 +248,7 @@ class SingleCallsView extends Component {
                             </Form.Group>
 
                             <DropdownButton
-                                variant="light"
+                                variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.callType}
                             >
@@ -289,7 +291,7 @@ class SingleCallsView extends Component {
                             </Form.Group>
 
                             <DropdownButton
-                                variant="light"
+                                variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.gender}
                             >
@@ -314,7 +316,7 @@ class SingleCallsView extends Component {
                             </DropdownButton>
 
                             <DropdownButton
-                                variant="light"
+                                variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.age}
                             >
@@ -339,7 +341,7 @@ class SingleCallsView extends Component {
                             </DropdownButton>
 
                             <DropdownButton
-                                variant="light"
+                                variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.maritalStatus}
                             >
@@ -364,7 +366,7 @@ class SingleCallsView extends Component {
                             </DropdownButton>
 
                             <DropdownButton
-                                variant="light"
+                                variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.numOfCall}
                             >
@@ -389,7 +391,7 @@ class SingleCallsView extends Component {
                             </DropdownButton>
 
                             <DropdownButton
-                                variant="light"
+                                variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.planInvolvement}
                             >
@@ -414,7 +416,7 @@ class SingleCallsView extends Component {
                             </DropdownButton>
 
                             <DropdownButton
-                                variant="light"
+                                variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.selectedVolunteer}
                             >
@@ -424,6 +426,12 @@ class SingleCallsView extends Component {
                                             key={i}
                                             name="selectedVolunteer"
                                             onClick={this.handleChangeInput}
+                                            active={
+                                                v.first_name +
+                                                    ' ' +
+                                                    v.last_name ===
+                                                this.state.selectedVolunteer
+                                            }
                                         >
                                             {v.first_name + ' ' + v.last_name}
                                         </Dropdown.Item>
@@ -442,7 +450,7 @@ class SingleCallsView extends Component {
                             </Form.Text>
 
                             <DropdownButton
-                                variant="light"
+                                variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.problemType}
                             >
@@ -467,7 +475,7 @@ class SingleCallsView extends Component {
                             </DropdownButton>
 
                             <DropdownButton
-                                variant="light"
+                                variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.suicidRisk}
                             >
@@ -492,7 +500,7 @@ class SingleCallsView extends Component {
                             </DropdownButton>
 
                             <DropdownButton
-                                variant="light"
+                                variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.suicidFactor}
                             >
@@ -517,7 +525,7 @@ class SingleCallsView extends Component {
                             </DropdownButton>
 
                             <DropdownButton
-                                variant="light"
+                                variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.lastSuicidTry}
                             >
@@ -568,35 +576,43 @@ class SingleCallsView extends Component {
                     </Col>
                 </Row>
 
-                <Row>
-                    <Col>
-                        <ButtonToolbar>
+                <Row className="justify-content-md-center">
+                    <Col xs={10} lg={8}>
+                        <ButtonToolbar className="call-form-buttons">
                             <Button
                                 onClick={this.handleSaveData}
-                                variant="primary"
+                                variant="outline-primary"
                             >
-                                Snimi
+                                <FaSave />
+                                &nbsp;Snimi
                             </Button>
                             <Button
                                 onClick={this.handleUpdateData}
-                                variant="secondary"
+                                variant="outline-secondary"
                             >
-                                Izmeni
+                                <FaPencilAlt />
+                                &nbsp;Izmeni
                             </Button>
                             <Button
                                 onClick={this.handleCopyData}
-                                variant="warning"
+                                variant="outline-warning"
                             >
-                                Kopiraj
+                                <FaCopy />
+                                &nbsp;Kopiraj
                             </Button>
                             <Button
                                 onClick={this.handleExportToExcel}
-                                variant="success"
+                                variant="outline-success"
                             >
-                                Prebaci u CSV
+                                <FaFileCsv />
+                                &nbsp;Prebaci u CSV
                             </Button>
-                            <Button onClick={this.handleExit} variant="danger">
-                                Izadji
+                            <Button
+                                onClick={this.handleExit}
+                                variant="outline-danger"
+                            >
+                                <IoIosExit />
+                                &nbsp;Izadji
                             </Button>
                         </ButtonToolbar>
                     </Col>

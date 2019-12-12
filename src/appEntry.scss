@@ -1,37 +1,44 @@
 @import '~bootstrap/scss/bootstrap';
 
-.buttonGroup {
-    margin-top: 20pt;
-    margin-left: 65pt;
-}
-
 button {
-    margin-left: 10pt;
+    margin: 0 0 .5em .5em;
 }
 
-.callData {
+.dropdown {
+    margin: .5em 0 .5em 0;
+}
+
+.call-actions-menu, .call-data {
+    margin-top: 1em;
+}
+
+.call-data, .calendar, .call-data-header, .call-data-msg {
     width: 700px;
     table-layout: fixed;
 
-    td {
-        width: 7em;
-        padding: 0.5em 2em 0.5em 2em;
-        vertical-align: middle;
+    tr { 
+        td {
+            width: 7em;
+            padding: 0.5em 2em 0.5em 2em;
+            vertical-align: middle;
+        }
+       
     }
 }
 
 .calendar {
     td:hover {
-        cursor: pointer;
-        background-color: #f8f9fa;
-    }
+            cursor: pointer;
+            background-color: #f8f9fa;
+        }
+        .selected-date {
+            background-color: #f0f3f7;
+            border: 0.2em solid #428bca;
+            border-top-style: hidden;
+            border-bottom-style: hidden;
+        }
 }
 
-tr {
-    .selectedDate {
-        background-color: #f0f3f7;
-        border: 0.2em solid #428bca;
-        border-top-style: hidden;
-        border-bottom-style: hidden;
-    }
+.call-form-buttons {
+    margin: 2em 0 2em 0;
 }

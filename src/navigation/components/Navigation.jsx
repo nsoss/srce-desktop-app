@@ -44,7 +44,7 @@ class Navigation extends Component {
                     </ul>
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/admin-page">
+                            <Link className="nav-link text-danger" to="/admin-page">
                                 Admin
                             </Link>
                         </li>

@@ -172,7 +172,7 @@ class Calendar extends Component {
                     <td
                         key={i + 'd'}
                         onClick={this.handleOnDateClickCurrentMonth}
-                        className="text-center selectedDate"
+                        className="text-center selected-date"
                     >
                         {i}
                     </td>
@@ -225,7 +225,7 @@ class Calendar extends Component {
         }
 
         return (
-            <Table className="callData table-borderless calendar">
+            <Table className="table-borderless calendar">
                 <thead>
                     <tr>
                         <td
@@ -235,7 +235,7 @@ class Calendar extends Component {
                         >
                             <IoIosArrowBack />
                         </td>
-                        <td className="text-center chooseDate" colSpan="3">
+                        <td className="text-center" colSpan="3">
                             <ButtonToolbar>
                                 <DropdownButton
                                     title={format(selectedDate, 'MMM')}

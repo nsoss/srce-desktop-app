@@ -101,7 +101,7 @@ class CallsView extends Component {
             <Container>
                 <Row>
                     <Col>
-                        <ButtonGroup vertical size="sm">
+                        <ButtonGroup className="call-actions-menu" vertical size="sm">
                             <Button variant="outline-dark">
                                 Detalji poziva
                             </Button>
@@ -124,12 +124,12 @@ class CallsView extends Component {
                         />
                         <br></br>
 
-                        <h3 className="text-center bg-warning">
+                        <h3 className="text-center bg-warning call-data-header">
                             <IoMdList />
                             &nbsp;Lista poziva
                         </h3>
                         {this.state.items.length > 0 ? (
-                            <Table striped hover className="callData">
+                            <Table striped hover className="call-data">
                                 <thead className="bg-light">
                                     <tr className="text-center">
                                         <th>ID</th>
@@ -144,9 +144,9 @@ class CallsView extends Component {
                                 <tbody>{this.renderTableData()}</tbody>
                             </Table>
                         ) : (
-                            <h6 className="text-center">
+                            <p className="text-center call-data-msg">
                                 Nema poziva na izabrani datum.
-                            </h6>
+                            </p>
                         )}
                     </Col>
                 </Row>

@@ -441,6 +441,11 @@ textarea {
 }
 .btn-srce:hover{
   cursor: pointer;
+  opacity: 0.6;
+}
+.btn-srce[disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .admin-panel{
@@ -467,8 +472,12 @@ textarea {
   border: none;
   width: 450px;
   height: 32px;
-  margin-right: 37px;
-}
+  margin-right: 20px;
+}/*
+.admin-add-volunteer-form input{
+  display: inline-block;
+  margin-bottom: 10px;
+}*/
 
 .form-input-modal{
   height: 32px;

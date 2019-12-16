@@ -5,31 +5,34 @@ import { FaUserMinus } from 'react-icons/fa';
 import { format } from 'date-fns';
 import Modal from './Modal.js';
 import Pagination from '../../pagination/components/Pagination';
+import ValidationForm from './ValidationForm'
 
 class Admin extends Component {
     state = {
         inputFirstName: '',
         inputLastName: '',
-        isSaveButtonEnabled: false,
         showModal: false,
         password: '123',
         inputPassword: '',
         dataPerPage: 2,
         currentData: []
     };
+
     componentDidMount() {
         this.handleShowModal();
     }
     componentWillMount() {
         this.props.fetchVolunteers();
     }
+
     handleChangeInput = event => {
         const target = event.target;
         const name = target.name;
         const value = target.value;
 
         this.setState({ [name]: value });
-    };
+    }
+
     handleAddVolunteer = newVolunteer => {
         this.props.addVolunteer(newVolunteer);
         this.setState({
@@ -45,14 +48,18 @@ class Admin extends Component {
         });
     }
 
-    passwordCheck = () => {
+    passwordCheck = (e) => {
         if (this.state.inputPassword === this.state.password) {
+            this.handleCloseModal();
+        } else if(e.key === 'Enter') {
             this.handleCloseModal();
         } else {
             this.handleShowModal();
         }
     }
+
     handleShowModal = () => this.setState({ showModal: true })
+
     handleCloseModal = () => this.setState({ showModal: false })
 
     handleDeleteVolunteer = id => {
@@ -73,36 +80,14 @@ class Admin extends Component {
                             name="inputPassword"
                             value={this.state.inputPassword}
                             onChange={this.handleChangeInput}
+                            onKeyDown={this.passwordCheck}
                             id="examplePassword"
                         />
                     </Modal>
                 ) : null}
-                <div className="admin-add-volunteer-form">
-                    <label>Ime</label>
-                    <input type="text" name="inputFirstName" value={this.state.inputFirstName} onChange={this.handleChangeInput} />
-                    <label>Prezime</label>
-                    <input type="text" name="inputLastName" value={this.state.inputLastName} onChange={this.handleChangeInput} style={{ marginRight: '20px' }} />
-                    <button
-                        className="btn-srce"
-                        style={{ backgroundColor: 'var(--admin-accent)', marginRight: '0' }}
-                        disabled={
-                            !(
-                                this.state.inputFirstName &&
-                                this.state.inputLastName
-                            )
-                        }
-                        onClick={() =>
-                            this.handleAddVolunteer({
-                                first_name: this.state
-                                    .inputFirstName,
-                                last_name: this.state
-                                    .inputLastName,
-                                created_at: new Date().toISOString()
-                            })
-                        }
-                    >Dodaj
-                        </button>
-                </div>
+                
+                <ValidationForm addVolunteerFunc={this.handleAddVolunteer}/>
+
                 <div className="admin-table">
                     <table className="volunteer-data">
                         <thead striped hover className="volunteer-data mt-3" >
@@ -136,9 +121,8 @@ class Admin extends Component {
                                                         v.volunteer_id
                                                     )
                                                 }
-                                            >
-                                                {' '}
-                                                Izbriši &nbsp;
+                                            >{' '}
+                                            Izbriši &nbsp;
                                             <FaUserMinus />
                                             </button>
                                         </td>
@@ -152,6 +136,7 @@ class Admin extends Component {
             </div>
         );
     }
+
 }
 const mapStateToProps = state => ({
     volunteers: state.volunteers.volunteers

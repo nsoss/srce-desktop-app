@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
 import {
-    Dropdown,
-    DropdownButton,
-    ButtonToolbar,
-    Table
-} from 'react-bootstrap';
-import {
     startOfMonth,
     getDaysInMonth,
     getDay,
@@ -211,7 +205,7 @@ class Calendar extends Component {
         }
 
         const daysInMonth = rows.map((d, i) => {
-            return <tr key={d + i}>{d}</tr>;
+            return <tr key={d + i} style={{ width: "50px" }}>{d}</tr>;
         });
 
         let years = [];
@@ -225,84 +219,96 @@ class Calendar extends Component {
         }
 
         return (
-            <Table className="table-borderless calendar">
-                <thead>
-                    <tr>
-                        <td
-                            onClick={this.handleMonthBackward}
-                            colSpan="2"
-                            className="text-center"
-                        >
-                            <IoIosArrowBack />
-                        </td>
-                        <td className="text-center" colSpan="3">
-                            <ButtonToolbar>
-                                <DropdownButton
-                                    title={format(selectedDate, 'MMM')}
-                                    size="sm"
-                                    variant="outline-primary"
+            <>
+                <div className="row pt-3 m-3 mr-0">
+                    <div className="col-3"></div>
+                    <button className="btn btn-dark-green col-2 m-1">
+                        Detalji poziva
+                        </button>
+                    <button className="btn btn-dark-green col-2 m-1">
+                        Unos poziva
+                        </button>
+                    <button className="btn btn-dark-green col-2 m-1">
+                        Brisanje poziva
+                        </button>
+                </div>
+                <div className="row mr-0">
+                    <div className="col-1"></div>
+                    <table className="table-borderless col-10 calendar" >
+                        <thead>
+                            <tr>
+                                <td
+                                    onClick={this.handleMonthBackward}
+                                    colSpan="2"
+                                    className="text-center"
                                 >
-                                    {months.map((m, i) => {
-                                        return (
-                                            <Dropdown.Item
-                                                key={m + i}
-                                                onClick={
-                                                    this.handleChangeInputMonth
-                                                }
-                                                active={
-                                                    m ===
-                                                    format(selectedDate, 'MMM')
-                                                }
-                                            >
-                                                {m}
-                                            </Dropdown.Item>
-                                        );
-                                    })}
-                                </DropdownButton>
-                                <DropdownButton
-                                    title={format(selectedDate, 'yyyy')}
-                                    size="sm"
-                                    variant="outline-primary"
+                                    <IoIosArrowBack />
+                                </td>
+                                <td className="text-center justify-content-center " colSpan="3">
+                                    <form className="form-inline row">
+                                        <div className="col-3"></div>
+                                        <div className="col-6">
+                                            <select className="form-control border-green">
+                                                {months.map((m, i) => {
+                                                    return (
+                                                        <option
+                                                            key={m + i}
+                                                            onClick={
+                                                                this.handleChangeInputMonth
+                                                            }
+                                                            active={
+                                                                m ===
+                                                                format(selectedDate, 'MMM')
+                                                            }
+                                                        >
+                                                            {m}
+                                                        </option>
+                                                    );
+                                                })}
+                                            </select>
+                                            <select className="form-control border-green">
+                                                {years.map((y, i) => {
+                                                    return (
+                                                        <option
+                                                            key={y + i}
+                                                            onClick={
+                                                                this.handleChangeInputYear
+                                                            }
+                                                            active={
+                                                                format(y, 'yyyy') ===
+                                                                format(selectedDate, 'yyyy')
+                                                            }
+                                                        >
+                                                            {y.getFullYear()}
+                                                        </option>
+                                                    );
+                                                })}
+                                            </select>
+                                        </div>
+                                    </form>
+                                </td>
+                                <td
+                                    onClick={this.handleMonthForward}
+                                    colSpan="2"
+                                    className="text-center"
                                 >
-                                    {years.map((y, i) => {
-                                        return (
-                                            <Dropdown.Item
-                                                key={y + i}
-                                                onClick={
-                                                    this.handleChangeInputYear
-                                                }
-                                                active={
-                                                    format(y, 'yyyy') ===
-                                                    format(selectedDate, 'yyyy')
-                                                }
-                                            >
-                                                {y.getFullYear()}
-                                            </Dropdown.Item>
-                                        );
-                                    })}
-                                </DropdownButton>
-                            </ButtonToolbar>
-                        </td>
-                        <td
-                            onClick={this.handleMonthForward}
-                            colSpan="2"
-                            className="text-center"
-                        >
-                            <IoIosArrowForward />
-                        </td>
-                    </tr>
-                    <tr className="text-center">
-                        <th>PON</th>
-                        <th>UTO</th>
-                        <th>SRE</th>
-                        <th>ČET</th>
-                        <th>PET</th>
-                        <th>SUB</th>
-                        <th>NED</th>
-                    </tr>
-                </thead>
-                <tbody>{daysInMonth}</tbody>
-            </Table>
+                                    <IoIosArrowForward />
+                                </td>
+                            </tr>
+                            <tr className="text-center">
+                                <th>PON</th>
+                                <th>UTO</th>
+                                <th>SRE</th>
+                                <th>ČET</th>
+                                <th>PET</th>
+                                <th>SUB</th>
+                                <th>NED</th>
+                            </tr>
+                        </thead>
+                        <tbody >{daysInMonth}</tbody>
+                    </table>
+                </div>
+            </>
         );
     }
 }

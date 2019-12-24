@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
-import Calendar from './Calendar';
-import {
-    Container,
-    Row,
-    Col,
-    Button,
-    Table,
-    ButtonGroup
-} from 'react-bootstrap';
+import CalendarNew from './Calendar';
 import { format } from 'date-fns';
 import { IoMdList } from 'react-icons/io';
-
 
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
@@ -31,7 +22,7 @@ class CallsView extends Component {
     componentDidMount() {
         ipcRenderer.send('getCalls');
         ipcRenderer.once('callsSent', (event, callObject) => {
-            this.setState({ calls: callObject});
+            this.setState({ calls: callObject });
         });
     }
 
@@ -39,7 +30,7 @@ class CallsView extends Component {
         return format(new Date(Date.parse(datedb)), 'dd/MM/yyyy');
     }
 
-    handleChangeTableData = date => { 
+    handleChangeTableData = date => {
 
         let callsByDate = this.state.calls.filter(p => {
             var str = this.formatDate(p.created_at);
@@ -49,39 +40,38 @@ class CallsView extends Component {
         this.setState({
             filteredCalls: [...callsByDate]
         });
-        
+
     };
+
+    renderTableData() {
+        return this.state.calls.map((item, index) => {
+            const { id, time, duration, person, type, risk, volonter } = item; //destructuring
+            return (
+                <tr className="text-center" key={id}>
+                    <td>{id}</td>
+                    <td>{time}</td>
+                    <td>{duration}</td>
+                    <td>{person}</td>
+                    <td>{type}</td>
+                    <td>{risk}</td>
+                    <td>{volonter} </td>
+                </tr>
+            );
+        });
+    }
 
     render() {
         return (
-            <Container>
-                <Row>
-                    <Col>
-                        <ButtonGroup className="call-actions-menu" vertical size="sm">
-                            <Button variant="outline-dark">
-                                Detalji poziva
-                            </Button>
-                            <br></br>
-                            <Button variant="outline-success">
-                                Unos poziva
-                            </Button>
-                            <Button variant="outline-danger">
-                                Brisanje poziva
-                            </Button>
-                        </ButtonGroup>
-                    </Col>
-                    <Col>
-                        <Calendar
-                            onDateSelect={date =>
-                                this.handleChangeTableData(date)
-                            }
-                        />
-                        <br></br>
-                        <h3 className="text-center bg-warning call-data-header">
-                            <IoMdList />
+            <React.Fragment>
+                <CalendarNew onDateSelect={date => this.handleChangeTableData(date)} />
+                <div className="row mr-0">
+                    <div className="col-1"></div>
+                    <div className="col-10">
+                        <h4 className="text-center bg-dirty-green mt-3">
                             &nbsp;Lista poziva
-                        </h3>
-                            <Table striped hover className="call-data">
+                        </h4>
+                        {this.state.calls.length > 0 ? (
+                            <table striped hover className="call-data table">
                                 <thead className="bg-light">
                                     <tr className="text-center">
                                         <th scope="col">ID</th>
@@ -90,28 +80,29 @@ class CallsView extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {this.state.filteredCalls.map((c, i) => {
-                                    return(
-                                        <tr key={i}>
-                                            <th scope="row">{c.call_id}</th>
-                                            <td>
-                                                {format(
-                                                    new Date(Date.parse(c.created_at)),
-                                                'dd.MM.yyyy'
-                                            )}
-                                            </td>
-                                            <td>{c.volunteerId}</td>
-                                        </tr>
-                                    );
-                                })}
-                                </tbody>    
-                            </Table>
-                            <p className="text-center call-data-msg">
-                                Nema poziva na izabrani datum.
+                                    {this.state.filteredCalls.map((c, i) => {
+                                        return (
+                                            <tr key={i}>
+                                                <th scope="row">{c.call_id}</th>
+                                                <td>
+                                                    {format(
+                                                        new Date(Date.parse(c.created_at)),
+                                                        'dd.MM.yyyy'
+                                                    )}
+                                                </td>
+                                                <td>{c.volunteerId}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>) : (
+                                <p className="text-center call-data-msg">
+                                    Nema poziva na izabrani datum.
                             </p>
-                    </Col>
-                </Row>
-            </Container>
+                            )}
+                    </div>
+                </div>
+            </React.Fragment>
         );
     }
 }

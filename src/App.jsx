@@ -5,12 +5,10 @@ import Routes from './Routes.jsx';
 class App extends Component {
     render () {
         return (
-            <div className='container-fluid'>
-                <div className="row">
+            <React.Fragment >
                 <Navigation/>
                 <Routes />
-                </div>
-            </div>
+            </React.Fragment>
         );
     }
 };

@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 class Navigation extends Component {
     render() {
         return (
-            <nav className="container-fluid navbar navbar-expand-sm navbar-light bg-light">
+            <nav className=" navbar navbar-expand-sm  ">
                 <Link className="navbar-brand" to="/">
-                    NSOSS
+                    Logo
                 </Link>
 
                 <button

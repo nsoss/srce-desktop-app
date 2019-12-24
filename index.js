@@ -36,11 +36,10 @@ function createWindow() {
 
     window = new BrowserWindow({
         webPreferences: {
-            nodeIntegration: true,
-        },
-        width: 'max',
-        height: 'max'
+            nodeIntegration: true
+        }
     });
+    window.maximize();
     window.loadURL('http://localhost:3000');
 
     window.on('closed', () => {
@@ -67,7 +66,7 @@ function createWindow() {
         window.webContents.send('callInserted', insertedCall);
     });
 
-    ipcMain.on('getCalls', async function(){
+    ipcMain.on('getCalls', async function () {
         const results = await dbHelper.getCalls();
         window.webContents.send('callsSent', results);
     });

@@ -28,10 +28,12 @@ const localizedCallColumns = {
     volunteer: 'Volonter'
 };
 
+
 class SingleCallsView extends Component {
     state = {
-        // Call
-        callNo: 0,
+
+        //Call
+        callNo: '',
         contactType: 'Vrsta kontakta',
         callDate: '',
         callDay: 0,
@@ -46,8 +48,11 @@ class SingleCallsView extends Component {
         maritalStatus: 'Bracno stanje',
         numOfCall: 'Koji put zove',
         planInvolvement: 'Ukljucenost u plan',
-        volunteer: [],
+        volunteers: [],
         selectedVolunteer: 'Volonter',
+
+        callData : [],
+        callDataString: '',
 
         // Call Desc
         problemType: 'Vrsta problema',
@@ -59,27 +64,62 @@ class SingleCallsView extends Component {
     };
 
     componentDidMount() {
-        ipcRenderer.send('getVolunteerNames');
-        ipcRenderer.once('volunteerNamesSent', (event, volunteerNames) => {
-            this.setState({ volunteer: volunteerNames });
+        ipcRenderer.send('getVolunteers');
+        ipcRenderer.once('volunteersSent', (event, volunteersObject) => {
+            this.setState({ volunteers: volunteersObject });
         });
+        
     }
-
+    
     handleChangeInput = event => {
         const target = event.target;
-        const value =
+        const name = target.name;
+        const value = 
             target.type === 'text' || target.type === 'textarea'
                 ? target.value
                 : target.textContent;
-        const name = target.name;
 
         this.setState({ [name]: value });
     };
 
     // Buttons
-    handleSaveData = () => {
-        console.log('Save');
+    handleAddCall = newCall => {
+
+        ipcRenderer.send('insertCall', newCall);
+        ipcRenderer.once('callInserted', (event, insertedCall) => {
+            if (insertedCall) {
+                newCall.call_id = insertedCall;
+                this.setState({
+                    callNo: '',
+                    selectedVolunteer: 'Volonter'
+                });
+            } else {
+                console.log('Something went wrong...');
+            }
+        });
     };
+
+
+    handleCallData = () => {
+        const newVolunteers = this.state.volunteers.find(v => v.first_name + ' ' + v.last_name === this.state.selectedVolunteer);
+        var newCallData = this.state.callData.concat(this.state.callNo, this.state.contactType, this.state.callDate,
+             this.state.callDay, this.state.callTime, this.state.callDur, this.state.callType, this.state.name,
+             this.state.age, this.state.maritalStatus, this.state.numOfCall, this.state.planInvolvement, this.state.problemType,
+             this.state.suicidRisk, this.state.suicidFactor, this.state.lastSuicidTry, this.state.shortContent, this.state.note
+            );
+        this.setState({callDataString : newCallData.join(', ')}, function (){
+            this.handleAddCall({
+                created_at: new Date().toISOString(),
+                call_data: this.state.callDataString,
+                volunteerId: newVolunteers.volunteer_id
+            });
+        });
+
+    }
+
+    handleSaveButton = () => {
+        this.handleCallData();
+    }
 
     handleUpdateData = () => {
         console.log('Update');
@@ -299,19 +339,13 @@ class SingleCallsView extends Component {
                                     name="gender"
                                     onClick={this.handleChangeInput}
                                 >
-                                    Pol1
+                                    Muški
                                 </Dropdown.Item>
                                 <Dropdown.Item
                                     name="gender"
                                     onClick={this.handleChangeInput}
                                 >
-                                    Pol2
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                    name="gender"
-                                    onClick={this.handleChangeInput}
-                                >
-                                    Pol3
+                                    Ženski
                                 </Dropdown.Item>
                             </DropdownButton>
 
@@ -413,14 +447,14 @@ class SingleCallsView extends Component {
                                 >
                                     Plan3
                                 </Dropdown.Item>
-                            </DropdownButton>
+                            </DropdownButton> */}
 
                             <DropdownButton
                                 variant="outline-secondary"
                                 id="dropdown-basic-button"
                                 title={this.state.selectedVolunteer}
                             >
-                                {this.state.volunteer.map((v, i) => {
+                                {this.state.volunteers.map((v, i) => {
                                     return (
                                         <Dropdown.Item
                                             key={i}
@@ -580,9 +614,8 @@ class SingleCallsView extends Component {
                     <Col xs={10} lg={8}>
                         <ButtonToolbar className="call-form-buttons">
                             <Button
-                                onClick={this.handleSaveData}
                                 variant="outline-primary"
-                            >
+                                onClick={() => this.handleSaveButton()}                            >
                                 <FaSave />
                                 &nbsp;Snimi
                             </Button>

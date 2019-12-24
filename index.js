@@ -47,11 +47,6 @@ function createWindow() {
         window = null;
     });
 
-    ipcMain.on('getVolunteerNames', async function () {
-        const result = await dbHelper.getVolunteerNames();
-        window.webContents.send('volunteerNamesSent', result);
-    });
-
     ipcMain.on('getVolunteers', async function () {
         const result = await dbHelper.getVolunteers();
         window.webContents.send('volunteersSent', result);
@@ -65,6 +60,16 @@ function createWindow() {
     ipcMain.on('insertVolunteer', async (event, volunteer) => {
         const insertedID = await dbHelper.insertVolunteer(volunteer);
         window.webContents.send('volunteerInserted', insertedID);
+    });
+
+    ipcMain.on('insertCall', async (event, call) => {
+        const insertedCall = await dbHelper.insertCall(call);
+        window.webContents.send('callInserted', insertedCall);
+    });
+
+    ipcMain.on('getCalls', async function(){
+        const results = await dbHelper.getCalls();
+        window.webContents.send('callsSent', results);
     });
 
     window.setMenu(menu);

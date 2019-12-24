@@ -7,6 +7,7 @@ const DBHelper = require('./dbHelper');
 const Sequelize = require('sequelize');
 
 const VolunteerModel = require('./models/volunteer');
+const CallModel = require('./models/call');
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -52,37 +53,15 @@ function createDatabase() {
 }
 
 const volunteer = VolunteerModel(sequelize, Sequelize);
+const call = CallModel(sequelize, Sequelize);
 
-volunteer.findOne({ where: { volunteer_id: 55 } }).then(vol => {
-    if (vol == null) {
-        volunteer.create({
-            volunteer_id: 55,
-            first_name: 'Marko',
-            last_name: 'Marin',
-            created_at: new Date()
-        });
-    } else {
-        console.log(vol.first_name);
-    }
-});
+sequelize.sync()
 
-sequelize.sync();
-
-exports.getVolunteerNames = () => {
-    const rows = volunteer
-        .findAll({
-            attributes: ['first_name', 'last_name'],
-            raw: true
-        })
-        .then(volunteers => {
-            return volunteers;
-        });
-    return rows;
-};
 
 exports.getVolunteers = () => {
     const rows = volunteer
         .findAll({
+            attributes: ['volunteer_id', 'first_name', 'last_name', 'created_at'],
             raw: true
         })
         .then(volunteers => {
@@ -90,6 +69,7 @@ exports.getVolunteers = () => {
         });
     return rows;
 };
+
 
 exports.deleteVolunteer = id => {
     const isDeleted = volunteer.destroy({
@@ -104,3 +84,32 @@ exports.insertVolunteer = v => {
     });
     return insertedID;
 };
+
+exports.getCalls = () => {
+    const rows = call
+        .findAll({
+            attributes: ['call_id', 'created_at', 'volunteerId'],
+            raw: true
+        })
+        .then(calls => {
+            return calls;
+        });
+    return rows;
+}
+
+exports.deleteCall = id => {
+    const isDeleted = call.destroy({
+        where: { call_id: id }
+    }).then(console.log('Deleted call with id: ' + id));
+    return isDeleted;
+}
+
+exports.insertCall = c => {
+    const insertedCall = call.create(c).then(row => {
+        return row.dataValues.call_id;
+    });
+    return insertedCall;
+};
+
+
+

@@ -16,6 +16,18 @@ function createWindow() {
                         app.quit();
                     }
                 }
+            ],
+            label: 'Tools',
+            submenu: [
+                {
+                    label: 'Toggle Developer Tools',
+                    accelerator: 'Ctrl+Shift+I',
+                    click: (item, focusedWindow) => {
+                        if (focusedWindow) {
+                            focusedWindow.toggleDevTools()
+                        }
+                    }
+                }
             ]
         }
     ]);
@@ -24,22 +36,23 @@ function createWindow() {
 
     window = new BrowserWindow({
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
         },
         width: 'max',
         height: 'max'
     });
     window.loadURL('http://localhost:3000');
+
     window.on('closed', () => {
         window = null;
     });
 
-    ipcMain.on('getVolunteerNames', async function() {
+    ipcMain.on('getVolunteerNames', async function () {
         const result = await dbHelper.getVolunteerNames();
         window.webContents.send('volunteerNamesSent', result);
     });
 
-    ipcMain.on('getVolunteers', async function() {
+    ipcMain.on('getVolunteers', async function () {
         const result = await dbHelper.getVolunteers();
         window.webContents.send('volunteersSent', result);
     });
@@ -54,7 +67,7 @@ function createWindow() {
         window.webContents.send('volunteerInserted', insertedID);
     });
 
-    window.setMenu(null);
+    window.setMenu(menu);
 }
 function databaseOperations() {
     dbHelper.checkIfDatabaseExists();

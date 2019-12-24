@@ -12,6 +12,7 @@ import {
 } from 'react-bootstrap';
 import { FaUserMinus, FaUserPlus, FaPencilAlt } from 'react-icons/fa';
 import { format } from 'date-fns';
+import Modal from './Modal.js';
 
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
@@ -21,13 +22,17 @@ class Admin extends Component {
         volunteers: [],
         inputFirstName: '',
         inputLastName: '',
-        isSaveButtonEnabled: false
+        isSaveButtonEnabled: false,
+        showModal: false,
+        password: '123',
+        inputPassword: ''
     };
     componentDidMount() {
         ipcRenderer.send('getVolunteers');
         ipcRenderer.once('volunteersSent', (event, volunteers) => {
             this.setState({ volunteers: volunteers });
         });
+        this.handleShowModal();
     }
     handleChangeInput = event => {
         const target = event.target;
@@ -51,6 +56,17 @@ class Admin extends Component {
             }
         });
     };
+
+
+    passwordCheck = () => {
+        if (this.state.inputPassword === this.state.password) {
+            this.handleCloseModal();
+        }else{
+            this.handleShowModal();
+        }
+    }
+    handleShowModal = () => this.setState({showModal: true})
+    handleCloseModal = () => this.setState({showModal: false})
     handleDeleteVolunteer = id => {
         ipcRenderer.send('deleteVolunteer', id);
         ipcRenderer.once('volunteerDeleted', (event, isDeleted) => {
@@ -69,7 +85,21 @@ class Admin extends Component {
     };
     render() {
         return (
+            
             <Container fluid>
+                    {this.state.showModal ? (
+                        <Modal onClose={this.passwordCheck}>
+                            <input
+                                type="text"
+                                name="inputPassword"
+                                value={this.state.inputPassword}
+                                onChange={this.handleChangeInput}
+                                className="form-control"
+                                id="examplePassword"
+                                placeholder="Unesite sifru"
+                            />
+                        </Modal>
+                    ) : null}
                 <Table>
                     <thead className="thead-light">
                         <tr>
@@ -168,6 +198,7 @@ class Admin extends Component {
                         </tr>
                     </tbody>
                 </Table>
+              
             </Container>
         );
     }

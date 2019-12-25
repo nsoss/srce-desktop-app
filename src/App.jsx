@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Navigation from './navigation/components/Navigation.jsx';
 
 class App extends Component {
-    render () {
+    render() {
         return (
             <React.Fragment >
-                <Navigation/>
+                <Navigation />
             </React.Fragment>
         );
     }

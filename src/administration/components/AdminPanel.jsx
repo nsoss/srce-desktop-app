@@ -89,13 +89,12 @@ class Admin extends Component {
                     {this.state.showModal ? (
                         <Modal onClose={this.passwordCheck}>
                             <input
+                                className="form-control justify-content-center"
                                 type="text"
                                 name="inputPassword"
                                 value={this.state.inputPassword}
                                 onChange={this.handleChangeInput}
-                                className="form-control"
                                 id="examplePassword"
-                                placeholder="Unesite sifru"
                             />
                         </Modal>
                     ) : null}

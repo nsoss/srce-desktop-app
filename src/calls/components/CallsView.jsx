@@ -70,9 +70,9 @@ class CallsView extends Component {
                         <h4 className="text-center bg-dirty-green mt-3">
                             &nbsp;Lista poziva
                         </h4>
-                        {this.state.calls.length > 0 ? (
+                        {this.state.filteredCalls.length > 0 ? (
                             <table striped hover className="call-data table">
-                                <thead className="bg-light">
+                                <thead >
                                     <tr className="text-center">
                                         <th scope="col">ID</th>
                                         <th scope="col">Datum</th>
@@ -82,7 +82,7 @@ class CallsView extends Component {
                                 <tbody>
                                     {this.state.filteredCalls.map((c, i) => {
                                         return (
-                                            <tr key={i}>
+                                            <tr key={i} className="text-center">
                                                 <th scope="row">{c.call_id}</th>
                                                 <td>
                                                     {format(

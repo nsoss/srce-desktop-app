@@ -19,8 +19,8 @@ class Navigation extends Component {
         this.handleDropdown = this.handleDropdown.bind(this);
     }
 
-    handleLocationParameter(location) {
-        this.setState({ location });
+    handleLocation(locationParam) {
+        this.props.handleChangeLocation(locationParam);
     }
 
     handleDropdown() {
@@ -43,7 +43,7 @@ class Navigation extends Component {
         return (
             <div>
                 <nav className="navbar navbar-expand-sm">
-                    <div className="navbar-brand link-cursor" onClick={() => this.handleLocationParameter("/")}>
+                    <div className="navbar-brand link-cursor" onClick={() => this.handleLocation("/")}>
                         Logo
                 </div>
 
@@ -64,18 +64,18 @@ class Navigation extends Component {
                         id="navbarSupportedContent"
                     >
                         <ul className="navbar-nav mr-auto">
-                            <li className="nav-item nav-link link-cursor" onClick={() => this.handleLocationParameter("calls")}>
+                            <li className="nav-item nav-link link-cursor" onClick={() => this.handleLocation("calls")}>
                                 Dnevni
                         </li>
-                            <li className="nav-item nav-link link-cursor" onClick={() => this.handleLocationParameter("call")}>
+                            <li className="nav-item nav-link link-cursor" onClick={() => this.handleLocation("call")}>
                                 Pojedinačni
                         </li>
-                            <li className="nav-item nav-link link-cursor" onClick={() => this.handleLocationParameter("calls-statistics")}>
+                            <li className="nav-item nav-link link-cursor" onClick={() => this.handleLocation("calls-statistics")}>
                                 Pregled
                         </li>
                         </ul>
                         <ul className="navbar-nav">
-                            <li className="nav-item nav-link link-cursor" onClick={() => this.handleLocationParameter("admin-page")}>
+                            <li className="nav-item nav-link link-cursor" onClick={() => this.handleLocation("admin-page")}>
                                 Admin
                         </li>
                             <li className="nav-item dropdown m-0">
@@ -92,7 +92,7 @@ class Navigation extends Component {
                         </ul>
                     </div>
                 </nav>
-                <Routes navState={this.state.location} />
+                {/* <Routes navState={this.state.location} /> */}
             </div>
         );
     }

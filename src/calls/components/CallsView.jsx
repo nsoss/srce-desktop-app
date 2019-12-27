@@ -63,6 +63,18 @@ class CallsView extends Component {
     render() {
         return (
             <React.Fragment>
+                <div className="row pt-3 m-3 mr-0">
+                    <div className="col-3"></div>
+                    <button className="btn btn-dark-green col-2 m-1" onClick={() => this.props.handleChangeLocation("call")}>
+                        Detalji poziva
+                        </button>
+                    <button className="btn btn-dark-green col-2 m-1" onClick={() => this.props.handleChangeLocation("call")}>
+                        Unos poziva
+                        </button>
+                    <button className="btn btn-dark-green col-2 m-1">
+                        Brisanje poziva
+                        </button>
+                </div>
                 <CalendarNew onDateSelect={date => this.handleChangeTableData(date)} />
                 <div className="row mr-0">
                     <div className="col-1"></div>

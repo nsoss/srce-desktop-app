@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Routes from '../../navigation/components/Routes';
 import {
     startOfMonth,
     getDaysInMonth,
@@ -37,7 +38,8 @@ const numberOfPastYears = 20;
 
 class Calendar extends Component {
     state = {
-        selectedDate: new Date()
+        selectedDate: new Date(),
+        location: "/"
     };
 
     componentDidMount() {
@@ -110,7 +112,6 @@ class Calendar extends Component {
         });
         this.props.onDateSelect(newSelectedDate);
     };
-
     handleChangeInputYear = event => {
         const { selectedDate } = this.state;
         const newSelectedYear = event.target.textContent;
@@ -220,18 +221,6 @@ class Calendar extends Component {
 
         return (
             <>
-                <div className="row pt-3 m-3 mr-0">
-                    <div className="col-3"></div>
-                    <button className="btn btn-dark-green col-2 m-1">
-                        Detalji poziva
-                        </button>
-                    <button className="btn btn-dark-green col-2 m-1">
-                        Unos poziva
-                        </button>
-                    <button className="btn btn-dark-green col-2 m-1">
-                        Brisanje poziva
-                        </button>
-                </div>
                 <div className="row mr-0">
                     <div className="col-1"></div>
                     <table className="table-borderless col-10 calendar" >

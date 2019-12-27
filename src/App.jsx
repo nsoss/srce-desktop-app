@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import Navigation from './navigation/components/Navigation.jsx';
+import Routes from './navigation/components/Routes'
 
 class App extends Component {
+
     render() {
+        window.localStorage.setItem("route", "/");
         return (
             <React.Fragment >
-                <Navigation />
+                <Routes />
             </React.Fragment>
         );
     }

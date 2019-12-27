@@ -3,24 +3,45 @@ import CallsView from '../../calls/components/CallsView.jsx';
 import SingleCallsView from '../../calls/components/SingleCallView.jsx';
 import CallsStatistic from '../../calls/components/CallsStatistic.jsx';
 import AdminPanel from '../../administration/components/AdminPanel.jsx';
+import Navigation from './Navigation';
 
 class Routes extends Component {
-    
+    state = {
+        location: "/"
+    }
+
+    handleChangeLocation = (newLocation) => {
+        this.setState({ location: newLocation });
+    }
+
     render() {
-        switch (this.props.navState) {
+        let childComponent;
+        switch (this.state.location) {
             case "/":
-                return (<CallsView />);
+                childComponent = <CallsView handleChangeLocation={this.handleChangeLocation} />;
+                break;
             case "calls":
-                return (<CallsView />);
+                childComponent = <CallsView handleChangeLocation={this.handleChangeLocation} />;
+                break;
             case "call":
-                return (<SingleCallsView />);
+                childComponent = <SingleCallsView handleChangeLocation={this.handleChangeLocation} />;
+                break;
             case "calls-statistics":
-                return (<CallsStatistic />);
+                childComponent = <CallsStatistic handleChangeLocation={this.handleChangeLocation} />;
+                break;
             case "admin-page":
-                return (<AdminPanel />);
+                childComponent = <AdminPanel handleChangeLocation={this.handleChangeLocation} />;
+                break;
             default:
                 break;
         }
+
+        return (
+            <>
+                <Navigation handleChangeLocation={this.handleChangeLocation} />
+                {childComponent}
+            </>
+        )
     }
 }
 

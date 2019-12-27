@@ -66,6 +66,7 @@ class Admin extends Component {
     }
     handleShowModal = () => this.setState({ showModal: true })
     handleCloseModal = () => this.setState({ showModal: false })
+
     handleDeleteVolunteer = id => {
         ipcRenderer.send('deleteVolunteer', id);
         ipcRenderer.once('volunteerDeleted', (event, isDeleted) => {
@@ -87,7 +88,7 @@ class Admin extends Component {
             <React.Fragment>
                 <div className="row border-top border-bottom border-green mr-0 pr-0">
                     {this.state.showModal ? (
-                        <Modal onClose={this.passwordCheck}>
+                        <Modal onClose={this.passwordCheck} onCancel={() => this.props.handleChangeLocation("calls")}>
                             <input
                                 className="form-control justify-content-center"
                                 type="text"

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const root = document.getElementById('root')
 const modalRoot = document.getElementById('modal-root')
 
 export default class Modal extends React.Component {
@@ -16,12 +15,8 @@ export default class Modal extends React.Component {
           <hr />
           {this.props.children}
           <hr />
-          <div className="row">
-            <div className="col-4"></div>
-            <div className="col-4">
-              <button className="btn btn-dark-green m-0" onClick={this.props.onClose}>OK</button>
-            </div>
-          </div>
+          <button className="btn btn-dark-green m-0" onClick={this.props.onClose}>Enter</button>
+          <button className="btn btn-dark-green m-0" onClick={this.props.onCancel}>Povratak</button>
         </div>
       </div>,
       modalRoot,

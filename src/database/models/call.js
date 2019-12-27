@@ -11,12 +11,11 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       default: new Date()
     },
-    call_data: {
+    call_number: {
       type: Sequelize.STRING,
       allowNull: false
-
     },
-    volunteerId: {
+    volunteer_id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       foreignKey: true,
@@ -26,14 +25,57 @@ module.exports = (sequelize, Sequelize) => {
         },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
+    },
+    contact_type_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      foreignKey:true,
+        references:{
+          model: "Contact_type",
+          key: "contact_type_id",
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+    },
+    call_type_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+      references: {
+        model: "Call_type",
+        key: "call_type_id",
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL',
+    },
+    call_description_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+        references: {
+          model: "Call_description",
+          key: "call_description_id",
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+    },
+    caller_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+        references: {
+          model: 'Caller',
+          key: 'caller_id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
     }
   }, {
     sequelize,
     modelName: 'Call',
     timestamps: false
   });
-  Call.associate = models => {
-    Call.belongsTo(models.Volunteer, {foreignKey: models.Volunteer.volunteer_id});
-  };
   return Call;
 };
+
+

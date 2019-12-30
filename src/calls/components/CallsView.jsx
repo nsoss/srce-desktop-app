@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import CalendarNew from './Calendar';
 import { format } from 'date-fns';
 import { IoMdList } from 'react-icons/io';
+import { connect } from 'react-redux';
+import { fetchCalls } from '../../actions/callsActions';
 
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
@@ -19,11 +21,8 @@ class CallsView extends Component {
         filteredCalls: []
     };
 
-    componentDidMount() {
-        ipcRenderer.send('getCalls');
-        ipcRenderer.once('callsSent', (event, callObject) => {
-            this.setState({ calls: callObject });
-        });
+    componentWillMount() {
+        this.props.fetchCalls();
     }
 
     formatDate = datedb => {
@@ -32,7 +31,7 @@ class CallsView extends Component {
 
     handleChangeTableData = date => {
 
-        let callsByDate = this.state.calls.filter(p => {
+        let callsByDate = this.props.calls.filter(p => {
             var str = this.formatDate(p.created_at);
             return str === format(date, 'dd/MM/yyyy').toString();
         });
@@ -44,7 +43,7 @@ class CallsView extends Component {
     };
 
     renderTableData() {
-        return this.state.calls.map((item, index) => {
+        return this.props.calls.map((item, index) => {
             const { id, time, duration, person, type, risk, volonter } = item; //destructuring
             return (
                 <tr className="text-center" key={id}>
@@ -118,4 +117,12 @@ class CallsView extends Component {
         );
     }
 }
-export default CallsView;
+
+const mapStateToProps = state => ({
+    calls: state.calls.calls
+});
+
+export default connect(
+    mapStateToProps,
+    { fetchCalls }
+)(CallsView);

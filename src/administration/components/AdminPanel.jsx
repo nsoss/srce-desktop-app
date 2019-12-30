@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchVolunteers, addVolunteer, deleteVolunteer } from '../../actions/volunteersActions';
 import {
     Container,
     Row,
@@ -19,7 +21,6 @@ const ipcRenderer = electron.ipcRenderer;
 
 class Admin extends Component {
     state = {
-        volunteers: [],
         inputFirstName: '',
         inputLastName: '',
         isSaveButtonEnabled: false,
@@ -28,11 +29,10 @@ class Admin extends Component {
         inputPassword: ''
     };
     componentDidMount() {
-        ipcRenderer.send('getVolunteers');
-        ipcRenderer.once('volunteersSent', (event, volunteers) => {
-            this.setState({ volunteers: volunteers });
-        });
         this.handleShowModal();
+    }
+    componentWillMount() {
+        this.props.fetchVolunteers();
     }
     handleChangeInput = event => {
         const target = event.target;
@@ -42,18 +42,10 @@ class Admin extends Component {
         this.setState({ [name]: value });
     };
     handleAddVolunteer = newVolunteer => {
-        ipcRenderer.send('insertVolunteer', newVolunteer);
-        ipcRenderer.once('volunteerInserted', (event, insertedID) => {
-            if (insertedID) {
-                newVolunteer.volunteer_id = insertedID;
-                this.setState({
-                    volunteers: [...this.state.volunteers, newVolunteer],
-                    inputFirstName: '',
-                    inputLastName: ''
-                });
-            } else {
-                console.log('Something went wrong...');
-            }
+        this.props.addVolunteer(newVolunteer);
+        this.setState({
+            inputFirstName: '',
+            inputLastName: ''
         });
     };
 
@@ -68,19 +60,10 @@ class Admin extends Component {
     handleCloseModal = () => this.setState({ showModal: false })
 
     handleDeleteVolunteer = id => {
-        ipcRenderer.send('deleteVolunteer', id);
-        ipcRenderer.once('volunteerDeleted', (event, isDeleted) => {
-            if (isDeleted) {
-                this.setState({
-                    volunteers: this.state.volunteers.filter(
-                        v => v.volunteer_id !== id
-                    ),
-                    inputFirstName: '',
-                    inputLastName: ''
-                });
-            } else {
-                console.log('Volunteer with id: ' + id + ' does not exists.');
-            }
+        this.props.deleteVolunteer(id);
+        this.setState({
+            inputFirstName: '',
+            inputLastName: ''
         });
     };
     render() {
@@ -147,7 +130,7 @@ class Admin extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.volunteers.map((v, i) => {
+                            {this.props.volunteers.map((v, i) => {
                                 return (
                                     <tr key={i}>
                                         <th scope="row">{v.volunteer_id}</th>
@@ -183,5 +166,11 @@ class Admin extends Component {
         );
     }
 }
+const mapStateToProps = state => ({
+    volunteers: state.volunteers.volunteers
+});
 
-export default Admin;
+export default connect(
+    mapStateToProps,
+    { fetchVolunteers, addVolunteer, deleteVolunteer }
+)(Admin);

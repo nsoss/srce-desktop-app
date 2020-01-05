@@ -1,6 +1,5 @@
 import Routes from './Routes.jsx';
 import React, { Component, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { IoMdMoon as Moon, IoMdSunny as Sun, IoMdMore as More } from 'react-icons/io';
 import ThemeContext from '../../theme/ThemeContext';
 import { fileRead } from '../../user_settings/loadUserSettings';

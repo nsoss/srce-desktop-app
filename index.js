@@ -71,6 +71,11 @@ function createWindow() {
         window.webContents.send('callsSent', results);
     });
 
+    ipcMain.on('getFormData', async function () {
+        const results = await dbHelper.getFormData();
+        window.webContents.send('formDataSent', results);
+    });
+
     window.setMenu(menu);
 }
 function databaseOperations() {

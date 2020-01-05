@@ -3,13 +3,24 @@ import { FaSave, FaPencilAlt, FaCopy, FaFileCsv } from 'react-icons/fa';
 import { IoIosExit } from 'react-icons/io';
 import { ExportToCsv } from 'export-to-csv';
 
+const electron = window.require('electron');
+const ipcRenderer = electron.ipcRenderer;
+
 class SingleCallView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            call: {}
+            call: {},
+            formData: []
         }
         this.handleChangeInput = this.handleChangeInput.bind(this);
+    }
+
+    componentDidMount() {
+        ipcRenderer.send('getFormData');
+        ipcRenderer.once('formDataSent', (event, formDataObject) => {
+            this.setState({formData: formDataObject});
+        });
     }
 
     handleChangeInput = event => {

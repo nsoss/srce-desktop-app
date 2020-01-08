@@ -16,3 +16,7 @@ if you use Windows, or `bash rebuild_script` for Linux.
 `index.html` for loading JavaScript.
 
 `npm dev` will track live changes for CSS and JS files
+
+## Design
+
+[Figma](https://www.figma.com/file/3GkovVdGabhJmCOXC4X5Pi/srce-desktop-app?node-id=1%3A14)

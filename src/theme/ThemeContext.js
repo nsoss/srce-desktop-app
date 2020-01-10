@@ -3,6 +3,7 @@ import { useState, useLayoutEffect } from 'react';
 import { fileWrite, fileRead } from '../user_settings/loadUserSettings';
 
 let m = fileRead();
+console.log(m.dark_theme)
 
 const ThemeContext = React.createContext({
     dark: m.dark_theme,
@@ -79,5 +80,11 @@ const darkTheme = [
     '--single-call-panels-border: #0d0d0d',
     '--single-call-panels-bg: #666666',
     '--admin-accent: #737373'
+    // '--btn-bg: #262626',
+    // '--calendar-selected: #262626',
+    // '--form-input-border: #0d0d0d',
+    // '--form-input-bg: #0d0d0d',
+    // '--single-call-panels-border: #0d0d0d',
+    // '--single-call-panels-bg: #333333'
 ];
 

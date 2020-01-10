@@ -1,20 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchVolunteers, addVolunteer, deleteVolunteer } from '../../actions/volunteersActions';
-import {
-    Container,
-    Row,
-    Col,
-    Table,
-    Form,
-    Dropdown,
-    DropdownButton,
-    ButtonToolbar,
-    Button
-} from 'react-bootstrap';
 import { FaUserMinus, FaUserPlus, FaPencilAlt } from 'react-icons/fa';
 import { format } from 'date-fns';
 import Modal from './Modal.js';
+import Pagination from '../../pagination/components/Pagination';
 
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
@@ -26,7 +16,9 @@ class Admin extends Component {
         isSaveButtonEnabled: false,
         showModal: false,
         password: '123',
-        inputPassword: ''
+        inputPassword: '',
+        dataPerPage: 2,
+        currentData: []
     };
     componentDidMount() {
         this.handleShowModal();
@@ -49,6 +41,13 @@ class Admin extends Component {
         });
     };
 
+    handleClick = data => {
+        console.log(data)
+        this.setState({
+            currentData: data
+        });
+    }
+
     passwordCheck = () => {
         if (this.state.inputPassword === this.state.password) {
             this.handleCloseModal();
@@ -68,59 +67,48 @@ class Admin extends Component {
     };
     render() {
         return (
-            <React.Fragment>
-                <div className="row border-top border-bottom border-green mr-0 pr-0">
-                    {this.state.showModal ? (
-                        <Modal onClose={this.passwordCheck} onCancel={() => this.props.handleChangeLocation("calls")}>
-                            <input
-                                className="form-control justify-content-center"
-                                type="text"
-                                name="inputPassword"
-                                value={this.state.inputPassword}
-                                onChange={this.handleChangeInput}
-                                id="examplePassword"
-                            />
-                        </Modal>
-                    ) : null}
-                    <form className="col-12 m-0 pr-0 pl-5 mt-3 mb-3 ">
-                        <div className="form-row mr-0 align-items-center">
-                            <div className="form-group col-md-5">
-                                <label htmlFor="name">Ime</label>
-                                <input name="inputFirstName" value={this.state.inputFirstName} type="text" className="form-control" id="name" onChange={this.handleChangeInput} />
-                            </div>
-                            <div className="form-group col-md-5">
-                                <label htmlFor="surname">Prezime</label>
-                                <input name="inputLastName" value={this.state.inputLastName} type="text" className="form-control" id="surname" onChange={this.handleChangeInput} />
-                            </div>
-                            <div className="form-group col-md-1 mt-3 pt-3">
-                                <button
-                                    className="btn btn-dark-green  ml-2 form-control"
-                                    disabled={
-                                        !(
-                                            this.state.inputFirstName &&
-                                            this.state.inputLastName
-                                        )
-                                    }
-                                    onClick={() =>
-                                        this.handleAddVolunteer({
-                                            first_name: this.state
-                                                .inputFirstName,
-                                            last_name: this.state
-                                                .inputLastName,
-                                            created_at: new Date().toISOString()
-                                        })
-                                    }>
-                                    {' '}
-                                    Dodaj &nbsp;
-                                <FaUserPlus />
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+            <div className="admin-panel">
+                {this.state.showModal ? (
+                    <Modal onClose={this.passwordCheck} onCancel={() => this.props.handleChangeLocation("calls")} >
+                        <input
+                            className="form-input-modal"
+                            type="text"
+                            name="inputPassword"
+                            value={this.state.inputPassword}
+                            onChange={this.handleChangeInput}
+                            id="examplePassword"
+                        />
+                    </Modal>
+                ) : null}
+                <div className="admin-add-volunteer-form">
+                    <label>Ime</label>
+                    <input type="text" name="inputFirstName" value={this.state.inputFirstName} onChange={this.handleChangeInput} />
+                    <label>Prezime</label>
+                    <input type="text" name="inputLastName" value={this.state.inputLastName} onChange={this.handleChangeInput} style={{ marginRight: '20px' }} />
+                    <button
+                        className="btn-srce"
+                        style={{ backgroundColor: '#C4C4C4', marginRight: '0' }}
+                        disabled={
+                            !(
+                                this.state.inputFirstName &&
+                                this.state.inputLastName
+                            )
+                        }
+                        onClick={() =>
+                            this.handleAddVolunteer({
+                                first_name: this.state
+                                    .inputFirstName,
+                                last_name: this.state
+                                    .inputLastName,
+                                created_at: new Date().toISOString()
+                            })
+                        }
+                    >Dodaj
+                        </button>
                 </div>
-                <div className="row ml-1 mr-0">
-                    <table className="table">
-                        <thead striped hover className="call-data table mt-3" >
+                <div className="admin-table">
+                    <table className="volunteer-data">
+                        <thead striped hover className="volunteer-data mt-3" >
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Ime</th>
@@ -130,7 +118,7 @@ class Admin extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.props.volunteers.map((v, i) => {
+                            {this.state.currentData.map((v, i) => {
                                 return (
                                     <tr key={i}>
                                         <th scope="row">{v.volunteer_id}</th>
@@ -142,9 +130,10 @@ class Admin extends Component {
                                                 'dd.MM.yyyy'
                                             )}
                                         </td>
-                                        <td>
+                                        <td className="text-center">
                                             <button
-                                                className="btn btn-outline-danger"
+                                                className="btn-srce"
+                                                style={{ backgroundColor: "#CC8066" }}
                                                 onClick={() =>
                                                     this.handleDeleteVolunteer(
                                                         v.volunteer_id
@@ -161,8 +150,9 @@ class Admin extends Component {
                             })}
                         </tbody>
                     </table>
+                    <Pagination allData={this.props.volunteers} dataPerPage={this.state.dataPerPage} handleClick={this.handleClick} />
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }

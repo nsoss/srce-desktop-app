@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaSave, FaPencilAlt, FaCopy, FaFileCsv } from 'react-icons/fa';
 import { IoIosExit } from 'react-icons/io';
-import { ExportToCsv } from 'export-to-csv';
+import Dropdown from './Dropdown'
 
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
@@ -19,7 +19,7 @@ class SingleCallView extends React.Component {
     componentDidMount() {
         ipcRenderer.send('getFormData');
         ipcRenderer.once('formDataSent', (event, formDataObject) => {
-            this.setState({formData: formDataObject});
+            this.setState({ formData: formDataObject });
         });
     }
 
@@ -35,226 +35,127 @@ class SingleCallView extends React.Component {
         return (
             <div className="m-3 mr-0">
                 <form >
-                    <div className="row border-top border-green">
-                        <div className="col-6 pt-4 ">
-                            <h4>Poziv</h4>
-                            <div className="form-row m-3 mr-0">
-                                <div class="form-group col-md-4">
-                                    <label for="numberOfCall">Redni broj</label>
-                                    <input type="text" className="form-control" id="numberOfCall" />
-                                </div>
-                                <div class="form-group col-md-2 ml-3">
-                                    <label for="typeOfContact">Vrsta kontakta</label>
-                                    <select id="typeOfContact" className="form-control">
-                                        <option selected>Telefon</option>
-                                        <option>...</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-2 ">
-                                    <label for="typeOfCall">Vrsta poziva</label>
-                                    <select id="typeOfCall" className="form-control">
-                                        <option selected>Cuteci</option>
-                                        <option>Informativni</option>
-                                        <option>Hronicni</option>
-                                        <option>Podrska</option>
-                                    </select>
-                                </div>
+                    <div >
+                        <p className="single-call-area-label">Poziv</p>
+                        <div className="single-call-call ">
+                            <div className="column-labels">
+                                <label className="form-label">Redni broj *</label> <br />
+                                <label className="form-label">Vrsta kontakta</label> <br />
+                                <label className="form-label">Vrsta poziva</label> <br />
+                                <label className="form-label">Datum *</label> <br />
+                                <label className="form-label">Vreme</label> <br />
+                                <label className="form-label">Dan</label> <br />
+                                <label className="form-label">Trajanje</label>
                             </div>
-                            <div className="form-row m-3 mr-0">
-                                <div class="form-group col-md-4">
-                                    <label for="date">Datum</label>
-                                    <input type="date" className="form-control" id="date" />
-                                </div>
-                                <div class="form-group col-md-4 ml-3">
-                                    <label for="time">Vreme</label>
-                                    <input type="time" class="form-control" id="time" />
-                                </div>
+                            <div className="column-inputs">
+                                <input type="text" name="call-number" className="form-input" placeholder="Redni broj" style={{ marginTop: '0' }} /> <br />
+                                <Dropdown data={["nesto", "nesto drugo"]} />
+                                <br />
+                                <Dropdown data={["nesto", "nesto trece"]} /> <br />
+                                <input type="date" name="date" className="form-input" placeholder="dd/mm/gggg" /> <br />
+                                <input type="time" name="time" className="form-input" placeholder="00:00" /> <br />
+                                <Dropdown data={["nesto", "uspeh?"]} /> <br />
+                                <input type="time" name="duration" className="form-input" placeholder="00:00" /> <br />
+                            </div>
+                        </div>
 
+                        <p className="single-call-area-label">Pozivar</p>
+                        <div className="single-call-caller ">
+                            <div className="column-labels">
+                                <label className="form-label">Ime ili nadimak</label> <br />
+                                <label className="form-label">Pol</label> <br />
+                                <label className="form-label">Starost</label> <br />
+                                <label className="form-label">Bračno stanje</label> <br />
+                                <label className="form-label">Koji put zove</label> <br />
+                                <label className="form-label">Uključenost u plan</label> <br />
+                                <label className="form-label">Volonter</label>
                             </div>
-                            <div className="form-row m-3 mr-0">
-                                <div class="form-group col-md-2 ">
-                                    <label for="day">Dan</label>
-                                    <input type="text" class="form-control" id="day" />
+                            <div className="column-inputs">
+                                <input type="text" name="caller-name" className="form-input" placeholder="Ime ili nadimak" style={{ marginTop: '0' }} /> <br />
+                                <Dropdown data={["jafa", "kinder"]} /> <br />
+                                <select className="form-input" name="age">
+                                    <option selected >Izaberi</option>
+                                    <option >Izaberi</option>
+                                </select> <br />
+                                <Dropdown data={["jabuka", "cimet"]} /> <br />
+                                <input type="text" name="number-of-times-called" className="form-input" placeholder="Koji put zove" /> <br />
+                                <Dropdown data={["kohi", "kafa"]} /> <br />
+                                <Dropdown data={["nesto", "nesto drugo"]} /> <br />
+                            </div>
+                        </div>
+
+                        <p className="single-call-area-label">Opis razgovora</p>
+                        <div className="single-call-coversation-details ">
+                            <div className="column-details">
+                                <div className="column-labels">
+                                    <label className="form-label" style={{ marginTop: '8px' }}>Vrsta problema</label> <br />
+                                    <label className="form-label">Suicidalni rizik</label> <br />
+                                    <label className="form-label">Suicidalni faktor</label> <br />
+                                    <label className="form-label">Pokušaji</label> <br />
                                 </div>
-                                <div class="form-group col-md-2 ">
-                                    <label for="duration">Trajanje</label>
-                                    <input type="text" class="form-control" id="duration" />
+                                <div className="column-inputs">
+                                    <Dropdown data={["a", "b"]} /> <br />
+                                    <Dropdown data={["c", "q"]} /> <br />
+                                    <Dropdown data={["h", "d"]} /> <br />
+                                    <Dropdown data={["t", "ttt"]} /> <br />
+                                </div>
+                            </div>
+                            <div className="column-details" style={{ marginLeft: "30px" }}>
+                                <div className="column-labels">
+                                    <label className="form-label">Kratak sadržaj</label> <br />
+                                    <label className="form-label" style={{ marginTop: '55px' }}>Napomena</label> <br />
+                                </div>
+                                <div className="column-inputs">
+                                    <textarea name="content" rows="6"></textarea> <br />
+                                    <textarea name="content" rows="4"></textarea>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="col-5 mt-4 ml-4">
-                            <h4>Pozivar</h4>
-                            <div className="form-row m-3 mr-0">
-                                <div class="form-group col-md-4">
-                                    <label for="name">Ime ili nadimak</label>
-                                    <input type="text" class="form-control" id="name" />
-                                </div>
-                                <div class="form-group col-md-3 ml-3">
-                                    <label for="gender">Pol</label>
-                                    <select id="gender" class="form-control">
-                                        <option selected>Muški</option>
-                                        <option>Ženski</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-3 ml-3">
-                                    <label for="age">Starost</label>
-                                    <select id="age" class="form-control">
-                                        <option selected>...</option>
-                                        <option>...</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="form-row m-3 mr-0">
-                                <div class="form-group col-md-4 ">
-                                    <label for="maritalStatus">Bračno stanje</label>
-                                    <select id="maritalStatus" class="form-control">
-                                        <option selected>Udata/oženjen</option>
-                                        <option>Razveden/a</option>
-                                        <option>Udovac/udovica</option>
-                                        <option>Samac ima partnera</option>
-                                        <option>Samac nema partnera</option>
-                                        <option>Neutvrđeno</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-3 ml-3">
-                                    <label for="numberOfTimesCalled">Koji put zove</label>
-                                    <select id="numberOfTimesCalled" class="form-control">
-                                        <option selected>Prvi put</option>
-                                        <option>2 i vise</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-3 ml-3">
-                                    <label for="plan">Ukljucenost u plan</label>
-                                    <select id="plan" class="form-control">
-                                        <option selected>...</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="form-row  m-3 mr-0">
-                                <div class="form-group col-md-6">
-                                    <label for="volunteer">Volonter</label>
-                                    <select id="volunteer" class="form-control">
-                                        <option selected>iz baze</option>
-                                    </select>
-                                </div>
-                            </div>
+                        <div className="single-call-buttons">
+                            <button
+                                className="btn-srce"
+                                onClick={this.handleSaveData}
+                            >
+                                <FaSave />
+                                &nbsp;Snimi
+                            </button>
+                            <button
+                                className="btn-srce"
+                                onClick={this.handleUpdateData}
+                            >
+                                <FaPencilAlt />
+                                &nbsp;Izmeni
+                            </button>
+                            <button
+                                className="btn-srce"
+                                style={{ backgroundColor: '#4F9D3F' }}
+                                onClick={this.handleCopyData}
+                            >
+                                <FaCopy />
+                                &nbsp;Kopiraj
+                            </button>
+                            <button
+                                className="btn-srce"
+                                onClick={this.handleExportToExcel}
+                                style={{ width: '135px' }}
+                            >
+                                <FaFileCsv />
+                                &nbsp;Prebaci u CSV
+                            </button>
+                            <button
+                                className="btn-srce"
+                                style={{ marginLeft: '60px', backgroundColor: '#CC8066 ' }}
+                                onClick={() => this.props.handleChangeLocation("calls")}
+                            >
+                                <IoIosExit />
+                                &nbsp;Izadji
+                            </button>
                         </div>
-                    </div>
 
-                    <div className="row border-top border-bottom border-green">
-                        <div className="col-md-12 mt-4">
-                            <h4>Opis razgovora</h4>
-                            <div className="row mr-0">
-                                <div className="col-md-3 m-3">
-                                    <div className="form-group ">
-                                        <label for="problem">Vrsta problema</label>
-                                        <select id="problem" class="form-control">
-                                            <option selected>Gubitak</option>
-                                            <option>Usamljenost</option>
-                                            <option>Partnerski</option>
-                                            <option>Porodicni</option>
-                                            <option>Problem na radnom mestu, skoli ili fakultetu</option>
-                                            <option>Egzistencijalni problem (nezaposlenost, siromastvo, nemanje perspektive, opste nezadovoljstvo zivotom)</option>
-                                            <option>Bolest zavisnosti: alkoholizam</option>
-                                            <option>Bolest zavisnosti: narkomanija</option>
-                                            <option>Mentalni (psihicki) poremecaj</option>
-                                            <option>Pronlem seksualne prirode (seks. disfunkcija, masturbacija, frigidnost, nimfomanija, promiskuitet, velicina polnog organa, fetisizam, incest, voajerizam, strah od odnosa...)</option>
-                                            <option>Problem usled seks. orijentacije (homoseksualnost, biseksualnost, transseksualnost, transvestit)</option>
-                                            <option>Telesna bolest</option>
-                                            <option>Invaliditet</option>
-                                            <option>Zlostavljanje (svi vidovi)</option>
-                                            <option>Poziv za trecu osobu</option>
-                                            <option>Manipulativni</option>
-                                            <option>DRUGO (obavezno napisati u napomeni vrstu problema)</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="suicidalRisk">Suicidalni rizik</label>
-                                        <select id="suicidalRisk" class="form-control">
-                                            <option selected>Nije utvrdjen</option>
-                                            <option>Nema suicidalne misli</option>
-                                            <option>Ima suicidalne misli, nema plan</option>
-                                            <option>Ima plan samoubistva i ozbiljno razmišlja o tome</option>
-                                            <option>Postoji neposredan rizik da će osoba izvršiti samoubistvo</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="suicidalFactor">Suicidalni fatkor</label>
-                                        <select id="suicidalFactor" class="form-control">
-                                            <option selected>Mentalni (psihički) poremećaj</option>
-                                            <option>Bolest zavisnosti</option>
-                                            <option>Psihička kriza</option>
-                                            <option>Fizičko oboljenje</option>
-                                            <option>Trauma ili zlostavljanje</option>
-                                            <option>Raniji pokušaj suicida</option>
-                                            <option>Suicid člana porodice</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="numberOfTries">Pokusaji</label>
-                                        <select id="numberOfTries" class="form-control">
-                                            <option selected>...</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="col-md-8 m-3">
-                                    <div class="form-group">
-                                        <label for="content">Kratak sadrzaj</label>
-                                        <textarea class="form-control" id="content" rows="6"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="content">Napomena</label>
-                                        <textarea class="form-control" id="content" rows="3"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div >
                 </form>
-
-                <div className="row m-3 mr-0">
-                    <div className="col-12 text-center" >
-                        <button
-                            className="btn border-green btn-dark-green"
-                            onClick={this.handleSaveData}
-                        >
-                            <FaSave />
-                            &nbsp;Snimi
-                    </button>
-                        <button
-                            className="btn border-green ml-2 btn-dark-green"
-                            onClick={this.handleUpdateData}
-                        >
-                            <FaPencilAlt />
-                            &nbsp;Izmeni
-                    </button>
-                        <button
-                            className="btn border-green  ml-2 btn-dark-green"
-                            onClick={this.handleCopyData}
-                        >
-                            <FaCopy />
-                            &nbsp;Kopiraj
-                    </button>
-                        <button
-                            className="btn border-green ml-2 btn-dark-green"
-                            onClick={this.handleExportToExcel}
-                        >
-                            <FaFileCsv />
-                            &nbsp;Prebaci u CSV
-                    </button>
-                        <button
-                            className="btn border-green ml-2 btn-dark-green"
-                            onClick={() => this.props.handleChangeLocation("calls")}
-                        >
-                            <IoIosExit />
-                            &nbsp;Izadji
-                    </button>
-
-                    </div>
-                </div>
-            </div>
+            </div >
         )
     }
 }

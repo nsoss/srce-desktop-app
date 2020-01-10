@@ -3,6 +3,11 @@ import React, { Component, useContext } from 'react';
 import { IoMdMoon as Moon, IoMdSunny as Sun, IoMdMore as More } from 'react-icons/io';
 import ThemeContext from '../../theme/ThemeContext';
 import { fileRead } from '../../user_settings/loadUserSettings';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
+import { ReactComponent as IcnDetails } from '../../assets/details.svg';
+import { ReactComponent as IcnSettings } from '../../assets/settings.svg';
+import { ReactComponent as IcnStatistics } from '../../assets/statistics.svg';
+// import icnMore from '../../icons/MoreIcon.png'
 
 let dark, toggle, isDarkThemeActive;
 class Navigation extends Component {
@@ -40,60 +45,32 @@ class Navigation extends Component {
 
     render() {
         return (
-            <div>
-                <nav className="navbar navbar-expand-sm">
-                    <div className="navbar-brand link-cursor" onClick={() => this.handleLocation("/")}>
-                        Logo
+            <nav className="side-nav">
+                <div className="side-nav-item" onClick={() => this.handleLocation("/")}>
+                    <Logo />
                 </div>
-
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div
-                        className="collapse navbar-collapse"
-                        id="navbarSupportedContent"
-                    >
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item nav-link link-cursor" onClick={() => this.handleLocation("calls")}>
-                                Dnevni
-                        </li>
-                            <li className="nav-item nav-link link-cursor" onClick={() => this.handleLocation("call")}>
-                                Pojedinačni
-                        </li>
-                            <li className="nav-item nav-link link-cursor" onClick={() => this.handleLocation("calls-statistics")}>
-                                Pregled
-                        </li>
-                        </ul>
-                        <ul className="navbar-nav">
-                            <li className="nav-item nav-link link-cursor" onClick={() => this.handleLocation("admin-page")}>
-                                Admin
-                        </li>
-                            <li className="nav-item dropdown m-0">
-                                <a className="nav-link pt-0 pb-0 pointer" onClick={this.handleDropdown} style={{ fontSize: '25px' }}>
-                                    < More />
-                                </a>
-                                <div className="dropdown-menu-srce dropdown-menu-right" style={{ display: this.state.isDropdownShowing ? 'block' : 'none' }}>
-                                    <div className="dropdown-item m-0 pr-2 pl-5 " >
-                                        <input className="pointer mr-1" type="checkbox" id="gridCheck1" onClick={() => { this.setState(prevState => ({ isDropdownShowing: false, isDarkThemeActive: !prevState.isDarkThemeActive })); toggle() }} checked={this.state.isDarkThemeActive}></input>
-                                        Tamna tema
-                                </div>
-                                </div>
-                            </li>
-                        </ul>
+                <div className="side-nav-item" onClick={() => this.handleLocation("call")}>
+                    <IcnDetails />
+                </div>
+                <div className="side-nav-item" onClick={() => this.handleLocation("calls-statistics")}>
+                    <IcnStatistics />
+                </div>
+                <div className="side-nav-item" onClick={() => this.handleLocation("admin-page")}>
+                    <IcnSettings />
+                </div>
+                <div className="side-nav-item dropright m-0" onClick={this.handleDropdown} >
+                    <More style={{ fontSize: '32px' }} />
+                    <div className="dropdown-menu-srce dropdown-menu" style={{ display: this.state.isDropdownShowing ? 'block' : 'none' }}>
+                        <div className="dropdown-item m-0 pr-2 pl-5 " >
+                            <input className="pointer mr-1" type="checkbox" id="gridCheck1" onClick={() => { this.setState(prevState => ({ isDropdownShowing: false, isDarkThemeActive: !prevState.isDarkThemeActive })); toggle() }} checked={this.state.isDarkThemeActive}></input>
+                            Tamna temaa
+                        </div>
                     </div>
-                </nav>
-                {/* <Routes navState={this.state.location} /> */}
-            </div>
+                </div>
+            </nav>
         );
+
+
     }
 }
 

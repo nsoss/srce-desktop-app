@@ -221,23 +221,20 @@ class Calendar extends Component {
 
         return (
             <>
-                <div className="row mr-0">
-                    <div className="col-1"></div>
-                    <table className="table-borderless col-10 calendar" >
+                <div className="calendar-srce">
+                    <table className="" >
                         <thead>
                             <tr>
                                 <td
                                     onClick={this.handleMonthBackward}
-                                    colSpan="2"
                                     className="text-center"
                                 >
                                     <IoIosArrowBack />
                                 </td>
-                                <td className="text-center justify-content-center " colSpan="3">
-                                    <form className="form-inline row">
-                                        <div className="col-3"></div>
-                                        <div className="col-6">
-                                            <select className="form-control border-green">
+                                <td className="text-center justify-content-center " colSpan="5">
+                                    <form >
+                                        <div className="ml-3 mr-3">
+                                            <select>
                                                 {months.map((m, i) => {
                                                     return (
                                                         <option
@@ -255,7 +252,7 @@ class Calendar extends Component {
                                                     );
                                                 })}
                                             </select>
-                                            <select className="form-control border-green">
+                                            <select className=" border-green">
                                                 {years.map((y, i) => {
                                                     return (
                                                         <option
@@ -278,7 +275,6 @@ class Calendar extends Component {
                                 </td>
                                 <td
                                     onClick={this.handleMonthForward}
-                                    colSpan="2"
                                     className="text-center"
                                 >
                                     <IoIosArrowForward />

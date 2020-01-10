@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import './appEntry.scss';
 import App from './App.jsx';
-import './Helpers.css'
 import { ThemeProvider } from './theme/ThemeContext';
 import { Provider } from 'react-redux';
 import store from './store';

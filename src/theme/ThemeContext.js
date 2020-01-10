@@ -3,6 +3,7 @@ import { useState, useLayoutEffect } from 'react';
 import { fileWrite, fileRead } from '../user_settings/loadUserSettings';
 
 let m = fileRead();
+console.log(m.dark_theme)
 
 const ThemeContext = React.createContext({
     dark: m.dark_theme,
@@ -48,20 +49,32 @@ export function ThemeProvider(props) {
 }
 
 const lightTheme = [
-    '--color-srce-green: #BFD630 ',
-    '--color-srce-purple: #8D5FA8 ',
     '--text: #000000',
-    '--text-dark: #000000',
-    '--bg: #ffffff',
-    '--border-color: #dee2e6'
+    '--color-nav: #8D63A6',
+    '--color-nav-selected: #5B2F76 ',
+    '--color-bg: #E5E5E5 ',
+    '--text-white: #ffffff',
+    '--text-black: #000000',
+    '--btn-bg: #98C23D',
+    '--calendar-selected: #8D63A6',
+    '--form-input-border: #CCCCCC',
+    '--form-input-bg:  #F7F7F7',
+    '--single-call-panels-border: #8D63A6',
+    '--single-call-panels-bg: #ffffff'
 ];
 
 const darkTheme = [
-    '--color-srce-green: #98a264 ',
-    '--color-srce-purple: #776581',
-    '--text: #b3b3b3',
-    '--text-dark: #262626',
-    '--bg: #262626',
-    '--border-color: #737373'
+    '--text: #E5E5E5',
+    '--color-nav: #8D63A6',
+    '--color-nav-selected: #5B2F76 ',
+    '--color-bg: #4d4d4d ',
+    '--text-white: #ffffff',
+    '--text-black: #000000',
+    '--btn-bg: #262626',
+    '--calendar-selected: #262626',
+    '--form-input-border: #0d0d0d',
+    '--form-input-bg: #0d0d0d',
+    '--single-call-panels-border: #0d0d0d',
+    '--single-call-panels-bg: #333333'
 ];
 

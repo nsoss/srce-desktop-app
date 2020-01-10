@@ -6,7 +6,7 @@ class Pagination extends React.Component {
         this.state = {
             data: props.allData,
             currentPage: 1,
-            dataPerPage: 2,
+            dataPerPage: props.dataPerPage,
             pageNumbers: [],
             currentData: []
         }
@@ -28,7 +28,18 @@ class Pagination extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         if (this.state.data.length != nextProps.allData.length) {
-            this.setState({ data: nextProps.allData })
+            this.setState({ data: nextProps.allData });
+
+            const { dataPerPage } = this.state;
+            const indexOfLast = 1 * dataPerPage;
+            const indexOfFirst = indexOfLast - dataPerPage;
+            const currentDataCalculated = nextProps.allData.slice(indexOfFirst, indexOfLast)
+            this.setState({
+                currentPage: Number(1),
+                currentData: currentDataCalculated
+            });
+            this.props.handleClick(currentDataCalculated);
+
             return true;
         }
         return false;
@@ -50,7 +61,7 @@ class Pagination extends React.Component {
 
     render() {
         return (
-            this.state.data.length > this.state.dataPerPage &&
+            this.state.data && this.state.data.length > this.state.dataPerPage &&
             (<ul className="pagination justify-content-center">
                 {this.renderPageNumbers()}
             </ul>)

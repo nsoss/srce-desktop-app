@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import CalendarNew from './Calendar';
 import { format } from 'date-fns';
-import { IoMdList } from 'react-icons/io';
 import { connect } from 'react-redux';
 import { fetchCalls } from '../../actions/callsActions';
+import Pagination from '../../pagination/components/Pagination';
 
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
@@ -18,7 +18,9 @@ class CallsView extends Component {
     state = {
         calls: [],
         selectedDate: '',
-        filteredCalls: []
+        filteredCalls: [],
+        dataPerPage: 2,
+        currentData: []
     };
 
     componentWillMount() {
@@ -42,6 +44,12 @@ class CallsView extends Component {
 
     };
 
+    handleClick = data => {
+        this.setState({
+            currentData: data
+        });
+    }
+
     renderTableData() {
         return this.props.calls.map((item, index) => {
             const { id, time, duration, person, type, risk, volonter } = item; //destructuring
@@ -62,57 +70,49 @@ class CallsView extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="row pt-3 m-3 mr-0">
-                    <div className="col-3"></div>
-                    <button className="btn btn-dark-green col-2 m-1" onClick={() => this.props.handleChangeLocation("call")}>
-                        Detalji poziva
-                        </button>
-                    <button className="btn btn-dark-green col-2 m-1" onClick={() => this.props.handleChangeLocation("call")}>
-                        Unos poziva
-                        </button>
-                    <button className="btn btn-dark-green col-2 m-1">
-                        Brisanje poziva
-                        </button>
-                </div>
-                <CalendarNew onDateSelect={date => this.handleChangeTableData(date)} />
-                <div className="row mr-0">
-                    <div className="col-1"></div>
-                    <div className="col-10">
-                        <h4 className="text-center bg-dirty-green mt-3">
-                            &nbsp;Lista poziva
-                        </h4>
-                        {this.state.filteredCalls.length > 0 ? (
-                            <table striped hover className="call-data table">
-                                <thead >
-                                    <tr className="text-center">
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Datum</th>
-                                        <th scope="col">Volonter</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.state.filteredCalls.map((c, i) => {
-                                        return (
-                                            <tr key={i} className="text-center">
-                                                <th scope="row">{c.call_id}</th>
-                                                <td>
-                                                    {format(
-                                                        new Date(Date.parse(c.created_at)),
-                                                        'dd.MM.yyyy'
-                                                    )}
-                                                </td>
-                                                <td>{c.volunteerId}</td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>) : (
-                                <p className="text-center call-data-msg">
-                                    Nema poziva na izabrani datum.
+                <div className="calls-table">
+                    {this.state.currentData.length > 0 ? (
+                        <table hover className="call-data">
+                            <thead >
+                                <tr className="text-center">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Datum</th>
+                                    <th scope="col">Volonter</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.currentData.map((c, i) => {
+                                    return (
+                                        <tr key={i} className="text-center">
+                                            <th scope="row">{c.call_id}</th>
+                                            <td>
+                                                {format(
+                                                    new Date(Date.parse(c.created_at)),
+                                                    'dd.MM.yyyy'
+                                                )}
+                                            </td>
+                                            <td>{c.volunteerId}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>) : (
+                            <p className="text-center call-data-msg">
+                                Nema poziva na izabrani datum.
                             </p>
-                            )}
-                    </div>
+                        )}
+                    <Pagination allData={this.state.filteredCalls} dataPerPage={this.state.dataPerPage} handleClick={this.handleClick} />
                 </div>
+                <button className="btn-srce-calls-view" style={{ top: '424px', left: '1266px' }} onClick={() => this.props.handleChangeLocation("call")}>
+                    Snimi
+                    </button>
+                <button className="btn-srce-calls-view" style={{ top: '488px', left: '1266px' }} onClick={() => this.props.handleChangeLocation("call")}>
+                    Izmeni
+                    </button>
+                <button className="btn-srce-calls-view" style={{ top: '552px', left: '1266px' }}>
+                    Kopiraj
+                    </button>
+                <CalendarNew onDateSelect={date => this.handleChangeTableData(date)} />
             </React.Fragment>
         );
     }

@@ -87,7 +87,7 @@ class Admin extends Component {
                     <input type="text" name="inputLastName" value={this.state.inputLastName} onChange={this.handleChangeInput} style={{ marginRight: '20px' }} />
                     <button
                         className="btn-srce"
-                        style={{ backgroundColor: '#C4C4C4', marginRight: '0' }}
+                        style={{ backgroundColor: 'var(--admin-accent)', marginRight: '0' }}
                         disabled={
                             !(
                                 this.state.inputFirstName &&

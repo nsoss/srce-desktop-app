@@ -6,7 +6,7 @@ class Dropdown extends React.Component {
         this.state = {
             isShowing: false,
             listData: this.props.data,
-            chosenValue: "Izaberi"
+            chosenValue: this.props.date ? this.props.date : "Izaberi"
         }
     }
 
@@ -29,6 +29,7 @@ class Dropdown extends React.Component {
     handleChange = (e, data) => {
         e.stopPropagation();
         this.setState({ chosenValue: data })
+        this.props.handleChange(data);
     }
 
     render() {

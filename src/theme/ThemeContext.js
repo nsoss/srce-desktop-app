@@ -3,7 +3,6 @@ import { useState, useLayoutEffect } from 'react';
 import { fileWrite, fileRead } from '../user_settings/loadUserSettings';
 
 let m = fileRead();
-console.log(m.dark_theme)
 
 const ThemeContext = React.createContext({
     dark: m.dark_theme,
@@ -13,7 +12,7 @@ const ThemeContext = React.createContext({
 export default ThemeContext;
 
 export function ThemeProvider(props) {
-    const [dark, setDark] = useState(true);
+    const [dark, setDark] = useState(m.dark_theme);
 
     useLayoutEffect(() => {
         const lastTheme = dark;
@@ -59,8 +58,10 @@ const lightTheme = [
     '--calendar-selected: #8D63A6',
     '--form-input-border: #CCCCCC',
     '--form-input-bg:  #F7F7F7',
+    '--form-input-hover:  #e6e6e6',
     '--single-call-panels-border: #8D63A6',
-    '--single-call-panels-bg: #ffffff'
+    '--single-call-panels-bg: #ffffff',
+    '--admin-accent: #C4C4C4'
 ];
 
 const darkTheme = [
@@ -70,11 +71,13 @@ const darkTheme = [
     '--color-bg: #4d4d4d ',
     '--text-white: #ffffff',
     '--text-black: #000000',
-    '--btn-bg: #262626',
-    '--calendar-selected: #262626',
+    '--btn-bg: #666666',
+    '--calendar-selected: #8D63A6',
     '--form-input-border: #0d0d0d',
-    '--form-input-bg: #0d0d0d',
+    '--form-input-bg: #595959',
+    '--form-input-hover:  #404040',
     '--single-call-panels-border: #0d0d0d',
-    '--single-call-panels-bg: #333333'
+    '--single-call-panels-bg: #666666',
+    '--admin-accent: #737373'
 ];
 

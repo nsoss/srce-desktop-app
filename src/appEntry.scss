@@ -1,7 +1,4 @@
 
-
-// @import '~bootstrap/scss/bootstrap';
-
 body {
   color: var(--text);
   background-color: var(--color-bg);
@@ -60,10 +57,10 @@ button {
     margin-top: 40px;
     td:hover {
             cursor: pointer;
-            background-color: var(--bg);
+            background-color: #8D63A6;
         }
         .selected-date {
-            background-color: var(--bg);
+            background-color: #8D63A6;
             border: 0.2em solid var(--color-srce-purple);
             border-top-style: hidden;
             border-bottom-style: hidden;
@@ -183,7 +180,7 @@ button {
   box-sizing: border-box;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
-  color: var(--text);
+  color: black;
 }
 
 .volunteer-data {
@@ -192,7 +189,7 @@ button {
 
 .admin-table{
   padding: 20px;
-  background-color: #C4C4C4;
+  background-color: var(--admin-accent);
   height: 500px;
   width: 1132px;;
 }
@@ -457,7 +454,7 @@ textarea {
 
 .admin-add-volunteer-form{
   margin-bottom: 20px;
-  color: black;
+  color: var(--text);
   width: 1172px;
 }
 
@@ -467,7 +464,7 @@ textarea {
 }
 
 .admin-add-volunteer-form input{
-  background-color: #C4C4C4;
+  background-color: var(--admin-accent);
   border: none;
   width: 450px;
   height: 32px;
@@ -482,6 +479,8 @@ textarea {
   margin-bottom: 8px;
   padding-left: 3px;
   border-radius: 3px;
+  background-color: var(--admin-accent);
+  color: var(--text);
 }
 
 .calls-table .pagination {
@@ -516,6 +515,20 @@ textarea {
     padding: 2px;
     font-size: 14px;
   }
+
+  .popup-items:hover {
+    background-color: var(--form-input-hover);
+  }
+}
+
+.calendar-srce {
+  .popup{
+    width: 50px;
+  }
+  .form-input.toggle-popup {
+    width: 60px;
+    border-bottom: none;
+}
 }
 
 .toggle-popup:hover{
@@ -562,10 +575,13 @@ textarea {
   color: var(--text);
   text-align: left;
   list-style: none;
-  background-color: var(--bg);
+  background-color: var(--single-call-panels-bg);
   background-clip: padding-box;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--single-call-panels-border);
   border-radius: none !important;
+  height: 41px;
+  padding-top: 13px;
+  border-left: none;
 }
 
 .dropdown-menu-right {

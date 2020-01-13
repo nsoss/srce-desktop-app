@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Routes from '../../navigation/components/Routes';
+import Dropdown from './Dropdown'
 import {
     startOfMonth,
     getDaysInMonth,
@@ -18,6 +19,7 @@ import {
     subYears
 } from 'date-fns';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { stat } from 'fs';
 
 const months = [
     'Jan',
@@ -101,7 +103,7 @@ class Calendar extends Component {
 
     handleChangeInputMonth = event => {
         const { selectedDate } = this.state;
-        const newSelectedMonth = event.target.textContent;
+        const newSelectedMonth = event;
 
         const newSelectedDate = setMonth(
             selectedDate,
@@ -114,7 +116,7 @@ class Calendar extends Component {
     };
     handleChangeInputYear = event => {
         const { selectedDate } = this.state;
-        const newSelectedYear = event.target.textContent;
+        const newSelectedYear = event;
 
         const newSelectedDate = setYear(selectedDate, newSelectedYear);
         this.setState({
@@ -216,9 +218,9 @@ class Calendar extends Component {
             y >= subYears(currentYear, numberOfPastYears);
             y = subYears(y, 1)
         ) {
-            years.push(y);
+            years.push(y.getFullYear());
         }
-
+        console.log(this.state.selectedDate)
         return (
             <>
                 <div className="calendar-srce">
@@ -234,42 +236,8 @@ class Calendar extends Component {
                                 <td className="text-center justify-content-center " colSpan="5">
                                     <form >
                                         <div className="ml-3 mr-3">
-                                            <select>
-                                                {months.map((m, i) => {
-                                                    return (
-                                                        <option
-                                                            key={m + i}
-                                                            onClick={
-                                                                this.handleChangeInputMonth
-                                                            }
-                                                            active={
-                                                                m ===
-                                                                format(selectedDate, 'MMM')
-                                                            }
-                                                        >
-                                                            {m}
-                                                        </option>
-                                                    );
-                                                })}
-                                            </select>
-                                            <select className=" border-green">
-                                                {years.map((y, i) => {
-                                                    return (
-                                                        <option
-                                                            key={y + i}
-                                                            onClick={
-                                                                this.handleChangeInputYear
-                                                            }
-                                                            active={
-                                                                format(y, 'yyyy') ===
-                                                                format(selectedDate, 'yyyy')
-                                                            }
-                                                        >
-                                                            {y.getFullYear()}
-                                                        </option>
-                                                    );
-                                                })}
-                                            </select>
+                                            <Dropdown data={months} date={format(this.state.selectedDate, 'MMM')} handleChange={this.handleChangeInputMonth} />
+                                            <Dropdown data={years} date={this.state.selectedDate.getFullYear()} handleChange={this.handleChangeInputYear} />
                                         </div>
                                     </form>
                                 </td>

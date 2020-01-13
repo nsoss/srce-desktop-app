@@ -60,7 +60,7 @@ class Navigation extends Component {
                 </div>
                 <div className="side-nav-item dropright m-0" onClick={this.handleDropdown} >
                     <More style={{ fontSize: '32px' }} />
-                    <div className="dropdown-menu-srce dropdown-menu" style={{ display: this.state.isDropdownShowing ? 'block' : 'none' }}>
+                    <div className="dropdown-menu-srce dropdown-menu " style={{ display: this.state.isDropdownShowing ? 'block' : 'none' }}>
                         <div className="dropdown-item m-0 pr-2 pl-5 " >
                             <input className="pointer mr-1" type="checkbox" id="gridCheck1" onClick={() => { this.setState(prevState => ({ isDropdownShowing: false, isDarkThemeActive: !prevState.isDarkThemeActive })); toggle() }} checked={this.state.isDarkThemeActive}></input>
                             Tamna temaa

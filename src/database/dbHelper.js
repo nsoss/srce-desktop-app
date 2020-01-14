@@ -8,8 +8,6 @@ const Sequelize = require('sequelize');
 
 const VolunteerModel = require('./models/volunteer');
 const CallModel = require('./models/call');
-const CallDescriptionModel = require('./models/call_description');
-const CallerModel = require('./models/caller');
 const ContactTypeModel = require('./models/contact_type');
 const CallTypeModel = require('./models/call_type');
 const ProblemTypeModel = require('./models/problem_type');
@@ -20,6 +18,7 @@ const GenderModel = require('./models/gender');
 const MaritalStatusModel = require('./models/marital_status');
 const NumberOfCallsModel = require('./models/number_of_calls');
 const PlanInvolvementModel = require('./models/plan_involvement');
+const AgeModel = require('./models/age');
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -66,8 +65,6 @@ function createDatabase() {
 
 const volunteer = VolunteerModel(sequelize, Sequelize);
 const call = CallModel(sequelize, Sequelize);
-const call_description = CallDescriptionModel(sequelize, Sequelize);
-const caller = CallerModel(sequelize, Sequelize);
 const contact_type = ContactTypeModel(sequelize, Sequelize);
 const call_type = CallTypeModel(sequelize, Sequelize);
 const problem_type = ProblemTypeModel(sequelize, Sequelize);
@@ -78,6 +75,7 @@ const gender = GenderModel(sequelize, Sequelize);
 const marital_status = MaritalStatusModel(sequelize, Sequelize);
 const number_of_calls = NumberOfCallsModel(sequelize, Sequelize);
 const plan_involvement = PlanInvolvementModel(sequelize, Sequelize);
+const age = AgeModel(sequelize, Sequelize);
 
 sequelize.sync()
 
@@ -85,7 +83,7 @@ sequelize.sync()
 exports.getVolunteers = () => {
     const rows = volunteer
         .findAll({
-            attributes: ['volunteer_id', 'first_name', 'last_name', 'created_at'],
+            attributes: ['id', 'first_name', 'last_name', 'created_at'],
             raw: true
         })
         .then(volunteers => {
@@ -97,14 +95,14 @@ exports.getVolunteers = () => {
 
 exports.deleteVolunteer = id => {
     const isDeleted = volunteer.destroy({
-        where: { volunteer_id: id }
+        where: { id: id }
     }).then(console.log('Deleted volunteer with id: ' + id));
     return isDeleted;
 };
 
 exports.insertVolunteer = v => {
     const insertedID = volunteer.create(v).then(row => {
-        return row.dataValues.volunteer_id;
+        return row.dataValues.id;
     });
     return insertedID;
 };
@@ -112,7 +110,7 @@ exports.insertVolunteer = v => {
 exports.getCalls = () => {
     const rows = call
         .findAll({
-            attributes: ['call_id', 'created_at', 'volunteerId'],
+            attributes: ['id', 'created_at', 'volunteer_id'],
             raw: true
         })
         .then(calls => {
@@ -123,14 +121,14 @@ exports.getCalls = () => {
 
 exports.deleteCall = id => {
     const isDeleted = call.destroy({
-        where: { call_id: id }
+        where: { id: id }
     }).then(console.log('Deleted call with id: ' + id));
     return isDeleted;
 }
 
 exports.insertCall = c => {
     const insertedCall = call.create(c).then(row => {
-        return row.dataValues.call_id;
+        return row.dataValues.id;
     });
     return insertedCall;
 };
@@ -138,7 +136,7 @@ exports.insertCall = c => {
 exports.getContactTypes = () => {
     const rows = contact_type
         .findAll({
-            attributes: ['contact_type_id', 'name'],
+            attributes: ['id', 'name'],
             raw: true
         })
         .then(contact_types => {
@@ -150,7 +148,7 @@ exports.getContactTypes = () => {
 exports.getCallTypes = () => {
     const rows = call_type
         .findAll({
-            attributes: ['call_type_id', 'name'],
+            attributes: ['id', 'name'],
             raw: true
         })
         .then(call_types => {
@@ -162,7 +160,7 @@ exports.getCallTypes = () => {
 exports.getProblemTypes = () => {
     const rows = problem_type
         .findAll({
-            attributes: ['problem_type_id', 'name'],
+            attributes: ['id', 'name'],
             raw: true
         })
         .then(problem_types => {
@@ -171,10 +169,11 @@ exports.getProblemTypes = () => {
     return rows;
 }
 
+
 exports.getGenders = () => {
     const rows = gender
         .findAll({
-            attributes: ['gender_id', 'name'],
+            attributes: ['id', 'name'],
             raw: true
         })
         .then(genders => {
@@ -183,10 +182,22 @@ exports.getGenders = () => {
     return rows;
 }
 
+exports.getAges = () => {
+    const rows = age
+        .findAll({
+            attributes: ['id', 'name'],
+            raw: true
+        })
+        .then(ages => {
+            return ages;
+        });
+    return rows;
+}
+
 exports.getCallResolutionTypes = () => {
     const rows = call_resolution_type
         .findAll({
-            attributes: ['call_resolution_type_id', 'name'],
+            attributes: ['id', 'name'],
             raw: true
         })
         .then(call_resolution_types => {
@@ -198,7 +209,7 @@ exports.getCallResolutionTypes = () => {
 exports.getNumberOfCalls = () => {
     const rows = number_of_calls
         .findAll({
-            attributes: ['number_of_calls_id', 'name'],
+            attributes: ['id', 'name'],
             raw: true
         })
         .then(numbers_of_calls => {
@@ -210,7 +221,7 @@ exports.getNumberOfCalls = () => {
 exports.getMaritalStatuses = () => {
     const rows = marital_status
         .findAll({
-            attributes: ['marital_status_id', 'name'],
+            attributes: ['id', 'name'],
             raw: true
         })
         .then(marital_statuses => {
@@ -222,7 +233,7 @@ exports.getMaritalStatuses = () => {
 exports.getPlanInvolvements = () => {
     const rows = plan_involvement
         .findAll({
-            attributes: ['plan_involvement_id', 'name'],
+            attributes: ['id', 'name'],
             raw: true
         })
         .then(plan_involvements => {
@@ -234,7 +245,7 @@ exports.getPlanInvolvements = () => {
 exports.getSuicideRisks = () => {
     const rows = suicide_risk
         .findAll({
-            attributes: ['suicide_risk_id', 'name'],
+            attributes: ['id', 'name'],
             raw: true
         })
         .then(suicide_risks => {
@@ -246,7 +257,7 @@ exports.getSuicideRisks = () => {
 exports.getSuicideFactors = () => {
     const rows = suicide_factor
         .findAll({
-            attributes: ['suicide_factor_id', 'name'],
+            attributes: ['id', 'name'],
             raw: true
         })
         .then(suicide_factors => {
@@ -263,23 +274,27 @@ exports.foo = (arr) => {
 	return Promise.all([this.getSuicideRisks(), this.getSuicideFactors(), this.getCallTypes(),
 						this.getContactTypes(), this.getCallResolutionTypes(), this.getGenders(),
 						this.getNumberOfCalls(), this.getMaritalStatuses(), this.getPlanInvolvements(),
-						this.getProblemTypes(), this.getVolunteers()].map(handleRejection));
+						this.getProblemTypes(), this.getVolunteers(), this.getAges()].map(handleRejection));
 }
 
 exports.getFormData = () => {
+    suicide_risks = [], suicide_factors = [], call_types = [], contact_types = [], 
+    call_resolution_types = [], genders = [], numbers_of_calls = [], marital_statuses = [],
+    plan_involvements = [], problem_types = [], volunteers = [], ages = [];
 	const rows = this.foo().then(results => {
 		return [
-			{suicide_risks: results[0]},
-			{suicide_factors: results[1]},
-			{call_types: results[2]},
-			{contact_types: results[3]},
-			{call_resolution_types: results[4]},
-			{genders: results[5]},
-			{number_of_calls: results[6]},
-			{marital_statuses: results[7]},
-			{plan_involvements: results[8]},
-			{problem_types: results[9]},
-			{volunteers: results[10]}
+			suicide_risks.concat(results[0]),
+			suicide_factors.concat(results[1]),
+			call_types.concat(results[2]),
+			contact_types.concat(results[3]),
+			call_resolution_types.concat(results[4]),
+			genders.concat(results[5]),
+			numbers_of_calls.concat(results[6]),
+			marital_statuses.concat(results[7]),
+			plan_involvements.concat(results[8]),
+			problem_types.concat(results[9]),
+            volunteers.concat(results[10],
+            ages.concat(results[11]))
         ]
 	});
 	return rows;

@@ -20,7 +20,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 volunteers: [...state.volunteers.filter(function (obj) {
-                    return obj.volunteer_id !== action.payload;
+                    return obj.id !== action.payload;
                 })]
             };
         default:

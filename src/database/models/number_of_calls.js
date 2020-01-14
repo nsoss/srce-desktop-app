@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Number_of_calls = sequelize.define('Number_of_calls', {
-        number_of_calls_id: {
+        id: {
           allowNull: false,
           autoIncrement: true,
           primaryKey: true,
@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
       timestamps:false
     });
     Number_of_calls.associate = models => {
-        Number_of_calls.belongsTo(models.Caller, {foreignKey: models.Caller.caller_id});
+        Number_of_calls.belongsTo(models.Call, {foreignKey: models.Call.id});
     };
     return Number_of_calls;
   };

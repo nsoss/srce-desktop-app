@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Gender = sequelize.define('Gender', {
-        gender_id: {
+        id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
       timestamps:false
     });
     Gender.associate = models => {
-        Gender.belongsTo(models.Caller, {foreignKey: models.Caller.caller_id});
+        Gender.belongsTo(models.Call, {foreignKey: models.Call.id});
     };
     return Gender;
   };

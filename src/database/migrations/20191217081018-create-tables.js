@@ -1,10 +1,9 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-
     return [
     await queryInterface.createTable('Calls', {
-      call_id: {
+      id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
@@ -18,13 +17,17 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      call_duration: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       volunteer_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         foreignKey: true,
           references: {
             model: 'Volunteers',
-            key: 'volunteer_id',
+            key: 'id',
           },
           onUpdate: 'CASCADE',
           onDelete: 'SET NULL',
@@ -34,8 +37,8 @@ module.exports = {
         allowNull: false,
         foreignKey:true,
           references:{
-            model: "Contact_type",
-            key: "contact_type_id",
+            model: "Contact_types",
+            key: "id",
           },
           onUpdate: 'CASCADE',
           onDelete: 'SET NULL',
@@ -45,37 +48,124 @@ module.exports = {
         allowNull: false,
         foreignKey: true,
         references: {
-          model: "Call_type",
-          key: "call_type_id",
+          model: "Call_types",
+          key: "id",
         },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
       },
-      call_description_id: {
+      problem_type_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         foreignKey: true,
           references: {
-            model: "Call_description",
-            key: "call_description_id",
+            model: 'Problem_types',
+            key: 'id',
           },
           onUpdate: 'CASCADE',
           onDelete: 'SET NULL',
       },
-      caller_id: {
+      suicide_risk_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         foreignKey: true,
           references: {
-            model: 'Caller',
-            key: 'caller_id'
+            model: 'Suicide_risks',
+            key: 'id',
           },
           onUpdate: 'CASCADE',
           onDelete: 'SET NULL',
+      },
+      suicide_factor_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+          references: {
+            model: 'Suicide_factors',
+            key: 'id',
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'SET NULL',
+      },
+      call_resolution_type_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+          references: {
+            model: 'Call_resolution_types',
+            key: 'id',
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'SET NULL',
+      },
+      note: {
+        type: Sequelize.STRING
+      },
+      short_content: {
+        type: Sequelize.STRING
+      },
+      caller_name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      age_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: {
+          model: 'Ages',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
+      gender_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: {
+          model: 'Genders',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
+      marital_status_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: {
+          model: 'Marital_statuses',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
+      number_of_calls_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: {
+          model: 'Number_of_calls',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
+      plan_involvement_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        foreignKey: true,
+        references: {
+          model: 'Plan_involvements',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
       }
     }),
     await queryInterface.createTable('Contact_types', {
-      contact_type_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -86,7 +176,7 @@ module.exports = {
       }
     }),
     await queryInterface.createTable("Volunteers", {
-      volunteer_id: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -105,7 +195,7 @@ module.exports = {
       }
     }),
     await queryInterface.createTable('Call_types', {
-      call_type_id: {
+      id: {
         allowNull: false,
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -115,66 +205,19 @@ module.exports = {
         type: Sequelize.STRING
       }
     }),
-    await queryInterface.createTable('Call_descriptions', {
-      call_description_id: {
+    await queryInterface.createTable('Problem_types', {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      problem_type_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        foreignKey: true,
-          references: {
-            model: 'Problem_type',
-            key: 'problem_type_id',
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'SET NULL',
-      },
-      suicide_risk_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        foreignKey: true,
-          references: {
-            model: 'Suicide_risk',
-            key: 'suicide_risk_id',
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'SET NULL',
-      },
-      suicide_factor_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        foreignKey: true,
-          references: {
-            model: 'Suicide_factor',
-            key: 'suicide_factor_id',
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'SET NULL',
-      },
-      call_resolution_type_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        foreignKey: true,
-          references: {
-            model: 'Call_resolution_type',
-            key: 'call_resolution_type_id',
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'SET NULL',
-      },
-      note: {
-        type: Sequelize.STRING
-      },
-      short_content: {
+      name: {
         type: Sequelize.STRING
       }
     }),
-    await queryInterface.createTable('Problem_types', {
-      problem_type_id: {
+    await queryInterface.createTable('Ages', {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -185,7 +228,7 @@ module.exports = {
       }
     }),
     await queryInterface.createTable('Suicide_risks', {
-      suicide_risk_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -196,7 +239,7 @@ module.exports = {
       }
     }),
     await queryInterface.createTable('Suicide_factors', {
-      suicide_factor_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -207,7 +250,7 @@ module.exports = {
       }
     }),
     await queryInterface.createTable('Call_resolution_types', {
-      call_resolution_type_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -217,75 +260,8 @@ module.exports = {
         type: Sequelize.STRING
       }
     }),
-    await queryInterface.createTable('Callers', {
-      caller_id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      gender_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        foreignKey: true,
-        references: {
-          model: 'Gender',
-          key: 'gender_id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-      },
-      age_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        foreignKey: true,
-        references: {
-          model: 'Age',
-          key: 'age_id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-      },
-      marital_status_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        foreignKey: true,
-        references: {
-          model: 'Marital_status',
-          key: 'marital_status_id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-      },
-      number_of_calls_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        foreignKey: true,
-        references: {
-          model: 'Number_of_calls',
-          key: 'number_of_calls_id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-      },
-      plan_involvement_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        foreignKey: true,
-        references: {
-          model: 'Plan_involvement',
-          key: 'plan_involvement_id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-      }
-    }),
     await queryInterface.createTable('Genders', {
-      gender_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -296,7 +272,7 @@ module.exports = {
       }
     }),
     await queryInterface.createTable('Marital_statuses', {
-      marital_status_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -307,7 +283,7 @@ module.exports = {
       }
     }),
     await queryInterface.createTable('Number_of_calls', {
-      number_of_calls_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -318,7 +294,7 @@ module.exports = {
       }
     }),
     await queryInterface.createTable('Plan_involvements', {
-      plan_involvement_id: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -336,15 +312,15 @@ module.exports = {
             await queryInterface.dropTable('Contact_types'),
             await queryInterface.dropTable('Volunteers'),
             await queryInterface.dropTable('Call_types'),
-            await queryInterface.dropTable('Call_descriptions'),
             await queryInterface.dropTable('Problem_types'),
             await queryInterface.dropTable('Suicide_risks'),
             await queryInterface.dropTable('Suicide_factors'),
             await queryInterface.dropTable('End_of_call_states'),
-            await queryInterface.dropTable('Callers'),
             await queryInterface.dropTable('Genders'),
             await queryInterface.dropTable('Marital_statuses'),
             await queryInterface.dropTable('Number_of_calls'),
-            await queryInterface.dropTable('Plan_involvements')];
+            await queryInterface.dropTable('Plan_involvements'),
+            await queryInterface.dropTable('Call_resolution_types'),
+            await queryInterface.dropTable('Ages')];
   }
 };

@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Suicide_factor = sequelize.define('Suicide_factor', {
-        suicide_factor_id:  {
+      id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
       timestamps:false
     });
     Suicide_factor.associate = models => {
-        Suicide_factor.belongsTo(models.Call_description, {foreignKey: models.Call_description.call_description_id});
+        Suicide_factor.belongsTo(models.Call, {foreignKey: models.Call.id});
     };
     return Suicide_factor;
   };

@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Plan_involvement = sequelize.define('Plan_involvement', {
-        plan_involvement_id: {
+        id: {
           allowNull: false,
           autoIncrement: true,
           primaryKey: true,
@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
       timestamps:false
     });
     Plan_involvement.associate = models => {
-        Plan_involvement.belongsTo(models.Caller, {foreignKey: models.Caller.caller_id});
+        Plan_involvement.belongsTo(models.Call, {foreignKey: models.Call.id});
     };
     return Plan_involvement;
   };

@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
-    return sequelize.define('Volunteers', {
-        volunteer_id: {
+    const Volunteer = sequelize.define('Volunteer', {
+        id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true
@@ -18,10 +18,13 @@ module.exports = (sequelize, Sequelize) => {
           allowNull: false,
           default: new Date()
         }
-      },
-      {
+      }, {
         sequelize,
         modelName: 'Volunteer',
         timestamps: false
     });
-}
+    Volunteer.associate = models => {
+    Volunteer.belongsTo(models.Call, {foreignKey: models.Call.id});
+    };
+  return Volunteer
+  };

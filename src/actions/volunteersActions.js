@@ -16,7 +16,7 @@ export const addVolunteer = (newVolunteer) => dispatch => {
     ipcRenderer.send('insertVolunteer', newVolunteer);
     ipcRenderer.once('volunteerInserted', (event, insertedID) => {
         if (insertedID) {
-            newVolunteer.volunteer_id = insertedID;
+            newVolunteer.id = insertedID;
             dispatch({
                 type: ADD_VOLUNTEER,
                 payload: newVolunteer

@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Problem_type = sequelize.define('Problem_type', {
-        problem_type_id:  {
+        id:  {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
       timestamps:false
     });
     Problem_type.associate = models => {
-        Problem_type.belongsTo(models.Call_description, {foreignKey: models.Call_description.call_description_id});
+        Problem_type.belongsTo(models.Call, {foreignKey: models.Call.id});
     };
     return Problem_type;
   };

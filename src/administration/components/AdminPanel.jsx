@@ -103,7 +103,7 @@ class Admin extends Component {
                             {this.state.currentData.map((v, i) => {
                                 return (
                                     <tr key={i}>
-                                        <th scope="row">{v.volunteer_id}</th>
+                                        <th scope="row">{v.id}</th>
                                         <td>{v.first_name}</td>
                                         <td>{v.last_name}</td>
                                         <td>
@@ -118,7 +118,7 @@ class Admin extends Component {
                                                 style={{ backgroundColor: "#CC8066" }}
                                                 onClick={() =>
                                                     this.handleDeleteVolunteer(
-                                                        v.volunteer_id
+                                                        v.id
                                                     )
                                                 }
                                             >{' '}

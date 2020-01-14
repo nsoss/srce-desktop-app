@@ -3,6 +3,21 @@ import { FaSave, FaPencilAlt, FaCopy, FaFileCsv } from 'react-icons/fa';
 import { IoIosExit } from 'react-icons/io';
 import Dropdown from './Dropdown'
 import MaskedInput from 'react-text-mask'
+import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
+
+function timeMask(value) {
+    const chars = value.split('');
+    const hours = [
+        /[0-2]/,
+        chars[0] === '2' ? /[0-3]/ : /[0-9]/
+    ];
+
+    const minutes = [/[0-5]/, /[0-9]/];
+
+    return hours.concat(':').concat(minutes);
+}
+
+const autoCorrectedDatePipe = createAutoCorrectedDatePipe('mm/dd/yyyy')
 
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
@@ -53,10 +68,10 @@ class SingleCallView extends React.Component {
                                 <Dropdown data={["nesto", "nesto drugo"]} handleChange={this.handleChangeInput} />
                                 <br />
                                 <Dropdown data={["nesto", "nesto trece"]} handleChange={this.handleChangeInput} /> <br />
-                                <MaskedInput name="date" className="form-input" mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]} placeholder="25/09/1970" />
-                                <MaskedInput name="time" className="form-input" mask={[/\d/, /\d/, ':', /\d/, /\d/]} placeholder="10:00" />
+                                <MaskedInput name="date" className="form-input" pipe={autoCorrectedDatePipe} keepCharPositions={true} mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]} placeholder="25/09/1970" />
+                                <MaskedInput name="time" className="form-input" mask={timeMask} placeholder="10:00" />
                                 <Dropdown data={["nesto", "uspeh?"]} handleChange={this.handleChangeInput} /> <br />
-                                <MaskedInput name="duration" className="form-input" mask={[/\d/, /\d/, ':', /\d/, /\d/]} placeholder="10:00" />
+                                <MaskedInput name="duration" className="form-input" mask={[/\d/, /\d/, ':', /[1-5]/, /\d/]} placeholder="10:00" />
                             </div>
                         </div>
 

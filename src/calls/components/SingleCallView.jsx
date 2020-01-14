@@ -2,6 +2,7 @@ import React from 'react';
 import { FaSave, FaPencilAlt, FaCopy, FaFileCsv } from 'react-icons/fa';
 import { IoIosExit } from 'react-icons/io';
 import Dropdown from './Dropdown'
+import MaskedInput from 'react-text-mask'
 
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
@@ -23,7 +24,7 @@ class SingleCallView extends React.Component {
         });
     }
 
-    handleChangeInput = event => {
+    handleChangeInput = (event, data) => {
         const target = event.target;
         const name = target.name;
         const value = target.value;
@@ -49,13 +50,13 @@ class SingleCallView extends React.Component {
                             </div>
                             <div className="column-inputs">
                                 <input type="text" name="call-number" className="form-input" placeholder="Redni broj" style={{ marginTop: '0' }} /> <br />
-                                <Dropdown data={["nesto", "nesto drugo"]} />
+                                <Dropdown data={["nesto", "nesto drugo"]} handleChange={this.handleChangeInput} />
                                 <br />
-                                <Dropdown data={["nesto", "nesto trece"]} /> <br />
-                                <input type="date" name="date" className="form-input" placeholder="dd/mm/gggg" /> <br />
-                                <input type="time" name="time" className="form-input" placeholder="00:00" /> <br />
-                                <Dropdown data={["nesto", "uspeh?"]} /> <br />
-                                <input type="time" name="duration" className="form-input" placeholder="00:00" /> <br />
+                                <Dropdown data={["nesto", "nesto trece"]} handleChange={this.handleChangeInput} /> <br />
+                                <MaskedInput name="date" className="form-input" mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]} placeholder="25/09/1970" />
+                                <MaskedInput name="time" className="form-input" mask={[/\d/, /\d/, ':', /\d/, /\d/]} placeholder="10:00" />
+                                <Dropdown data={["nesto", "uspeh?"]} handleChange={this.handleChangeInput} /> <br />
+                                <MaskedInput name="duration" className="form-input" mask={[/\d/, /\d/, ':', /\d/, /\d/]} placeholder="10:00" />
                             </div>
                         </div>
 
@@ -72,15 +73,12 @@ class SingleCallView extends React.Component {
                             </div>
                             <div className="column-inputs">
                                 <input type="text" name="caller-name" className="form-input" placeholder="Ime ili nadimak" style={{ marginTop: '0' }} /> <br />
-                                <Dropdown data={["jafa", "kinder"]} /> <br />
-                                <select className="form-input" name="age">
-                                    <option selected >Izaberi</option>
-                                    <option >Izaberi</option>
-                                </select> <br />
-                                <Dropdown data={["jabuka", "cimet"]} /> <br />
+                                <Dropdown data={["jafa", "kinder"]} handleChange={this.handleChangeInput} /> <br />
+                                <Dropdown name="age" data={["32", "56"]} handleChange={this.handleChangeInput} /> <br />
+                                <Dropdown data={["jabuka", "cimet"]} handleChange={this.handleChangeInput} /> <br />
                                 <input type="text" name="number-of-times-called" className="form-input" placeholder="Koji put zove" /> <br />
-                                <Dropdown data={["kohi", "kafa"]} /> <br />
-                                <Dropdown data={["nesto", "nesto drugo"]} /> <br />
+                                <Dropdown data={["kohi", "kafa"]} handleChange={this.handleChangeInput} /> <br />
+                                <Dropdown data={["nesto", "nesto drugo"]} handleChange={this.handleChangeInput} /> <br />
                             </div>
                         </div>
 
@@ -94,10 +92,10 @@ class SingleCallView extends React.Component {
                                     <label className="form-label">Pokušaji</label> <br />
                                 </div>
                                 <div className="column-inputs">
-                                    <Dropdown data={["a", "b"]} /> <br />
-                                    <Dropdown data={["c", "q"]} /> <br />
-                                    <Dropdown data={["h", "d"]} /> <br />
-                                    <Dropdown data={["t", "ttt"]} /> <br />
+                                    <Dropdown data={["a", "b"]} handleChange={this.handleChangeInput} /> <br />
+                                    <Dropdown data={["c", "q"]} handleChange={this.handleChangeInput} /> <br />
+                                    <Dropdown data={["h", "d"]} handleChange={this.handleChangeInput} /> <br />
+                                    <Dropdown data={["t", "ttt"]} handleChange={this.handleChangeInput} /> <br />
                                 </div>
                             </div>
                             <div className="column-details" style={{ marginLeft: "30px" }}>

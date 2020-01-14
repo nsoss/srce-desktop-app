@@ -101,7 +101,7 @@ class Calendar extends Component {
         this.props.onDateSelect(newSelectedDate);
     };
 
-    handleChangeInputMonth = event => {
+    handleChangeInputMonth = (data, event) => {
         const { selectedDate } = this.state;
         const newSelectedMonth = event;
 
@@ -114,7 +114,7 @@ class Calendar extends Component {
         });
         this.props.onDateSelect(newSelectedDate);
     };
-    handleChangeInputYear = event => {
+    handleChangeInputYear = (data, event) => {
         const { selectedDate } = this.state;
         const newSelectedYear = event;
 

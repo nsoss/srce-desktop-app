@@ -29,7 +29,7 @@ class Dropdown extends React.Component {
     handleChange = (e, data) => {
         e.stopPropagation();
         this.setState({ chosenValue: data })
-        this.props.handleChange(data);
+        this.props.handleChange(e, data);
     }
 
     render() {

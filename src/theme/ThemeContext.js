@@ -17,11 +17,11 @@ export function ThemeProvider(props) {
     useLayoutEffect(() => {
         const lastTheme = dark;
 
-        if (lastTheme == true) {
+        if (lastTheme === true) {
             applyTheme(darkTheme);
         }
 
-        if (lastTheme == false) {
+        if (lastTheme === false) {
             applyTheme(lightTheme);
         }
     }, [dark]);
@@ -80,4 +80,3 @@ const darkTheme = [
     '--single-call-panels-bg: #666666',
     '--admin-accent: #737373'
 ];
-

@@ -1,15 +1,13 @@
-import Routes from './Routes.jsx';
-import React, { Component, useContext } from 'react';
-import { IoMdMoon as Moon, IoMdSunny as Sun, IoMdMore as More } from 'react-icons/io';
+import React, { Component } from 'react';
+import { IoMdMore as More } from 'react-icons/io';
 import ThemeContext from '../../theme/ThemeContext';
 import { fileRead } from '../../user_settings/loadUserSettings';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as IcnDetails } from '../../assets/details.svg';
 import { ReactComponent as IcnSettings } from '../../assets/settings.svg';
 import { ReactComponent as IcnStatistics } from '../../assets/statistics.svg';
-// import icnMore from '../../icons/MoreIcon.png'
 
-let dark, toggle, isDarkThemeActive;
+let toggle;
 class Navigation extends Component {
     static contextType = ThemeContext;
 
@@ -33,13 +31,11 @@ class Navigation extends Component {
 
     componentDidMount() {
         const context = this.context
-        dark = context.dark;
         toggle = context.toggle;
     }
 
     componentDidUpdate() {
         const context = this.context
-        dark = context.dark;
         toggle = context.toggle;
     }
 

@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 import { fetchCalls } from '../../actions/callsActions';
 import Pagination from '../../pagination/components/Pagination';
 
-const electron = window.require('electron');
-const ipcRenderer = electron.ipcRenderer;
-
 class CallsView extends Component {
 
     constructor(props) {

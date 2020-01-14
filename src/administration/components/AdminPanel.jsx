@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchVolunteers, addVolunteer, deleteVolunteer } from '../../actions/volunteersActions';
-import { FaUserMinus, FaUserPlus, FaPencilAlt } from 'react-icons/fa';
+import { FaUserMinus } from 'react-icons/fa';
 import { format } from 'date-fns';
 import Modal from './Modal.js';
 import Pagination from '../../pagination/components/Pagination';
-
-const electron = window.require('electron');
-const ipcRenderer = electron.ipcRenderer;
 
 class Admin extends Component {
     state = {

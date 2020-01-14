@@ -20,14 +20,14 @@ class Pagination extends React.Component {
         let pageNumbers = [];
         for (let i = 1; i <= Math.ceil(data.length / dataPerPage); i++) {
             pageNumbers.push(
-                <li className="page-item" key={i} id={i} ><a className="page-link pagination-number-link" id={i} onClick={this.handleClick}>{i}</a></li>
+                <li className="page-item" key={i} id={i} ><a href="_" className="page-link pagination-number-link" id={i} onClick={this.handleClick}>{i}</a></li>
             );
         }
         return pageNumbers;
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (this.state.data.length != nextProps.allData.length) {
+    shouldComponentUpdate(nextProps) {
+        if (this.state.data.length !== nextProps.allData.length) {
             this.setState({ data: nextProps.allData });
 
             const { dataPerPage } = this.state;

@@ -7,8 +7,6 @@ export function fileRead() {
     return JSON.parse(fs.readFileSync(pathSettings).toString());
 }
 
-let m = fileRead();
-
 export function fileWrite(data) {
     fs.writeFile(pathSettings, JSON.stringify(data), function (err) {
         if (err) {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchVolunteers, addVolunteer, deleteVolunteer } from '../../actions/volunteersActions';
+import { setAdmin } from '../../actions/adminActions';
 import { FaUserMinus } from 'react-icons/fa';
 import { format } from 'date-fns';
 import Modal from './Modal.js';
@@ -11,7 +12,7 @@ class Admin extends Component {
     state = {
         inputFirstName: '',
         inputLastName: '',
-        showModal: false,
+        isSaveButtonEnabled: false,
         password: '123',
         inputPassword: '',
         dataPerPage: 2,
@@ -41,6 +42,10 @@ class Admin extends Component {
         });
     };
 
+    handleShowModal = () => {
+        return this.props.admin;
+    }
+
     handleClick = data => {
         this.setState({
             currentData: data
@@ -49,17 +54,9 @@ class Admin extends Component {
 
     passwordCheck = (e) => {
         if (this.state.inputPassword === this.state.password) {
-            this.handleCloseModal();
-        } else if(e.key === 'Enter') {
-            this.handleCloseModal();
-        } else {
-            this.handleShowModal();
+            this.props.setAdmin(true);
         }
     }
-
-    handleShowModal = () => this.setState({ showModal: true })
-
-    handleCloseModal = () => this.setState({ showModal: false })
 
     handleDeleteVolunteer = id => {
         this.props.deleteVolunteer(id);
@@ -71,7 +68,7 @@ class Admin extends Component {
     render() {
         return (
             <div className="admin-panel">
-                {this.state.showModal ? (
+                {!this.props.admin ? (
                     <Modal onClose={this.passwordCheck} onCancel={() => this.props.handleChangeLocation("calls")} >
                         <input
                             className="form-input-modal"
@@ -84,8 +81,8 @@ class Admin extends Component {
                         />
                     </Modal>
                 ) : null}
-                
-                <ValidationForm addVolunteerFunc={this.handleAddVolunteer}/>
+
+                <ValidationForm addVolunteerFunc={this.handleAddVolunteer} />
 
                 <div className="admin-table">
                     <table className="volunteer-data">
@@ -121,7 +118,7 @@ class Admin extends Component {
                                                     )
                                                 }
                                             >{' '}
-                                            Izbriši &nbsp;
+                                                Izbriši &nbsp;
                                             <FaUserMinus />
                                             </button>
                                         </td>
@@ -138,10 +135,11 @@ class Admin extends Component {
 
 }
 const mapStateToProps = state => ({
-    volunteers: state.volunteers.volunteers
+    volunteers: state.volunteers.volunteers,
+    admin: state.admin.admin
 });
 
 export default connect(
     mapStateToProps,
-    { fetchVolunteers, addVolunteer, deleteVolunteer }
+    { fetchVolunteers, addVolunteer, deleteVolunteer, setAdmin }
 )(Admin);

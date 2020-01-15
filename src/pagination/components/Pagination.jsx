@@ -46,6 +46,7 @@ class Pagination extends React.Component {
     }
 
     handleClick(event) {
+        event.preventDefault()
         const { dataPerPage, data } = this.state;
         const indexOfLast = event.target.id * dataPerPage;
         const indexOfFirst = indexOfLast - dataPerPage;

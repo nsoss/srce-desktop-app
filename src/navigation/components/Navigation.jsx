@@ -16,7 +16,7 @@ class Navigation extends Component {
         this.state = {
             isDropdownShowing: false,
             isDarkThemeActive: fileRead(),
-            location: "/"
+            location: props.location
         }
     }
 
@@ -41,16 +41,16 @@ class Navigation extends Component {
     render() {
         return (
             <nav className="side-nav">
-                <div className="side-nav-item" onClick={() => this.handleLocation("/")}>
+                <div className={`side-nav-item  ${this.props.location === '/' ? 'side-nav-item-active' : ''}`} onClick={() => this.handleLocation("/")}>
                     <Logo />
                 </div>
-                <div className="side-nav-item" onClick={() => this.handleLocation("call")}>
+                <div className={`side-nav-item  ${this.props.location === 'call' ? 'side-nav-item-active' : ''}`} onClick={() => this.handleLocation("call")}>
                     <IcnDetails />
                 </div>
-                <div className="side-nav-item" onClick={() => this.handleLocation("calls-statistics")}>
+                <div className={`side-nav-item ${this.props.location === 'calls-statistics' ? 'side-nav-item-active' : ''}`} onClick={() => this.handleLocation("calls-statistics")}>
                     <IcnStatistics />
                 </div>
-                <div className="side-nav-item" onClick={() => this.handleLocation("admin-page")}>
+                <div className={`side-nav-item ${this.props.location === 'admin-page' ? 'side-nav-item-active' : ''}`} onClick={() => this.handleLocation("admin-page")}>
                     <IcnSettings />
                 </div>
                 <div className="side-nav-item dropright m-0" onClick={this.handleDropdown} >

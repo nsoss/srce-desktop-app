@@ -160,7 +160,12 @@ button {
   cursor: pointer;
   background: var(--color-nav-selected);
   color: var(--text-white);
+}
+
+.side-nav-item.side-nav-item-active{
   border-left: 1px solid white;
+  background: var(--color-nav-selected);
+  width: 62px
 }
 
 .call-data tbody td:nth-of-type(odd),.call-data tbody tr:nth-of-type(odd) {
@@ -253,28 +258,6 @@ td {
   margin-right: 2px;
 }
 
-.btn-srce-calls-view {
-  color: var(--text-white);
-  margin: 0;
-  position: absolute;
-  width: 85px;
-  height: 32px;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-  background-color: var(--btn-bg);
-  font-size: inherit;
-}
-.btn-srce-calls-view:hover{
-  opacity: 0.6;
-}
-
 .single-call-call{
   position: absolute;
   width: 700px;
@@ -289,9 +272,10 @@ td {
   display: flex;
 }
 
-.single-call-call:focus-within, .single-call-call:hover {
+.single-call-call:focus-within {
   top: 46px;
-  box-shadow: 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.10);
+  transition: box-shadow 0.2s ease-out;
 }
 
 .column-labels {
@@ -326,9 +310,10 @@ td {
   padding: 20px;
 }
 
-.single-call-caller:focus-within,.single-call-caller:hover {
+.single-call-caller:focus-within{
   top: 46px;
-  box-shadow: 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.10);
+  transition: box-shadow 0.2s ease-out;
 }
 
 .single-call-coversation-details{
@@ -344,9 +329,10 @@ td {
   padding: 20px;
 }
 
-.single-call-coversation-details:focus-within, .single-call-coversation-details:hover {
+.single-call-coversation-details:focus-within {
   top: 398px;
-  box-shadow: 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.10);
+  transition: box-shadow 0.2s ease-out;
 }
 
 .single-call-area-label{
@@ -387,7 +373,8 @@ td {
   font-weight: normal;
   font-size: 14px;
   line-height: 32px;
-  color: var(--text)
+  color: var(--text);
+  margin-top: 2px;
 }
 
 .form-input {
@@ -406,12 +393,23 @@ textarea {
   font-size: 14px;
   width: 492px;
   background-color: var(--single-call-panels-bg);
+  -webkit-appearance: none;
+  resize: none;
+}
+textarea:focus{
+  outline: 0;
+  border-color: var(--single-call-panels-border)
 }
 
 .form-input:hover, .form-input:focus  {
   background-color: var(--form-input-bg);
   outline: 0;
   border-radius: 3px;
+}
+.form-input:focus{
+  border-color: var(--single-call-panels-border);
+  border-width: 0.08rem;
+  transition: border 0.2s ease-out;
 }
 
 .single-call-buttons {
@@ -427,7 +425,15 @@ textarea {
   opacity: 0.6;
 }
 
+.calls-view{
+  position: absolute;
+  top: 424px;
+  left: 1266px;
+  width: 95px;
+}
+
 .btn-srce{
+  position: relative;
   margin: 0;
   margin-right: 10px;
   background-color: var(--btn-bg);
@@ -439,14 +445,24 @@ textarea {
   height: 32px;
   font-size: inherit;
 }
+.btn-srce:focus{
+  outline: 0;
+}
 .btn-srce:hover{
   cursor: pointer;
   opacity: 0.6;
+  background-color: var(--btn-selected);
+  top: -2px;
+  box-shadow: 1px 8px 22px -9px rgba(0,0,0,0.55);
+  transition: box-shadow 0.2s ease-out;
 }
 .btn-srce[disabled] {
   cursor: not-allowed;
   opacity: 0.6;
 }
+// .calls-view .btn-srce:hover{
+
+// }
 
 .admin-panel{
   position: absolute;
@@ -775,4 +791,19 @@ textarea {
 
 .dropright .dropdown-toggle::after {
   vertical-align: 0;
+}
+.validate-massage {
+  font-size: 11px;
+  width: 200px;
+  position: absolute;
+  display: inline-block;
+}
+
+.validation-group:first-child .validate-massage{
+  top: 40px;
+  left: 70px;
+}
+.validation-group:nth-child(2) .validate-massage{
+  top: 40px;
+  left: 615px;
 }

@@ -4,24 +4,24 @@ class Input extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { errorVisibility: 'hidden'};
+    this.state = { errorVisibility: 'hidden' };
   }
-  
+
   handleBlur = event => {
     let value = event.target.value;
     let errorVisibility = 'hidden';
-    
+
     if (value === '') {
-        errorVisibility = 'visible';
+      errorVisibility = 'visible';
     }
 
     this.setState({ errorVisibility });
 
   }
 
-  render () {
+  render() {
     return (
-      <div className="admin-add-volunteer-form">
+      <div style={{ display: "inline-block", width: "542px" }} className="validation-group">
         <label htmlFor={this.props.inputName} className="form-label">
           {this.props.title}
         </label>
@@ -32,10 +32,10 @@ class Input extends React.Component {
           value={this.props.value}
           onChange={this.props.handleChange}
           onBlur={this.handleBlur}
-          //{...this.props}
+        //{...this.props}
         />
-        <div className="" style={{ color: "#dc3545", visibility: this.state.errorVisibility}}>
-          <strong>Polje {this.props.fieldName} ne sme biti prazno!</strong>
+        <div className="validate-massage" style={{ color: "#dc3545", visibility: this.state.errorVisibility }}>
+          Polje {this.props.fieldName} ne sme biti prazno!
         </div>
       </div>
     )

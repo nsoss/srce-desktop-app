@@ -56,22 +56,22 @@ class SingleCallView extends React.Component {
                         <div className="single-call-call ">
                             <div className="column-labels">
                                 <label className="form-label">Redni broj *</label> <br />
-                                <label className="form-label">Vrsta kontakta</label> <br />
-                                <label className="form-label">Vrsta poziva</label> <br />
+                                <label className="form-label">Vrsta kontakta *</label> <br />
+                                <label className="form-label">Vrsta poziva *</label> <br />
                                 <label className="form-label">Datum *</label> <br />
-                                <label className="form-label">Vreme</label> <br />
+                                <label className="form-label">Vreme *</label> <br />
                                 <label className="form-label">Dan</label> <br />
-                                <label className="form-label">Trajanje</label>
+                                <label className="form-label ">Trajanje *</label>
                             </div>
                             <div className="column-inputs">
-                                <input type="text" name="call-number" className="form-input" placeholder="Redni broj" style={{ marginTop: '0' }} /> <br />
-                                <Dropdown data={["nesto", "nesto drugo"]} handleChange={this.handleChangeInput} />
+                                <input type="text" name="call-number" className="form-input " placeholder="Redni broj" style={{ marginTop: '0' }} /> <br />
+                                <Dropdown data={["nesto", "nesto drugo"]} handleChange={this.handleChangeInput} required={true} />
                                 <br />
-                                <Dropdown data={["nesto", "nesto trece"]} handleChange={this.handleChangeInput} /> <br />
-                                <MaskedInput name="date" className="form-input" pipe={autoCorrectedDatePipe} keepCharPositions={true} mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]} placeholder="25/09/1970" />
-                                <MaskedInput name="time" className="form-input" mask={timeMask} placeholder="10:00" />
+                                <Dropdown data={["nesto", "nesto trece"]} handleChange={this.handleChangeInput} required={true} /> <br />
+                                <MaskedInput name="date" className="form-input required" pipe={autoCorrectedDatePipe} keepCharPositions={true} mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]} placeholder="25/09/1970" />
+                                <MaskedInput name="time" className="form-input required" mask={timeMask} placeholder="10:00" />
                                 <Dropdown data={["nesto", "uspeh?"]} handleChange={this.handleChangeInput} /> <br />
-                                <MaskedInput name="duration" className="form-input" mask={[/\d/, /\d/, ':', /[1-5]/, /\d/]} placeholder="10:00" />
+                                <MaskedInput name="duration" className="form-input required" mask={[/\d/, /\d/, ':', /[1-5]/, /\d/]} placeholder="10:00" />
                             </div>
                         </div>
 
@@ -84,7 +84,7 @@ class SingleCallView extends React.Component {
                                 <label className="form-label">Bračno stanje</label> <br />
                                 <label className="form-label">Koji put zove</label> <br />
                                 <label className="form-label">Uključenost u plan</label> <br />
-                                <label className="form-label">Volonter</label>
+                                <label className="form-label">Volonter *</label>
                             </div>
                             <div className="column-inputs">
                                 <input type="text" name="caller-name" className="form-input" placeholder="Ime ili nadimak" style={{ marginTop: '0' }} /> <br />
@@ -93,7 +93,7 @@ class SingleCallView extends React.Component {
                                 <Dropdown data={["jabuka", "cimet"]} handleChange={this.handleChangeInput} /> <br />
                                 <input type="text" name="number-of-times-called" className="form-input" placeholder="Koji put zove" /> <br />
                                 <Dropdown data={["kohi", "kafa"]} handleChange={this.handleChangeInput} /> <br />
-                                <Dropdown data={["nesto", "nesto drugo"]} handleChange={this.handleChangeInput} /> <br />
+                                <Dropdown data={["nesto", "nesto drugo"]} handleChange={this.handleChangeInput} required={true} /> <br />
                             </div>
                         </div>
 
@@ -101,25 +101,25 @@ class SingleCallView extends React.Component {
                         <div className="single-call-coversation-details ">
                             <div className="column-details">
                                 <div className="column-labels">
-                                    <label className="form-label" style={{ marginTop: '8px' }}>Vrsta problema</label> <br />
-                                    <label className="form-label">Suicidalni rizik</label> <br />
-                                    <label className="form-label">Suicidalni faktor</label> <br />
+                                    <label className="form-label" style={{ marginTop: '8px' }}>Vrsta problema *</label> <br />
+                                    <label className="form-label">Suicidalni rizik *</label> <br />
+                                    <label className="form-label">Suicidalni faktor *</label> <br />
                                     <label className="form-label">Pokušaji</label> <br />
                                 </div>
                                 <div className="column-inputs">
-                                    <Dropdown data={["a", "b"]} handleChange={this.handleChangeInput} /> <br />
-                                    <Dropdown data={["c", "q"]} handleChange={this.handleChangeInput} /> <br />
-                                    <Dropdown data={["h", "d"]} handleChange={this.handleChangeInput} /> <br />
+                                    <Dropdown data={["a", "b"]} handleChange={this.handleChangeInput} required={true} /> <br />
+                                    <Dropdown data={["c", "q"]} handleChange={this.handleChangeInput} required={true} /> <br />
+                                    <Dropdown data={["h", "d"]} handleChange={this.handleChangeInput} required={true} /> <br />
                                     <Dropdown data={["t", "ttt"]} handleChange={this.handleChangeInput} /> <br />
                                 </div>
                             </div>
                             <div className="column-details" style={{ marginLeft: "30px" }}>
                                 <div className="column-labels">
-                                    <label className="form-label">Kratak sadržaj</label> <br />
+                                    <label className="form-label">Kratak sadržaj *</label> <br />
                                     <label className="form-label" style={{ marginTop: '55px' }}>Napomena</label> <br />
                                 </div>
                                 <div className="column-inputs">
-                                    <textarea name="content" rows="6"></textarea> <br />
+                                    <textarea name="content required" rows="6"></textarea> <br />
                                     <textarea name="content" rows="4"></textarea>
                                 </div>
                             </div>
@@ -142,7 +142,6 @@ class SingleCallView extends React.Component {
                             </button>
                             <button
                                 className="btn-srce"
-                                style={{ backgroundColor: '#4F9D3F' }}
                                 onClick={this.handleCopyData}
                             >
                                 <FaCopy />
@@ -158,7 +157,7 @@ class SingleCallView extends React.Component {
                             </button>
                             <button
                                 className="btn-srce"
-                                style={{ marginLeft: '60px', backgroundColor: '#CC8066 ' }}
+                                style={{ backgroundColor: '#CC8066 ' }}
                                 onClick={() => this.props.handleChangeLocation("calls")}
                             >
                                 <IoIosExit />

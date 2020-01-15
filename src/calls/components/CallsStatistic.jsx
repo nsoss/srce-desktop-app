@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Container } from 'react-bootstrap';
 import BarChart from '../../charts/BarChart';
 
 class CallsStatistic extends Component {
     render() {
         return (
-            <Container>
+            <div style={{ position: 'absolute', left: '200px', width: '350px', top: '50px' }}>
                 <BarChart size={[500, 400]} />
-            </Container>
+            </div>
         );
     }
 }

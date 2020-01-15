@@ -66,7 +66,7 @@ class CallsView extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <>
                 <div className="calls-table">
                     {this.state.currentData.length > 0 ? (
                         <table hover className="call-data">
@@ -100,17 +100,19 @@ class CallsView extends Component {
                         )}
                     <Pagination allData={this.state.filteredCalls} dataPerPage={this.state.dataPerPage} handleClick={this.handleClick} />
                 </div>
-                <button className="btn-srce-calls-view" style={{ top: '424px', left: '1266px' }} onClick={() => this.props.handleChangeLocation("call")}>
-                    Snimi
-                    </button>
-                <button className="btn-srce-calls-view" style={{ top: '488px', left: '1266px' }} onClick={() => this.props.handleChangeLocation("call")}>
-                    Izmeni
-                    </button>
-                <button className="btn-srce-calls-view" style={{ top: '552px', left: '1266px' }}>
-                    Kopiraj
-                    </button>
+                <div className="calls-view">
+                    <button className="btn-srce" onClick={() => this.props.handleChangeLocation("call")}>
+                        Snimi
+                        </button>
+                    <button className="btn-srce" style={{ marginTop: "40px" }} onClick={() => this.props.handleChangeLocation("call")}>
+                        Izmeni
+                        </button>
+                    <button className="btn-srce" style={{ marginTop: "40px" }}>
+                        Kopiraj
+                        </button>
+                </div>
                 <CalendarNew onDateSelect={date => this.handleChangeTableData(date)} />
-            </React.Fragment>
+            </>
         );
     }
 }

@@ -38,7 +38,7 @@ class Routes extends Component {
 
         return (
             <>
-                <Navigation handleChangeLocation={this.handleChangeLocation} />
+                <Navigation handleChangeLocation={this.handleChangeLocation} location={this.state.location} />
                 {childComponent}
             </>
         )

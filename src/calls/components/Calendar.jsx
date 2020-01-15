@@ -218,7 +218,6 @@ class Calendar extends Component {
         ) {
             years.push(y.getFullYear());
         }
-        console.log(this.state.selectedDate)
         return (
             <>
                 <div className="calendar-srce">

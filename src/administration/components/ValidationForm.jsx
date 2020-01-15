@@ -17,7 +17,6 @@ class ValidationForm extends React.Component {
     }
 
     handleChangeInput = event => {
-        console.log(event.target);
         const target = event.target;
         const name = target.name;
         const value = target.value;

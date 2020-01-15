@@ -22,7 +22,6 @@ export const addVolunteer = (newVolunteer) => dispatch => {
                 payload: newVolunteer
             })
         } else {
-            console.log('Something went wrong...');
         }
     });
 };
@@ -36,7 +35,6 @@ export const deleteVolunteer = (id) => dispatch => {
                 payload: id
             })
         } else {
-            console.log('Volunteer with id: ' + id + ' does not exists.');
         }
     });
 };

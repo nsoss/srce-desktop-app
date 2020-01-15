@@ -42,7 +42,6 @@ class Admin extends Component {
     };
 
     handleClick = data => {
-        console.log(data)
         this.setState({
             currentData: data
         });

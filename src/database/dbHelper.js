@@ -1,8 +1,8 @@
+const { app } = require('electron');
+const databasePath = app.getAppPath() + '/srce.db';
+
 const fs = require('fs');
-const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
-const dbName = '/srce.db';
-const pathToDatabase = path.join(__dirname, dbName);
 const DBHelper = require('./dbHelper');
 const Sequelize = require('sequelize');
 
@@ -22,7 +22,7 @@ const AgeModel = require('./models/age');
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: pathToDatabase
+    storage: databasePath
 });
 
 function testConnection() {
@@ -32,7 +32,7 @@ function testConnection() {
             console.log('Connection has been established successfully.');
         })
         .catch(err => {
-            if (!fs.existsSync(pathToDatabase)) {
+            if (!fs.existsSync(databasePath)) {
                 console.log('Connection will be created.');
                 DBHelper.checkIfDatabaseExists();
             } else {
@@ -42,7 +42,7 @@ function testConnection() {
 }
 
 exports.checkIfDatabaseExists = () => {
-    fs.access(pathToDatabase, fs.F_OK, e => {
+    fs.access(databasePath, fs.F_OK, e => {
         if (e) {
             createDatabase();
         } else {
@@ -54,7 +54,7 @@ exports.checkIfDatabaseExists = () => {
 
 function createDatabase() {
     // eslint-disable-next-line no-unused-vars
-    const db = new sqlite3.Database(pathToDatabase, e => {
+    const db = new sqlite3.Database(databasePath, e => {
         if (e) {
             console.error(e.message);
         } else {

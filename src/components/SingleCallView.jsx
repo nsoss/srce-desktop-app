@@ -1,9 +1,20 @@
 import React from 'react';
-import { FaSave, FaPencilAlt, FaCopy, FaFileCsv } from 'react-icons/fa';
+import { FaCopy, FaFileCsv, FaPencilAlt, FaSave } from 'react-icons/fa';
 import { IoIosExit } from 'react-icons/io';
-import Dropdown from './Dropdown';
 import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
+import Dropdown from './Dropdown';
+
+const createFakeData = label => {
+    const fakeData = [];
+    for (let i = 1; i <= 3; ++i) {
+        fakeData.push({
+            id: i,
+            name: label + ' ' + i
+        });
+    }
+    return fakeData;
+};
 
 function timeMask(value) {
     const chars = value.split('');
@@ -24,7 +35,7 @@ class SingleCallView extends React.Component {
         super(props);
         this.state = {
             call: {},
-            formData: []
+            formData: Array(12).fill([])
         };
         this.handleChangeInput = this.handleChangeInput.bind(this);
     }
@@ -45,6 +56,19 @@ class SingleCallView extends React.Component {
     };
 
     render() {
+        const callTypes = this.state.formData[2];
+        const contactTypes = this.state.formData[3];
+        const days = createFakeData('Dan');
+        const genders = this.state.formData[5];
+        const ages = this.state.formData[11];
+        const maritalStatuses = this.state.formData[7];
+        const planInvolvements = this.state.formData[8];
+        const volunteers = this.state.formData[10];
+        const problemTypes = this.state.formData[9];
+        const suicideRisks = this.state.formData[0];
+        const suicideFactors = this.state.formData[1];
+        const attempts = createFakeData('Pokušaj');
+
         return (
             <div className="m-3 mr-0">
                 <form>
@@ -87,13 +111,13 @@ class SingleCallView extends React.Component {
                                 />{' '}
                                 <br />
                                 <Dropdown
-                                    data={['nesto', 'nesto drugo']}
+                                    data={contactTypes}
                                     handleChange={this.handleChangeInput}
                                     required={true}
                                 />
                                 <br />
                                 <Dropdown
-                                    data={['nesto', 'nesto trece']}
+                                    data={callTypes}
                                     handleChange={this.handleChangeInput}
                                     required={true}
                                 />{' '}
@@ -124,7 +148,7 @@ class SingleCallView extends React.Component {
                                     placeholder="10:00"
                                 />
                                 <Dropdown
-                                    data={['nesto', 'uspeh?']}
+                                    data={days}
                                     handleChange={this.handleChangeInput}
                                 />{' '}
                                 <br />
@@ -173,18 +197,18 @@ class SingleCallView extends React.Component {
                                 />{' '}
                                 <br />
                                 <Dropdown
-                                    data={['jafa', 'kinder']}
+                                    data={genders}
                                     handleChange={this.handleChangeInput}
                                 />{' '}
                                 <br />
                                 <Dropdown
                                     name="age"
-                                    data={['32', '56']}
+                                    data={ages}
                                     handleChange={this.handleChangeInput}
                                 />{' '}
                                 <br />
                                 <Dropdown
-                                    data={['jabuka', 'cimet']}
+                                    data={maritalStatuses}
                                     handleChange={this.handleChangeInput}
                                 />{' '}
                                 <br />
@@ -196,12 +220,12 @@ class SingleCallView extends React.Component {
                                 />{' '}
                                 <br />
                                 <Dropdown
-                                    data={['kohi', 'kafa']}
+                                    data={planInvolvements}
                                     handleChange={this.handleChangeInput}
                                 />{' '}
                                 <br />
                                 <Dropdown
-                                    data={['nesto', 'nesto drugo']}
+                                    data={volunteers}
                                     handleChange={this.handleChangeInput}
                                     required={true}
                                 />{' '}
@@ -235,25 +259,25 @@ class SingleCallView extends React.Component {
                                 </div>
                                 <div className="column-inputs">
                                     <Dropdown
-                                        data={['a', 'b']}
+                                        data={problemTypes}
                                         handleChange={this.handleChangeInput}
                                         required={true}
                                     />{' '}
                                     <br />
                                     <Dropdown
-                                        data={['c', 'q']}
+                                        data={suicideRisks}
                                         handleChange={this.handleChangeInput}
                                         required={true}
                                     />{' '}
                                     <br />
                                     <Dropdown
-                                        data={['h', 'd']}
+                                        data={suicideFactors}
                                         handleChange={this.handleChangeInput}
                                         required={true}
                                     />{' '}
                                     <br />
                                     <Dropdown
-                                        data={['t', 'ttt']}
+                                        data={attempts}
                                         handleChange={this.handleChangeInput}
                                     />{' '}
                                     <br />

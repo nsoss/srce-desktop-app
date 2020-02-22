@@ -5,7 +5,6 @@ class Dropdown extends React.Component {
         super(props);
         this.state = {
             isShowing: false,
-            listData: this.props.data,
             chosenValue: this.props.date ? this.props.date : 'Izaberi'
         };
     }
@@ -46,14 +45,14 @@ class Dropdown extends React.Component {
                     style={{ display: this.state.isShowing ? 'block' : 'none' }}
                 >
                     <ul>
-                        {this.state.listData.map(d => {
+                        {this.props.data.map(d => {
                             return (
                                 <li
                                     className="popup-items"
-                                    key={d}
+                                    key={d.id}
                                     onMouseDown={e => this.handleChange(e, d)}
                                 >
-                                    {d}
+                                    {d.name || d.first_name}
                                 </li>
                             );
                         })}

@@ -448,7 +448,8 @@ exports.getFormData = () => {
             marital_statuses.concat(results[7]),
             plan_involvements.concat(results[8]),
             problem_types.concat(results[9]),
-            volunteers.concat(results[10], ages.concat(results[11]))
+            volunteers.concat(results[10]),
+            ages.concat(results[11])
         ];
     });
     return rows;

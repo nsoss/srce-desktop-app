@@ -25,21 +25,154 @@ const sequelize = new Sequelize({
     storage: databasePath
 });
 
-function testConnection() {
-    sequelize
-        .authenticate()
-        .then(() => {
-            console.log('Connection has been established successfully.');
-        })
-        .catch(err => {
-            if (!fs.existsSync(databasePath)) {
-                console.log('Connection will be created.');
-                DBHelper.checkIfDatabaseExists();
-            } else {
-                console.error('Unable to connect to the database:', err);
+const testConnection = async () => {
+    await sequelize.authenticate();
+    await sequelize.sync();
+
+    const existingCallTypes = await call_type.findAll();
+    if (!existingCallTypes.length) {
+        await call_type.bulkCreate([
+            { id: 1, name: 'Ćuteći' },
+            { id: 2, name: 'Informativni' },
+            { id: 3, name: 'Hronični' },
+            { id: 4, name: 'Podrška' }
+        ]);
+    }
+
+    const existingContactTypes = await contact_type.findAll();
+    if (!existingContactTypes.length) {
+        await contact_type.bulkCreate([
+            { id: 1, name: 'Nepoznat' },
+            { id: 2, name: 'Poznat' }
+        ]);
+    }
+
+    const existingProblemTypes = await problem_type.findAll();
+    if (!existingProblemTypes.length) {
+        await problem_type.bulkCreate([
+            { id: 1, name: 'Gubitak' },
+            { id: 2, name: 'Usamljenost' },
+            { id: 3, name: 'Partnerski' },
+            {
+                id: 4,
+                name: 'Porodični (sa roditeljima ili članovima porodice)'
+            },
+            { id: 5, name: 'Problem na radnom mestu, školi ili fakultetu' },
+            {
+                id: 6,
+                name:
+                    'Egzistencijalni problemi (nezaposlenost, siromaštvo, nemanje perspektive, opšte nezadovoljstvo životom,...)'
+            },
+            { id: 7, name: 'Bolest zavisnosti: Alkoholizam' },
+            { id: 8, name: 'Bolest zavisnosti: Narkomanija' },
+            { id: 9, name: 'Mentalni (psihički) poremećaj' },
+            {
+                id: 10,
+                name:
+                    'Problem seksualne prirode (sex. disfunkcija, masturbacija, frigidnost, nimfomanija, promiskuitet, veličina polnog organa, fetišizam, incest, voajerizam, strah od odnosa,...)'
+            },
+            {
+                id: 11,
+                name:
+                    'Problem usled sex. Orijentacije (homoseksualnost, biseksualnost, transseksualnost, transvestiti)'
+            },
+            { id: 12, name: 'Telesna bolest' },
+            { id: 13, name: 'Invaliditet' },
+            { id: 14, name: 'Zlostavljanje (svi vidovi zlostavljanja)' },
+            { id: 15, name: 'Poziv za treću osobu' },
+            { id: 16, name: 'Manipulativni' },
+            {
+                id: 17,
+                name:
+                    'DRUGO (obavezno dopisati u napomeni i u vel registru koja vrsta problema!)'
             }
-        });
-}
+        ]);
+    }
+
+    const existingSuicideRisks = await suicide_risk.findAll();
+    if (!existingSuicideRisks.length) {
+        await suicide_risk.bulkCreate([
+            { id: 1, name: 'Nije utvrđen' },
+            { id: 2, name: 'Nema suicidalne misli' },
+            { id: 3, name: 'Ima suicidalne misli, nema plan' },
+            { id: 4, name: 'Ima plan samoubistva i ozbiljno razmišlja o tome' },
+            {
+                id: 5,
+                name:
+                    'Postoji neposredan rizik da će osoba izvršiti samoubistvo'
+            }
+        ]);
+    }
+
+    const existingSuicideFactors = await suicide_factor.findAll();
+    if (!existingSuicideFactors.length) {
+        await suicide_factor.bulkCreate([
+            { id: 1, name: 'Mentalni (psihički) poremećaj' },
+            { id: 2, name: 'Bolest zavisnosti' },
+            { id: 3, name: 'Psihička kriza' },
+            { id: 4, name: 'Fizičko oboljenje' },
+            { id: 5, name: 'Trauma ili zlostavljanje' },
+            { id: 6, name: 'Raniji pokušaj suicida' },
+            { id: 7, name: 'Suicid člana porodice' }
+        ]);
+    }
+
+    const existingCallResolutionTypes = await call_resolution_type.findAll();
+    if (!existingCallResolutionTypes.length) {
+        await call_resolution_type.bulkCreate([
+            { id: 1, name: 'Bolje' },
+            { id: 2, name: 'Isto (nepromenjeno)' },
+            { id: 3, name: 'Gore' },
+            { id: 4, name: 'Neutvrđeno' }
+        ]);
+    }
+
+    const existingGenders = await gender.findAll();
+    if (!existingGenders.length) {
+        await gender.bulkCreate([
+            { id: 1, name: 'Muški' },
+            { id: 2, name: 'Ženski' }
+        ]);
+    }
+
+    const existingMaritalStatuses = await marital_status.findAll();
+    if (!existingMaritalStatuses.length) {
+        await marital_status.bulkCreate([
+            { id: 1, name: 'Udata/oženjen' },
+            { id: 2, name: 'Razveden/a' },
+            { id: 3, name: 'Udovac/udovica' },
+            { id: 4, name: 'Samac ima partnera' },
+            { id: 5, name: 'Samac nema partnera' },
+            { id: 6, name: 'Neutvrđeno' }
+        ]);
+    }
+
+    const existingNumbersOfCalls = await number_of_calls.findAll();
+    if (!existingNumbersOfCalls.length) {
+        await number_of_calls.bulkCreate([
+            { id: 1, name: 'Prvi put' },
+            { id: 2, name: '2 i više' }
+        ]);
+    }
+
+    const existingPlanInvolvements = await plan_involvement.findAll();
+    if (!existingPlanInvolvements.length) {
+        await plan_involvement.bulkCreate([
+            { id: 1, name: 'Plan 1' },
+            { id: 2, name: 'Plan 2' },
+            { id: 3, name: 'Plan 3' }
+        ]);
+    }
+
+    const existingAges = await age.findAll();
+    if (!existingAges.length) {
+        await age.bulkCreate([
+            { id: 1, name: 'Godina 1' },
+            { id: 2, name: 'Godina 2' },
+            { id: 3, name: 'Godina 3' }
+        ]);
+    }
+};
 
 exports.checkIfDatabaseExists = () => {
     fs.access(databasePath, fs.F_OK, e => {

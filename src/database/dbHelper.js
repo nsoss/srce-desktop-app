@@ -22,7 +22,7 @@ const AgeModel = require('./models/age');
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: databasePath
+    storage: databasePath,
 });
 
 const testConnection = async () => {
@@ -35,7 +35,7 @@ const testConnection = async () => {
             { id: 1, name: 'Ćuteći' },
             { id: 2, name: 'Informativni' },
             { id: 3, name: 'Hronični' },
-            { id: 4, name: 'Podrška' }
+            { id: 4, name: 'Podrška' },
         ]);
     }
 
@@ -43,7 +43,7 @@ const testConnection = async () => {
     if (!existingContactTypes.length) {
         await contact_type.bulkCreate([
             { id: 1, name: 'Nepoznat' },
-            { id: 2, name: 'Poznat' }
+            { id: 2, name: 'Poznat' },
         ]);
     }
 
@@ -55,13 +55,13 @@ const testConnection = async () => {
             { id: 3, name: 'Partnerski' },
             {
                 id: 4,
-                name: 'Porodični (sa roditeljima ili članovima porodice)'
+                name: 'Porodični (sa roditeljima ili članovima porodice)',
             },
             { id: 5, name: 'Problem na radnom mestu, školi ili fakultetu' },
             {
                 id: 6,
                 name:
-                    'Egzistencijalni problemi (nezaposlenost, siromaštvo, nemanje perspektive, opšte nezadovoljstvo životom,...)'
+                    'Egzistencijalni problemi (nezaposlenost, siromaštvo, nemanje perspektive, opšte nezadovoljstvo životom,...)',
             },
             { id: 7, name: 'Bolest zavisnosti: Alkoholizam' },
             { id: 8, name: 'Bolest zavisnosti: Narkomanija' },
@@ -69,12 +69,12 @@ const testConnection = async () => {
             {
                 id: 10,
                 name:
-                    'Problem seksualne prirode (sex. disfunkcija, masturbacija, frigidnost, nimfomanija, promiskuitet, veličina polnog organa, fetišizam, incest, voajerizam, strah od odnosa,...)'
+                    'Problem seksualne prirode (sex. disfunkcija, masturbacija, frigidnost, nimfomanija, promiskuitet, veličina polnog organa, fetišizam, incest, voajerizam, strah od odnosa,...)',
             },
             {
                 id: 11,
                 name:
-                    'Problem usled sex. Orijentacije (homoseksualnost, biseksualnost, transseksualnost, transvestiti)'
+                    'Problem usled sex. Orijentacije (homoseksualnost, biseksualnost, transseksualnost, transvestiti)',
             },
             { id: 12, name: 'Telesna bolest' },
             { id: 13, name: 'Invaliditet' },
@@ -84,8 +84,8 @@ const testConnection = async () => {
             {
                 id: 17,
                 name:
-                    'DRUGO (obavezno dopisati u napomeni i u vel registru koja vrsta problema!)'
-            }
+                    'DRUGO (obavezno dopisati u napomeni i u vel registru koja vrsta problema!)',
+            },
         ]);
     }
 
@@ -99,8 +99,8 @@ const testConnection = async () => {
             {
                 id: 5,
                 name:
-                    'Postoji neposredan rizik da će osoba izvršiti samoubistvo'
-            }
+                    'Postoji neposredan rizik da će osoba izvršiti samoubistvo',
+            },
         ]);
     }
 
@@ -113,7 +113,7 @@ const testConnection = async () => {
             { id: 4, name: 'Fizičko oboljenje' },
             { id: 5, name: 'Trauma ili zlostavljanje' },
             { id: 6, name: 'Raniji pokušaj suicida' },
-            { id: 7, name: 'Suicid člana porodice' }
+            { id: 7, name: 'Suicid člana porodice' },
         ]);
     }
 
@@ -123,7 +123,7 @@ const testConnection = async () => {
             { id: 1, name: 'Bolje' },
             { id: 2, name: 'Isto (nepromenjeno)' },
             { id: 3, name: 'Gore' },
-            { id: 4, name: 'Neutvrđeno' }
+            { id: 4, name: 'Neutvrđeno' },
         ]);
     }
 
@@ -131,7 +131,7 @@ const testConnection = async () => {
     if (!existingGenders.length) {
         await gender.bulkCreate([
             { id: 1, name: 'Muški' },
-            { id: 2, name: 'Ženski' }
+            { id: 2, name: 'Ženski' },
         ]);
     }
 
@@ -143,7 +143,7 @@ const testConnection = async () => {
             { id: 3, name: 'Udovac/udovica' },
             { id: 4, name: 'Samac ima partnera' },
             { id: 5, name: 'Samac nema partnera' },
-            { id: 6, name: 'Neutvrđeno' }
+            { id: 6, name: 'Neutvrđeno' },
         ]);
     }
 
@@ -151,7 +151,7 @@ const testConnection = async () => {
     if (!existingNumbersOfCalls.length) {
         await number_of_calls.bulkCreate([
             { id: 1, name: 'Prvi put' },
-            { id: 2, name: '2 i više' }
+            { id: 2, name: '2 i više' },
         ]);
     }
 
@@ -160,7 +160,7 @@ const testConnection = async () => {
         await plan_involvement.bulkCreate([
             { id: 1, name: 'Plan 1' },
             { id: 2, name: 'Plan 2' },
-            { id: 3, name: 'Plan 3' }
+            { id: 3, name: 'Plan 3' },
         ]);
     }
 
@@ -169,7 +169,7 @@ const testConnection = async () => {
         await age.bulkCreate([
             { id: 1, name: 'Godina 1' },
             { id: 2, name: 'Godina 2' },
-            { id: 3, name: 'Godina 3' }
+            { id: 3, name: 'Godina 3' },
         ]);
     }
 };
@@ -216,7 +216,7 @@ exports.getVolunteers = () => {
     const rows = volunteer
         .findAll({
             attributes: ['id', 'first_name', 'last_name', 'created_at'],
-            raw: true
+            raw: true,
         })
         .then(volunteers => {
             return volunteers;
@@ -227,7 +227,7 @@ exports.getVolunteers = () => {
 exports.deleteVolunteer = id => {
     const isDeleted = volunteer
         .destroy({
-            where: { id: id }
+            where: { id: id },
         })
         .then(console.log('Deleted volunteer with id: ' + id));
     return isDeleted;
@@ -244,7 +244,7 @@ exports.getCalls = () => {
     const rows = call
         .findAll({
             attributes: ['id', 'created_at', 'volunteer_id'],
-            raw: true
+            raw: true,
         })
         .then(calls => {
             return calls;
@@ -255,7 +255,7 @@ exports.getCalls = () => {
 exports.deleteCall = id => {
     const isDeleted = call
         .destroy({
-            where: { id: id }
+            where: { id: id },
         })
         .then(console.log('Deleted call with id: ' + id));
     return isDeleted;
@@ -272,7 +272,7 @@ exports.getContactTypes = () => {
     const rows = contact_type
         .findAll({
             attributes: ['id', 'name'],
-            raw: true
+            raw: true,
         })
         .then(contact_types => {
             return contact_types;
@@ -284,7 +284,7 @@ exports.getCallTypes = () => {
     const rows = call_type
         .findAll({
             attributes: ['id', 'name'],
-            raw: true
+            raw: true,
         })
         .then(call_types => {
             return call_types;
@@ -296,7 +296,7 @@ exports.getProblemTypes = () => {
     const rows = problem_type
         .findAll({
             attributes: ['id', 'name'],
-            raw: true
+            raw: true,
         })
         .then(problem_types => {
             return problem_types;
@@ -308,7 +308,7 @@ exports.getGenders = () => {
     const rows = gender
         .findAll({
             attributes: ['id', 'name'],
-            raw: true
+            raw: true,
         })
         .then(genders => {
             return genders;
@@ -320,7 +320,7 @@ exports.getAges = () => {
     const rows = age
         .findAll({
             attributes: ['id', 'name'],
-            raw: true
+            raw: true,
         })
         .then(ages => {
             return ages;
@@ -332,7 +332,7 @@ exports.getCallResolutionTypes = () => {
     const rows = call_resolution_type
         .findAll({
             attributes: ['id', 'name'],
-            raw: true
+            raw: true,
         })
         .then(call_resolution_types => {
             return call_resolution_types;
@@ -344,7 +344,7 @@ exports.getNumberOfCalls = () => {
     const rows = number_of_calls
         .findAll({
             attributes: ['id', 'name'],
-            raw: true
+            raw: true,
         })
         .then(numbers_of_calls => {
             return numbers_of_calls;
@@ -356,7 +356,7 @@ exports.getMaritalStatuses = () => {
     const rows = marital_status
         .findAll({
             attributes: ['id', 'name'],
-            raw: true
+            raw: true,
         })
         .then(marital_statuses => {
             return marital_statuses;
@@ -368,7 +368,7 @@ exports.getPlanInvolvements = () => {
     const rows = plan_involvement
         .findAll({
             attributes: ['id', 'name'],
-            raw: true
+            raw: true,
         })
         .then(plan_involvements => {
             return plan_involvements;
@@ -380,7 +380,7 @@ exports.getSuicideRisks = () => {
     const rows = suicide_risk
         .findAll({
             attributes: ['id', 'name'],
-            raw: true
+            raw: true,
         })
         .then(suicide_risks => {
             return suicide_risks;
@@ -392,7 +392,7 @@ exports.getSuicideFactors = () => {
     const rows = suicide_factor
         .findAll({
             attributes: ['id', 'name'],
-            raw: true
+            raw: true,
         })
         .then(suicide_factors => {
             return suicide_factors;
@@ -418,7 +418,7 @@ exports.foo = arr => {
             this.getPlanInvolvements(),
             this.getProblemTypes(),
             this.getVolunteers(),
-            this.getAges()
+            this.getAges(),
         ].map(handleRejection)
     );
 };
@@ -449,7 +449,7 @@ exports.getFormData = () => {
             plan_involvements.concat(results[8]),
             problem_types.concat(results[9]),
             volunteers.concat(results[10]),
-            ages.concat(results[11])
+            ages.concat(results[11]),
         ];
     });
     return rows;

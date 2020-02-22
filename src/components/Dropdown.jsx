@@ -5,7 +5,7 @@ class Dropdown extends React.Component {
         super(props);
         this.state = {
             isShowing: false,
-            chosenValue: this.props.date ? this.props.date : 'Izaberi'
+            chosenValue: this.props.date ? this.props.date : 'Izaberi',
         };
     }
 

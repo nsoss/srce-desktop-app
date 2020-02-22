@@ -16,7 +16,7 @@ class Navigation extends Component {
         this.state = {
             isDropdownShowing: false,
             isDarkThemeActive: fileRead(),
-            location: props.location
+            location: props.location,
         };
     }
 
@@ -93,7 +93,7 @@ class Navigation extends Component {
                         style={{
                             display: this.state.isDropdownShowing
                                 ? 'block'
-                                : 'none'
+                                : 'none',
                         }}
                     >
                         <div className="dropdown-item m-0 pr-2 pl-5 ">
@@ -104,7 +104,7 @@ class Navigation extends Component {
                                 onClick={() => {
                                     this.setState(prevState => ({
                                         isDropdownShowing: false,
-                                        isDarkThemeActive: !prevState.isDarkThemeActive
+                                        isDarkThemeActive: !prevState.isDarkThemeActive,
                                     }));
                                     toggle();
                                 }}

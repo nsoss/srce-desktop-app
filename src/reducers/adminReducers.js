@@ -7,7 +7,7 @@ export default function(state = initialState, action) {
         case SET_ADMIN:
             return {
                 ...state,
-                admin: action.payload
+                admin: action.payload,
             };
         default:
             return state;

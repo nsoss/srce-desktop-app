@@ -6,22 +6,22 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 autoIncrement: true,
-                primaryKey: true
+                primaryKey: true,
             },
             name: {
                 type: Sequelize.STRING,
-                allowNull: false
-            }
+                allowNull: false,
+            },
         },
         {
             sequelize,
             modelName: 'Call_resolution_type',
-            timestamps: false
+            timestamps: false,
         }
     );
     Call_resolution_type.associate = models => {
         Call_resolution_type.belongsTo(models.Call, {
-            foreignKey: models.Call.id
+            foreignKey: models.Call.id,
         });
     };
     return Call_resolution_type;

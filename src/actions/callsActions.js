@@ -7,7 +7,7 @@ export const fetchCalls = () => dispatch => {
     ipcRenderer.once('callsSent', (event, callObject) => {
         dispatch({
             type: FETCH_CALLS,
-            payload: callObject
+            payload: callObject,
         });
     });
 };

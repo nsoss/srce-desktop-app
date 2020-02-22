@@ -16,7 +16,7 @@ class BarChart extends Component {
             { skill: 'CSS', value: 55 },
             { skill: 'HTML', value: 80 },
             { skill: 'JS', value: 40 },
-            { skill: 'ANGULAR', value: 35 }
+            { skill: 'ANGULAR', value: 35 },
         ];
 
         const node = this.node;

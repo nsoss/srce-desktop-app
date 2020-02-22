@@ -7,7 +7,7 @@ import SingleCallsView from './SingleCallView.jsx';
 
 class Routes extends Component {
     state = {
-        location: '/'
+        location: '/',
     };
 
     handleChangeLocation = newLocation => {

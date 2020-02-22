@@ -9,7 +9,7 @@ class CallsStatistic extends Component {
                     position: 'absolute',
                     left: '200px',
                     width: '350px',
-                    top: '50px'
+                    top: '50px',
                 }}
             >
                 <BarChart size={[500, 400]} />

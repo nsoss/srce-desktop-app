@@ -7,7 +7,7 @@ export const fetchForm = () => dispatch => {
     ipcRenderer.once('formDataSent', (event, formDataObject) => {
         dispatch({
             type: FETCH_FORM,
-            payload: formDataObject
+            payload: formDataObject,
         });
     });
 };

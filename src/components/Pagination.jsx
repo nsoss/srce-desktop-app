@@ -8,7 +8,7 @@ class Pagination extends React.Component {
             currentPage: 1,
             dataPerPage: props.dataPerPage,
             pageNumbers: [],
-            currentData: []
+            currentData: [],
         };
         this.handleClick = this.handleClick.bind(this);
         this.renderPageNumbers = this.renderPageNumbers.bind(this);
@@ -48,7 +48,7 @@ class Pagination extends React.Component {
             );
             this.setState({
                 currentPage: Number(1),
-                currentData: currentDataCalculated
+                currentData: currentDataCalculated,
             });
             this.props.handleClick(currentDataCalculated);
 
@@ -66,7 +66,7 @@ class Pagination extends React.Component {
         const currentDataCalculated = data.slice(indexOfFirst, indexOfLast);
         this.setState({
             currentPage: Number(event.target.id),
-            currentData: currentDataCalculated
+            currentData: currentDataCalculated,
         });
 
         this.props.handleClick(currentDataCalculated);

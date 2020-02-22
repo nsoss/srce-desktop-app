@@ -10,7 +10,7 @@ const createFakeData = label => {
     for (let i = 1; i <= 3; ++i) {
         fakeData.push({
             id: i,
-            name: label + ' ' + i
+            name: label + ' ' + i,
         });
     }
     return fakeData;
@@ -35,7 +35,7 @@ class SingleCallView extends React.Component {
         super(props);
         this.state = {
             call: {},
-            formData: Array(12).fill([])
+            formData: Array(12).fill([]),
         };
         this.handleChangeInput = this.handleChangeInput.bind(this);
     }
@@ -137,7 +137,7 @@ class SingleCallView extends React.Component {
                                         /\d/,
                                         /\d/,
                                         /\d/,
-                                        /\d/
+                                        /\d/,
                                     ]}
                                     placeholder="25/09/1970"
                                 />

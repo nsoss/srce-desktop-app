@@ -6,20 +6,20 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 autoIncrement: true,
-                primaryKey: true
+                primaryKey: true,
             },
             created_at: {
                 type: Sequelize.DATE,
                 allowNull: false,
-                default: new Date()
+                default: new Date(),
             },
             call_number: {
                 type: Sequelize.STRING,
-                allowNull: false
+                allowNull: false,
             },
             call_duration: {
                 type: Sequelize.STRING,
-                allowNull: false
+                allowNull: false,
             },
             volunteer_id: {
                 type: Sequelize.INTEGER,
@@ -27,10 +27,10 @@ module.exports = (sequelize, Sequelize) => {
                 foreignKey: true,
                 references: {
                     model: 'Volunteer',
-                    key: 'id'
+                    key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
+                onDelete: 'SET NULL',
             },
             contact_type_id: {
                 type: Sequelize.INTEGER,
@@ -38,10 +38,10 @@ module.exports = (sequelize, Sequelize) => {
                 foreignKey: true,
                 references: {
                     model: 'Contact_type',
-                    key: 'id'
+                    key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
+                onDelete: 'SET NULL',
             },
             call_type_id: {
                 type: Sequelize.INTEGER,
@@ -49,10 +49,10 @@ module.exports = (sequelize, Sequelize) => {
                 foreignKey: true,
                 references: {
                     model: 'Call_type',
-                    key: 'id'
+                    key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
+                onDelete: 'SET NULL',
             },
             problem_type_id: {
                 type: Sequelize.INTEGER,
@@ -60,10 +60,10 @@ module.exports = (sequelize, Sequelize) => {
                 foreignKey: true,
                 references: {
                     model: 'Problem_type',
-                    key: 'id'
+                    key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
+                onDelete: 'SET NULL',
             },
             suicide_risk_id: {
                 type: Sequelize.INTEGER,
@@ -71,10 +71,10 @@ module.exports = (sequelize, Sequelize) => {
                 foreignKey: true,
                 references: {
                     model: 'Suicide_risk',
-                    key: 'id'
+                    key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
+                onDelete: 'SET NULL',
             },
             suicide_factor_id: {
                 type: Sequelize.INTEGER,
@@ -82,10 +82,10 @@ module.exports = (sequelize, Sequelize) => {
                 foreignKey: true,
                 references: {
                     model: 'Suicide_factor',
-                    key: 'id'
+                    key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
+                onDelete: 'SET NULL',
             },
             call_resolution_type_id: {
                 type: Sequelize.INTEGER,
@@ -93,22 +93,22 @@ module.exports = (sequelize, Sequelize) => {
                 foreignKey: true,
                 references: {
                     model: 'Call_resolution_type',
-                    key: 'id'
+                    key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
+                onDelete: 'SET NULL',
             },
             note: {
                 type: Sequelize.STRING,
-                allowNull: false
+                allowNull: false,
             },
             short_content: {
                 type: Sequelize.STRING,
-                allowNull: false
+                allowNull: false,
             },
             caller_name: {
                 type: Sequelize.STRING,
-                allowNull: false
+                allowNull: false,
             },
             age_id: {
                 type: Sequelize.INTEGER,
@@ -116,10 +116,10 @@ module.exports = (sequelize, Sequelize) => {
                 foreignKey: true,
                 references: {
                     model: 'Age',
-                    key: 'id'
+                    key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
+                onDelete: 'SET NULL',
             },
             gender_id: {
                 type: Sequelize.INTEGER,
@@ -127,10 +127,10 @@ module.exports = (sequelize, Sequelize) => {
                 foreignKey: true,
                 references: {
                     model: 'Gender',
-                    key: 'id'
+                    key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
+                onDelete: 'SET NULL',
             },
             marital_status_id: {
                 type: Sequelize.INTEGER,
@@ -138,10 +138,10 @@ module.exports = (sequelize, Sequelize) => {
                 foreignKey: true,
                 references: {
                     model: 'Marital_status',
-                    key: 'id'
+                    key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
+                onDelete: 'SET NULL',
             },
             number_of_calls_id: {
                 type: Sequelize.INTEGER,
@@ -149,10 +149,10 @@ module.exports = (sequelize, Sequelize) => {
                 foreignKey: true,
                 references: {
                     model: 'Number_of_calls',
-                    key: 'id'
+                    key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
+                onDelete: 'SET NULL',
             },
             plan_involvement_id: {
                 type: Sequelize.INTEGER,
@@ -160,16 +160,16 @@ module.exports = (sequelize, Sequelize) => {
                 foreignKey: true,
                 references: {
                     model: 'Plan_involvement',
-                    key: 'id'
+                    key: 'id',
                 },
                 onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
-            }
+                onDelete: 'SET NULL',
+            },
         },
         {
             sequelize,
             modelName: 'Call',
-            timestamps: false
+            timestamps: false,
         }
     );
     return Call;

@@ -6,17 +6,17 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 autoIncrement: true,
-                primaryKey: true
+                primaryKey: true,
             },
             name: {
                 type: Sequelize.STRING,
-                allowNull: false
-            }
+                allowNull: false,
+            },
         },
         {
             sequelize,
             modelName: 'Suicide_factor',
-            timestamps: false
+            timestamps: false,
         }
     );
     Suicide_factor.associate = models => {

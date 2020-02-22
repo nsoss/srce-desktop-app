@@ -1,7 +1,7 @@
 import { FETCH_CALLS } from '../actions/type';
 
 const initialState = {
-    calls: []
+    calls: [],
 };
 
 export default function(state = initialState, action) {
@@ -9,7 +9,7 @@ export default function(state = initialState, action) {
         case FETCH_CALLS:
             return {
                 ...state,
-                calls: action.payload
+                calls: action.payload,
             };
         default:
             return state;

@@ -6,16 +6,16 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.INTEGER
+                type: Sequelize.INTEGER,
             },
             name: {
-                type: Sequelize.STRING
-            }
+                type: Sequelize.STRING,
+            },
         },
         {
             sequelize,
             modelName: 'Number_of_calls',
-            timestamps: false
+            timestamps: false,
         }
     );
     Number_of_calls.associate = models => {

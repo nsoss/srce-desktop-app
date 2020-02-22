@@ -39,7 +39,7 @@ class Input extends React.Component {
                     className="validate-massage"
                     style={{
                         color: '#dc3545',
-                        visibility: this.state.errorVisibility
+                        visibility: this.state.errorVisibility,
                     }}
                 >
                     Polje {this.props.fieldName} ne sme biti prazno!

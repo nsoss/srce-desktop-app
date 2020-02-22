@@ -1,11 +1,11 @@
 import {
     FETCH_VOLUNTEERS,
     ADD_VOLUNTEER,
-    DELETE_VOLUNTEER
+    DELETE_VOLUNTEER,
 } from '../actions/type';
 
 const initialState = {
-    volunteers: []
+    volunteers: [],
 };
 
 export default function(state = initialState, action) {
@@ -13,12 +13,12 @@ export default function(state = initialState, action) {
         case FETCH_VOLUNTEERS:
             return {
                 ...state,
-                volunteers: action.payload
+                volunteers: action.payload,
             };
         case ADD_VOLUNTEER:
             return {
                 ...state,
-                volunteers: [...state.volunteers, action.payload]
+                volunteers: [...state.volunteers, action.payload],
             };
         case DELETE_VOLUNTEER:
             return {
@@ -26,8 +26,8 @@ export default function(state = initialState, action) {
                 volunteers: [
                     ...state.volunteers.filter(function(obj) {
                         return obj.id !== action.payload;
-                    })
-                ]
+                    }),
+                ],
             };
         default:
             return state;

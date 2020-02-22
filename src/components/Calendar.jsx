@@ -13,7 +13,7 @@ import {
     startOfMonth,
     startOfWeek,
     subMonths,
-    subYears
+    subYears,
 } from 'date-fns';
 import React, { Component } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
@@ -31,7 +31,7 @@ const months = [
     'Sep',
     'Okt',
     'Nov',
-    'Dec'
+    'Dec',
 ];
 
 const numberOfPastYears = 20;
@@ -39,7 +39,7 @@ const numberOfPastYears = 20;
 class Calendar extends Component {
     state = {
         selectedDate: new Date(),
-        location: '/'
+        location: '/',
     };
 
     componentDidMount() {
@@ -56,7 +56,7 @@ class Calendar extends Component {
             clickedDay - selectedDate.getDate()
         );
         this.setState({
-            selectedDate: newSelectedDate
+            selectedDate: newSelectedDate,
         });
         this.props.onDateSelect(newSelectedDate);
     };
@@ -68,7 +68,7 @@ class Calendar extends Component {
 
         const newSelectedDate = setDate(subMonths(selectedDate, 1), clickedDay);
         this.setState({
-            selectedDate: newSelectedDate
+            selectedDate: newSelectedDate,
         });
         this.props.onDateSelect(newSelectedDate);
     };
@@ -80,7 +80,7 @@ class Calendar extends Component {
 
         const newSelectedDate = setDate(addMonths(selectedDate, 1), clickedDay);
         this.setState({
-            selectedDate: newSelectedDate
+            selectedDate: newSelectedDate,
         });
         this.props.onDateSelect(newSelectedDate);
     };
@@ -108,7 +108,7 @@ class Calendar extends Component {
             months.indexOf(newSelectedMonth)
         );
         this.setState({
-            selectedDate: newSelectedDate
+            selectedDate: newSelectedDate,
         });
         this.props.onDateSelect(newSelectedDate);
     };
@@ -118,7 +118,7 @@ class Calendar extends Component {
 
         const newSelectedDate = setYear(selectedDate, newSelectedYear);
         this.setState({
-            selectedDate: newSelectedDate
+            selectedDate: newSelectedDate,
         });
         this.props.onDateSelect(newSelectedDate);
     };
@@ -130,13 +130,13 @@ class Calendar extends Component {
         const endDay = getDay(endOfMonth(selectedDate));
 
         const startOfFirstWeek = startOfWeek(startOfMonth(selectedDate), {
-            weekStartsOn: 1
+            weekStartsOn: 1,
         }).getDate();
         const numberOfDaysInPrevouosMonth = getDaysInMonth(
             subMonths(selectedDate, 1)
         );
         const startOfLastWeek = lastDayOfWeek(lastDayOfMonth(selectedDate), {
-            weekStartsOn: 1
+            weekStartsOn: 1,
         }).getDate();
 
         let prevMonthDays = [];

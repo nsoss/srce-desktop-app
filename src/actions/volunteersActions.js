@@ -7,7 +7,7 @@ export const fetchVolunteers = () => dispatch => {
     ipcRenderer.once('volunteersSent', (event, volunteers) => {
         dispatch({
             type: FETCH_VOLUNTEERS,
-            payload: volunteers
+            payload: volunteers,
         });
     });
 };
@@ -19,7 +19,7 @@ export const addVolunteer = newVolunteer => dispatch => {
             newVolunteer.id = insertedID;
             dispatch({
                 type: ADD_VOLUNTEER,
-                payload: newVolunteer
+                payload: newVolunteer,
             });
         } else {
         }
@@ -32,7 +32,7 @@ export const deleteVolunteer = id => dispatch => {
         if (isDeleted) {
             dispatch({
                 type: DELETE_VOLUNTEER,
-                payload: id
+                payload: id,
             });
         } else {
         }

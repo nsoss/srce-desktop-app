@@ -6,7 +6,7 @@ import { setAdmin } from '../actions/adminActions';
 import {
     addVolunteer,
     deleteVolunteer,
-    fetchVolunteers
+    fetchVolunteers,
 } from '../actions/volunteersActions';
 import Modal from './Modal.js';
 import Pagination from './Pagination';
@@ -20,7 +20,7 @@ class Admin extends Component {
         password: '123',
         inputPassword: '',
         dataPerPage: 2,
-        currentData: []
+        currentData: [],
     };
 
     componentDidMount() {
@@ -42,7 +42,7 @@ class Admin extends Component {
         this.props.addVolunteer(newVolunteer);
         this.setState({
             inputFirstName: '',
-            inputLastName: ''
+            inputLastName: '',
         });
     };
 
@@ -52,7 +52,7 @@ class Admin extends Component {
 
     handleClick = data => {
         this.setState({
-            currentData: data
+            currentData: data,
         });
     };
 
@@ -66,7 +66,7 @@ class Admin extends Component {
         this.props.deleteVolunteer(id);
         this.setState({
             inputFirstName: '',
-            inputLastName: ''
+            inputLastName: '',
         });
     };
     render() {
@@ -123,7 +123,7 @@ class Admin extends Component {
                                             <button
                                                 className="btn-srce"
                                                 style={{
-                                                    backgroundColor: '#CC8066'
+                                                    backgroundColor: '#CC8066',
                                                 }}
                                                 onClick={() =>
                                                     this.handleDeleteVolunteer(
@@ -153,12 +153,12 @@ class Admin extends Component {
 }
 const mapStateToProps = state => ({
     volunteers: state.volunteers.volunteers,
-    admin: state.admin.admin
+    admin: state.admin.admin,
 });
 
 export default connect(mapStateToProps, {
     fetchVolunteers,
     addVolunteer,
     deleteVolunteer,
-    setAdmin
+    setAdmin,
 })(Admin);

@@ -6,7 +6,7 @@ let m = fileRead();
 
 const ThemeContext = React.createContext({
     dark: m.dark_theme,
-    toggle: () => {}
+    toggle: () => {},
 });
 
 export default ThemeContext;
@@ -43,7 +43,7 @@ export function ThemeProvider(props) {
         <ThemeContext.Provider
             value={{
                 dark,
-                toggle
+                toggle,
             }}
         >
             {props.children}
@@ -66,7 +66,7 @@ const lightTheme = [
     '--form-input-hover:  #e6e6e6',
     '--single-call-panels-border: #8D63A6',
     '--single-call-panels-bg: #ffffff',
-    '--admin-accent: #C4C4C4'
+    '--admin-accent: #C4C4C4',
 ];
 
 const darkTheme = [
@@ -84,5 +84,5 @@ const darkTheme = [
     '--form-input-hover:  #404040',
     '--single-call-panels-border: #0d0d0d',
     '--single-call-panels-bg: #666666',
-    '--admin-accent: #737373'
+    '--admin-accent: #737373',
 ];

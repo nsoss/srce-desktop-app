@@ -8,5 +8,5 @@ export default combineReducers({
     volunteers: volunteersReducer,
     calls: callsReducers,
     formData: formReducers,
-    admin: adminReducer
+    admin: adminReducer,
 });

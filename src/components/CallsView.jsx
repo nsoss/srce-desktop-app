@@ -16,7 +16,7 @@ class CallsView extends Component {
         selectedDate: '',
         filteredCalls: [],
         dataPerPage: 2,
-        currentData: []
+        currentData: [],
     };
 
     componentWillMount() {
@@ -34,13 +34,13 @@ class CallsView extends Component {
         });
 
         this.setState({
-            filteredCalls: [...callsByDate]
+            filteredCalls: [...callsByDate],
         });
     };
 
     handleClick = data => {
         this.setState({
-            currentData: data
+            currentData: data,
         });
     };
 
@@ -131,7 +131,7 @@ class CallsView extends Component {
 }
 
 const mapStateToProps = state => ({
-    calls: state.calls.calls
+    calls: state.calls.calls,
 });
 
 export default connect(mapStateToProps, { fetchCalls })(CallsView);

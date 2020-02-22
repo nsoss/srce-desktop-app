@@ -10,8 +10,8 @@ class ValidationForm extends React.Component {
             newUser: {
                 firstName: '',
                 lastName: '',
-                errorMessage: ''
-            }
+                errorMessage: '',
+            },
         };
     }
 
@@ -25,8 +25,8 @@ class ValidationForm extends React.Component {
             this.setState(prevState => ({
                 newUser: {
                     ...prevState.newUser,
-                    [name]: value
-                }
+                    [name]: value,
+                },
             }));
         }
     };
@@ -58,7 +58,7 @@ class ValidationForm extends React.Component {
                     className="btn-srce"
                     style={{
                         backgroundColor: 'var(--admin-accent)',
-                        marginRight: '0'
+                        marginRight: '0',
                     }}
                     disabled={
                         !(
@@ -70,7 +70,7 @@ class ValidationForm extends React.Component {
                         this.props.addVolunteerFunc({
                             first_name: this.state.newUser.firstName,
                             last_name: this.state.newUser.lastName,
-                            created_at: new Date().toISOString()
+                            created_at: new Date().toISOString(),
                         })
                     }
                 >

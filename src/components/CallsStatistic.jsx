@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BarChart from '../../charts/BarChart';
+import BarChart from './BarChart';
 
 class CallsStatistic extends Component {
     render() {

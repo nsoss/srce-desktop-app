@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import CalendarNew from './Calendar';
 import { format } from 'date-fns';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCalls } from '../../actions/callsActions';
-import Pagination from '../../pagination/components/Pagination';
+import { fetchCalls } from '../actions/callsActions';
+import CalendarNew from './Calendar';
+import Pagination from './Pagination';
 
 class CallsView extends Component {
     constructor(props) {

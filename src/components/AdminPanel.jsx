@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import {
-    fetchVolunteers,
-    addVolunteer,
-    deleteVolunteer
-} from '../../actions/volunteersActions';
-import { setAdmin } from '../../actions/adminActions';
-import { FaUserMinus } from 'react-icons/fa';
 import { format } from 'date-fns';
+import React, { Component } from 'react';
+import { FaUserMinus } from 'react-icons/fa';
+import { connect } from 'react-redux';
+import { setAdmin } from '../actions/adminActions';
+import {
+    addVolunteer,
+    deleteVolunteer,
+    fetchVolunteers
+} from '../actions/volunteersActions';
 import Modal from './Modal.js';
-import Pagination from '../../pagination/components/Pagination';
+import Pagination from './Pagination';
 import ValidationForm from './ValidationForm';
 
 class Admin extends Component {

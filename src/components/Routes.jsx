@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import CallsView from '../../calls/components/CallsView.jsx';
-import SingleCallsView from '../../calls/components/SingleCallView.jsx';
-import CallsStatistic from '../../calls/components/CallsStatistic.jsx';
-import AdminPanel from '../../administration/components/AdminPanel.jsx';
+import AdminPanel from './AdminPanel.jsx';
+import CallsStatistic from './CallsStatistic.jsx';
+import CallsView from './CallsView.jsx';
 import Navigation from './Navigation';
+import SingleCallsView from './SingleCallView.jsx';
 
 class Routes extends Component {
     state = {

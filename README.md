@@ -1,5 +1,7 @@
 # srce-desktop-app
 
+![Build Status](https://nsoss.semaphoreci.com/badges/srce-desktop-app.svg)
+
 ## Setup
 
 Make sure you have the latest version of [Node.js](https://nodejs.org/en/)

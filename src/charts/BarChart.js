@@ -34,7 +34,7 @@ class BarChart extends Component {
             .attr('width', d => d.value)
             .attr('y', (d, i) => i * 70 + 50)
             .attr('x', 100)
-            .attr("class", "chart");
+            .attr('class', 'chart');
 
         select(node)
             .selectAll('text')

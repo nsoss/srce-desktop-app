@@ -8,6 +8,6 @@ export const fetchCalls = () => dispatch => {
         dispatch({
             type: FETCH_CALLS,
             payload: callObject
-        })
+        });
     });
 };

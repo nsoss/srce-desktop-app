@@ -46,7 +46,8 @@
     "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "react-start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "prettier --check \"./src/**/*.{js,jsx}\""
+    "lint": "prettier --check \"./src/**/*.{js,jsx}\"",
+    "format": "prettier --write \"./src/**/*.{js,jsx}\""
   },
   "eslintConfig": {
     "extends": "react-app",

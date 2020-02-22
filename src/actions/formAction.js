@@ -8,6 +8,6 @@ export const fetchForm = () => dispatch => {
         dispatch({
             type: FETCH_FORM,
             payload: formDataObject
-        })
+        });
     });
 };

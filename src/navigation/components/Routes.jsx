@@ -7,30 +7,50 @@ import Navigation from './Navigation';
 
 class Routes extends Component {
     state = {
-        location: "/"
-    }
+        location: '/'
+    };
 
-    handleChangeLocation = (newLocation) => {
+    handleChangeLocation = newLocation => {
         this.setState({ location: newLocation });
-    }
+    };
 
     render() {
         let childComponent;
         switch (this.state.location) {
-            case "/":
-                childComponent = <CallsView handleChangeLocation={this.handleChangeLocation} />;
+            case '/':
+                childComponent = (
+                    <CallsView
+                        handleChangeLocation={this.handleChangeLocation}
+                    />
+                );
                 break;
-            case "calls":
-                childComponent = <CallsView handleChangeLocation={this.handleChangeLocation} />;
+            case 'calls':
+                childComponent = (
+                    <CallsView
+                        handleChangeLocation={this.handleChangeLocation}
+                    />
+                );
                 break;
-            case "call":
-                childComponent = <SingleCallsView handleChangeLocation={this.handleChangeLocation} />;
+            case 'call':
+                childComponent = (
+                    <SingleCallsView
+                        handleChangeLocation={this.handleChangeLocation}
+                    />
+                );
                 break;
-            case "calls-statistics":
-                childComponent = <CallsStatistic handleChangeLocation={this.handleChangeLocation} />;
+            case 'calls-statistics':
+                childComponent = (
+                    <CallsStatistic
+                        handleChangeLocation={this.handleChangeLocation}
+                    />
+                );
                 break;
-            case "admin-page":
-                childComponent = <AdminPanel handleChangeLocation={this.handleChangeLocation} />;
+            case 'admin-page':
+                childComponent = (
+                    <AdminPanel
+                        handleChangeLocation={this.handleChangeLocation}
+                    />
+                );
                 break;
             default:
                 break;
@@ -38,10 +58,13 @@ class Routes extends Component {
 
         return (
             <>
-                <Navigation handleChangeLocation={this.handleChangeLocation} location={this.state.location} />
+                <Navigation
+                    handleChangeLocation={this.handleChangeLocation}
+                    location={this.state.location}
+                />
                 {childComponent}
             </>
-        )
+        );
     }
 }
 

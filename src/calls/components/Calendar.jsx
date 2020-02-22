@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Dropdown from './Dropdown'
+import Dropdown from './Dropdown';
 import {
     startOfMonth,
     getDaysInMonth,
@@ -39,7 +39,7 @@ const numberOfPastYears = 20;
 class Calendar extends Component {
     state = {
         selectedDate: new Date(),
-        location: "/"
+        location: '/'
     };
 
     componentDidMount() {
@@ -206,7 +206,11 @@ class Calendar extends Component {
         }
 
         const daysInMonth = rows.map((d, i) => {
-            return <tr key={d + i} style={{ width: "50px" }}>{d}</tr>;
+            return (
+                <tr key={d + i} style={{ width: '50px' }}>
+                    {d}
+                </tr>
+            );
         });
 
         let years = [];
@@ -221,7 +225,7 @@ class Calendar extends Component {
         return (
             <>
                 <div className="calendar-srce">
-                    <table className="" >
+                    <table className="">
                         <thead>
                             <tr>
                                 <td
@@ -230,11 +234,29 @@ class Calendar extends Component {
                                 >
                                     <IoIosArrowBack />
                                 </td>
-                                <td className="text-center justify-content-center " colSpan="5">
-                                    <form >
+                                <td
+                                    className="text-center justify-content-center "
+                                    colSpan="5"
+                                >
+                                    <form>
                                         <div className="ml-3 mr-3">
-                                            <Dropdown data={months} date={format(this.state.selectedDate, 'MMM')} handleChange={this.handleChangeInputMonth} />
-                                            <Dropdown data={years} date={this.state.selectedDate.getFullYear()} handleChange={this.handleChangeInputYear} />
+                                            <Dropdown
+                                                data={months}
+                                                date={format(
+                                                    this.state.selectedDate,
+                                                    'MMM'
+                                                )}
+                                                handleChange={
+                                                    this.handleChangeInputMonth
+                                                }
+                                            />
+                                            <Dropdown
+                                                data={years}
+                                                date={this.state.selectedDate.getFullYear()}
+                                                handleChange={
+                                                    this.handleChangeInputYear
+                                                }
+                                            />
                                         </div>
                                     </form>
                                 </td>
@@ -255,7 +277,7 @@ class Calendar extends Component {
                                 <th>NED</th>
                             </tr>
                         </thead>
-                        <tbody >{daysInMonth}</tbody>
+                        <tbody>{daysInMonth}</tbody>
                     </table>
                 </div>
             </>

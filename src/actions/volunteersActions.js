@@ -8,11 +8,11 @@ export const fetchVolunteers = () => dispatch => {
         dispatch({
             type: FETCH_VOLUNTEERS,
             payload: volunteers
-        })
+        });
     });
 };
 
-export const addVolunteer = (newVolunteer) => dispatch => {
+export const addVolunteer = newVolunteer => dispatch => {
     ipcRenderer.send('insertVolunteer', newVolunteer);
     ipcRenderer.once('volunteerInserted', (event, insertedID) => {
         if (insertedID) {
@@ -20,20 +20,20 @@ export const addVolunteer = (newVolunteer) => dispatch => {
             dispatch({
                 type: ADD_VOLUNTEER,
                 payload: newVolunteer
-            })
+            });
         } else {
         }
     });
 };
 
-export const deleteVolunteer = (id) => dispatch => {
+export const deleteVolunteer = id => dispatch => {
     ipcRenderer.send('deleteVolunteer', id);
     ipcRenderer.once('volunteerDeleted', (event, isDeleted) => {
         if (isDeleted) {
             dispatch({
                 type: DELETE_VOLUNTEER,
                 payload: id
-            })
+            });
         } else {
         }
     });

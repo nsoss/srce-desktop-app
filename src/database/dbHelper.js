@@ -77,8 +77,7 @@ const number_of_calls = NumberOfCallsModel(sequelize, Sequelize);
 const plan_involvement = PlanInvolvementModel(sequelize, Sequelize);
 const age = AgeModel(sequelize, Sequelize);
 
-sequelize.sync()
-
+sequelize.sync();
 
 exports.getVolunteers = () => {
     const rows = volunteer
@@ -92,11 +91,12 @@ exports.getVolunteers = () => {
     return rows;
 };
 
-
 exports.deleteVolunteer = id => {
-    const isDeleted = volunteer.destroy({
-        where: { id: id }
-    }).then(console.log('Deleted volunteer with id: ' + id));
+    const isDeleted = volunteer
+        .destroy({
+            where: { id: id }
+        })
+        .then(console.log('Deleted volunteer with id: ' + id));
     return isDeleted;
 };
 
@@ -117,14 +117,16 @@ exports.getCalls = () => {
             return calls;
         });
     return rows;
-}
+};
 
 exports.deleteCall = id => {
-    const isDeleted = call.destroy({
-        where: { id: id }
-    }).then(console.log('Deleted call with id: ' + id));
+    const isDeleted = call
+        .destroy({
+            where: { id: id }
+        })
+        .then(console.log('Deleted call with id: ' + id));
     return isDeleted;
-}
+};
 
 exports.insertCall = c => {
     const insertedCall = call.create(c).then(row => {
@@ -143,7 +145,7 @@ exports.getContactTypes = () => {
             return contact_types;
         });
     return rows;
-}
+};
 
 exports.getCallTypes = () => {
     const rows = call_type
@@ -155,7 +157,7 @@ exports.getCallTypes = () => {
             return call_types;
         });
     return rows;
-}
+};
 
 exports.getProblemTypes = () => {
     const rows = problem_type
@@ -167,8 +169,7 @@ exports.getProblemTypes = () => {
             return problem_types;
         });
     return rows;
-}
-
+};
 
 exports.getGenders = () => {
     const rows = gender
@@ -180,7 +181,7 @@ exports.getGenders = () => {
             return genders;
         });
     return rows;
-}
+};
 
 exports.getAges = () => {
     const rows = age
@@ -192,7 +193,7 @@ exports.getAges = () => {
             return ages;
         });
     return rows;
-}
+};
 
 exports.getCallResolutionTypes = () => {
     const rows = call_resolution_type
@@ -204,7 +205,7 @@ exports.getCallResolutionTypes = () => {
             return call_resolution_types;
         });
     return rows;
-}
+};
 
 exports.getNumberOfCalls = () => {
     const rows = number_of_calls
@@ -216,7 +217,7 @@ exports.getNumberOfCalls = () => {
             return numbers_of_calls;
         });
     return rows;
-}
+};
 
 exports.getMaritalStatuses = () => {
     const rows = marital_status
@@ -228,7 +229,7 @@ exports.getMaritalStatuses = () => {
             return marital_statuses;
         });
     return rows;
-}
+};
 
 exports.getPlanInvolvements = () => {
     const rows = plan_involvement
@@ -240,7 +241,7 @@ exports.getPlanInvolvements = () => {
             return plan_involvements;
         });
     return rows;
-}
+};
 
 exports.getSuicideRisks = () => {
     const rows = suicide_risk
@@ -252,7 +253,7 @@ exports.getSuicideRisks = () => {
             return suicide_risks;
         });
     return rows;
-}
+};
 
 exports.getSuicideFactors = () => {
     const rows = suicide_factor
@@ -264,40 +265,58 @@ exports.getSuicideFactors = () => {
             return suicide_factors;
         });
     return rows;
-}
+};
 
 function handleRejection(p) {
-    return p.catch(err=> ({ error: err }));
+    return p.catch(err => ({ error: err }));
 }
 
-exports.foo = (arr) => {
-	return Promise.all([this.getSuicideRisks(), this.getSuicideFactors(), this.getCallTypes(),
-						this.getContactTypes(), this.getCallResolutionTypes(), this.getGenders(),
-						this.getNumberOfCalls(), this.getMaritalStatuses(), this.getPlanInvolvements(),
-						this.getProblemTypes(), this.getVolunteers(), this.getAges()].map(handleRejection));
-}
+exports.foo = arr => {
+    return Promise.all(
+        [
+            this.getSuicideRisks(),
+            this.getSuicideFactors(),
+            this.getCallTypes(),
+            this.getContactTypes(),
+            this.getCallResolutionTypes(),
+            this.getGenders(),
+            this.getNumberOfCalls(),
+            this.getMaritalStatuses(),
+            this.getPlanInvolvements(),
+            this.getProblemTypes(),
+            this.getVolunteers(),
+            this.getAges()
+        ].map(handleRejection)
+    );
+};
 
 exports.getFormData = () => {
-    suicide_risks = [], suicide_factors = [], call_types = [], contact_types = [], 
-    call_resolution_types = [], genders = [], numbers_of_calls = [], marital_statuses = [],
-    plan_involvements = [], problem_types = [], volunteers = [], ages = [];
-	const rows = this.foo().then(results => {
-		return [
-			suicide_risks.concat(results[0]),
-			suicide_factors.concat(results[1]),
-			call_types.concat(results[2]),
-			contact_types.concat(results[3]),
-			call_resolution_types.concat(results[4]),
-			genders.concat(results[5]),
-			numbers_of_calls.concat(results[6]),
-			marital_statuses.concat(results[7]),
-			plan_involvements.concat(results[8]),
-			problem_types.concat(results[9]),
-            volunteers.concat(results[10],
-            ages.concat(results[11]))
-        ]
-	});
-	return rows;
-}
-
-
+    (suicide_risks = []),
+        (suicide_factors = []),
+        (call_types = []),
+        (contact_types = []),
+        (call_resolution_types = []),
+        (genders = []),
+        (numbers_of_calls = []),
+        (marital_statuses = []),
+        (plan_involvements = []),
+        (problem_types = []),
+        (volunteers = []),
+        (ages = []);
+    const rows = this.foo().then(results => {
+        return [
+            suicide_risks.concat(results[0]),
+            suicide_factors.concat(results[1]),
+            call_types.concat(results[2]),
+            contact_types.concat(results[3]),
+            call_resolution_types.concat(results[4]),
+            genders.concat(results[5]),
+            numbers_of_calls.concat(results[6]),
+            marital_statuses.concat(results[7]),
+            plan_involvements.concat(results[8]),
+            problem_types.concat(results[9]),
+            volunteers.concat(results[10], ages.concat(results[11]))
+        ];
+    });
+    return rows;
+};

@@ -3,17 +3,16 @@ import Input from './Input';
 import { FaUserPlus } from 'react-icons/fa';
 
 class ValidationForm extends React.Component {
-
     constructor(props) {
         super(props);
 
         this.state = {
             newUser: {
-                firstName: "",
-                lastName: "",
-                errorMessage: "",
-            },
-        }
+                firstName: '',
+                lastName: '',
+                errorMessage: ''
+            }
+        };
     }
 
     handleChangeInput = event => {
@@ -30,35 +29,37 @@ class ValidationForm extends React.Component {
                 }
             }));
         }
-    }
+    };
 
     render() {
         return (
-            <form className="admin-add-volunteer-form" >
-
+            <form className="admin-add-volunteer-form">
                 <Input
-                    type={"text"}
-                    inputName={"firstName"}
-                    fieldName={"ime"}
-                    title={"Ime"}
+                    type={'text'}
+                    inputName={'firstName'}
+                    fieldName={'ime'}
+                    title={'Ime'}
                     value={this.state.newUser.firstName}
-                    placeholder={"Unesite ime volontera"}
+                    placeholder={'Unesite ime volontera'}
                     handleChange={this.handleChangeInput}
                 />
 
                 <Input
-                    type={"text"}
-                    inputName={"lastName"}
-                    fieldName={"prezime"}
-                    title={"Prezime"}
+                    type={'text'}
+                    inputName={'lastName'}
+                    fieldName={'prezime'}
+                    title={'Prezime'}
                     value={this.state.newUser.lastName}
-                    placeholder={"Unesite prezime volontera"}
+                    placeholder={'Unesite prezime volontera'}
                     handleChange={this.handleChangeInput}
                 />
 
                 <button
                     className="btn-srce"
-                    style={{ backgroundColor: 'var(--admin-accent)', marginRight: '0' }}
+                    style={{
+                        backgroundColor: 'var(--admin-accent)',
+                        marginRight: '0'
+                    }}
                     disabled={
                         !(
                             this.state.newUser.firstName &&
@@ -71,8 +72,12 @@ class ValidationForm extends React.Component {
                             last_name: this.state.newUser.lastName,
                             created_at: new Date().toISOString()
                         })
-                    }>{' '} Dodaj &nbsp;
-                        <FaUserPlus /></button>
+                    }
+                >
+                    {' '}
+                    Dodaj &nbsp;
+                    <FaUserPlus />
+                </button>
             </form>
         );
     }

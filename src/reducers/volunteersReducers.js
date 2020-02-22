@@ -1,10 +1,14 @@
-import { FETCH_VOLUNTEERS, ADD_VOLUNTEER, DELETE_VOLUNTEER } from '../actions/type';
+import {
+    FETCH_VOLUNTEERS,
+    ADD_VOLUNTEER,
+    DELETE_VOLUNTEER
+} from '../actions/type';
 
 const initialState = {
     volunteers: []
 };
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
     switch (action.type) {
         case FETCH_VOLUNTEERS:
             return {
@@ -19,9 +23,11 @@ export default function (state = initialState, action) {
         case DELETE_VOLUNTEER:
             return {
                 ...state,
-                volunteers: [...state.volunteers.filter(function (obj) {
-                    return obj.id !== action.payload;
-                })]
+                volunteers: [
+                    ...state.volunteers.filter(function(obj) {
+                        return obj.id !== action.payload;
+                    })
+                ]
             };
         default:
             return state;

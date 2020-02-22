@@ -6,8 +6,8 @@ let m = fileRead();
 
 const ThemeContext = React.createContext({
     dark: m.dark_theme,
-    toggle: () => { },
-})
+    toggle: () => {}
+});
 
 export default ThemeContext;
 
@@ -29,7 +29,7 @@ export function ThemeProvider(props) {
     const applyTheme = theme => {
         const root = document.getElementsByTagName('html')[0];
         root.style.cssText = theme.join(';');
-    }
+    };
 
     const toggle = () => {
         m.dark_theme = !dark;
@@ -39,12 +39,16 @@ export function ThemeProvider(props) {
         body.style.cssText = 'transition: background .5s ease';
     };
 
-    return <ThemeContext.Provider value={({
-        dark,
-        toggle,
-    })}>
-        {props.children}
-    </ThemeContext.Provider>
+    return (
+        <ThemeContext.Provider
+            value={{
+                dark,
+                toggle
+            }}
+        >
+            {props.children}
+        </ThemeContext.Provider>
+    );
 }
 
 const lightTheme = [

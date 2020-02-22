@@ -7,4 +7,4 @@ export const FETCH_CALLS_BY_DATE = 'FETCH_CALLS_BY_DATE';
 export const ADD_CALL = 'ADD_CALL';
 
 export const FETCH_FORM = 'FETCH_FORM';
-export const SET_ADMIN = "SET_ADMIN";
+export const SET_ADMIN = 'SET_ADMIN';

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchVolunteers, addVolunteer, deleteVolunteer } from '../../actions/volunteersActions';
+import {
+    fetchVolunteers,
+    addVolunteer,
+    deleteVolunteer
+} from '../../actions/volunteersActions';
 import { setAdmin } from '../../actions/adminActions';
 import { FaUserMinus } from 'react-icons/fa';
 import { format } from 'date-fns';
 import Modal from './Modal.js';
 import Pagination from '../../pagination/components/Pagination';
-import ValidationForm from './ValidationForm'
+import ValidationForm from './ValidationForm';
 
 class Admin extends Component {
     state = {
@@ -32,7 +36,7 @@ class Admin extends Component {
         const value = target.value;
 
         this.setState({ [name]: value });
-    }
+    };
 
     handleAddVolunteer = newVolunteer => {
         this.props.addVolunteer(newVolunteer);
@@ -44,19 +48,19 @@ class Admin extends Component {
 
     handleShowModal = () => {
         return this.props.admin;
-    }
+    };
 
     handleClick = data => {
         this.setState({
             currentData: data
         });
-    }
+    };
 
-    passwordCheck = (e) => {
+    passwordCheck = e => {
         if (this.state.inputPassword === this.state.password) {
             this.props.setAdmin(true);
         }
-    }
+    };
 
     handleDeleteVolunteer = id => {
         this.props.deleteVolunteer(id);
@@ -69,7 +73,12 @@ class Admin extends Component {
         return (
             <div className="admin-panel">
                 {!this.props.admin ? (
-                    <Modal onClose={this.passwordCheck} onCancel={() => this.props.handleChangeLocation("calls")} >
+                    <Modal
+                        onClose={this.passwordCheck}
+                        onCancel={() =>
+                            this.props.handleChangeLocation('calls')
+                        }
+                    >
                         <input
                             className="form-input-modal"
                             type="text"
@@ -86,7 +95,7 @@ class Admin extends Component {
 
                 <div className="admin-table">
                     <table className="volunteer-data">
-                        <thead striped hover className="volunteer-data mt-3" >
+                        <thead striped hover className="volunteer-data mt-3">
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Ime</th>
@@ -104,22 +113,27 @@ class Admin extends Component {
                                         <td>{v.last_name}</td>
                                         <td>
                                             {format(
-                                                new Date(Date.parse(v.created_at)),
+                                                new Date(
+                                                    Date.parse(v.created_at)
+                                                ),
                                                 'dd.MM.yyyy'
                                             )}
                                         </td>
                                         <td className="text-center">
                                             <button
                                                 className="btn-srce"
-                                                style={{ backgroundColor: "#CC8066" }}
+                                                style={{
+                                                    backgroundColor: '#CC8066'
+                                                }}
                                                 onClick={() =>
                                                     this.handleDeleteVolunteer(
                                                         v.id
                                                     )
                                                 }
-                                            >{' '}
+                                            >
+                                                {' '}
                                                 Izbriši &nbsp;
-                                            <FaUserMinus />
+                                                <FaUserMinus />
                                             </button>
                                         </td>
                                     </tr>
@@ -127,19 +141,24 @@ class Admin extends Component {
                             })}
                         </tbody>
                     </table>
-                    <Pagination allData={this.props.volunteers} dataPerPage={this.state.dataPerPage} handleClick={this.handleClick} />
+                    <Pagination
+                        allData={this.props.volunteers}
+                        dataPerPage={this.state.dataPerPage}
+                        handleClick={this.handleClick}
+                    />
                 </div>
             </div>
         );
     }
-
 }
 const mapStateToProps = state => ({
     volunteers: state.volunteers.volunteers,
     admin: state.admin.admin
 });
 
-export default connect(
-    mapStateToProps,
-    { fetchVolunteers, addVolunteer, deleteVolunteer, setAdmin }
-)(Admin);
+export default connect(mapStateToProps, {
+    fetchVolunteers,
+    addVolunteer,
+    deleteVolunteer,
+    setAdmin
+})(Admin);

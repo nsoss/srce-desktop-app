@@ -5,4 +5,4 @@ yarn.lock
 **/*.db
 public/js/
 build/
-main/index.js
+electron/index.js

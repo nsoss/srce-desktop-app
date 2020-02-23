@@ -5,9 +5,9 @@
     "type": "git",
     "url": "https://github.com/nsoss/srce-desktop-app.git"
   },
+  "main": "electron/index.js",
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "concurrently": "^5.0.0",
     "d3-array": "^2.4.0",
     "d3-axis": "^1.0.12",
     "d3-brush": "^1.1.5",
@@ -34,17 +34,15 @@
     "sqlite3": "^4.1.0",
     "text-mask-addons": "^3.8.0",
     "typeorm": "0.2.22",
-    "typescript": "3.8.2",
-    "wait-on": "^3.3.0"
+    "typescript": "3.8.2"
   },
   "peerDependencies": {
     "jquery": "^3.4.0",
     "popper.js": "^1.14.3"
   },
   "scripts": {
-    "compile": "tsc -p main",
-    "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron main\"",
-    "react-start": "react-scripts start",
+    "start": "react-scripts start",
+    "start-electron": "tsc --project ./electron/ && electron .",
     "build": "react-scripts build",
     "lint": "prettier --check \"./{src,main}/**/*.{js,jsx,ts}\"",
     "format": "prettier --write \"./{src,main}/**/*.{js,jsx,ts}\""

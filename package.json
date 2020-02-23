@@ -36,6 +36,7 @@
     "sequelize-cli": "^5.5.1",
     "sqlite3": "^4.1.0",
     "text-mask-addons": "^3.8.0",
+    "typeorm": "0.2.22",
     "typescript": "3.8.2",
     "wait-on": "^3.3.0"
   },
@@ -44,7 +45,7 @@
     "popper.js": "^1.14.3"
   },
   "scripts": {
-    "compile": "tsc ./main/index.ts",
+    "compile": "tsc -p main",
     "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron main\"",
     "react-start": "react-scripts start",
     "build": "react-scripts build",

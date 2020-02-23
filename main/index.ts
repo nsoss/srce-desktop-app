@@ -1,3 +1,14 @@
+import {
+    BaseEntity,
+    Column,
+    createConnection,
+    Entity,
+    MigrationInterface,
+    PrimaryGeneratedColumn,
+    QueryRunner,
+    Table,
+} from 'typeorm';
+
 const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
@@ -6,7 +17,7 @@ const Sequelize = require('sequelize');
 const databasePath = app.getAppPath() + '/srce.db';
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: databasePath,
+    storage: ':memory:',
 });
 
 /*********************************** models ***********************************/
@@ -657,19 +668,19 @@ function createDatabase() {
     });
 }
 
-const volunteer = VolunteerModel(sequelize, Sequelize);
-const call = CallModel(sequelize, Sequelize);
-const contact_type = ContactTypeModel(sequelize, Sequelize);
-const call_type = CallTypeModel(sequelize, Sequelize);
-const problem_type = ProblemTypeModel(sequelize, Sequelize);
-const suicide_risk = SuicideRiskModel(sequelize, Sequelize);
-const suicide_factor = SuicideFactorModel(sequelize, Sequelize);
-const call_resolution_type = CallResolutionTypeModel(sequelize, Sequelize);
-const gender = GenderModel(sequelize, Sequelize);
-const marital_status = MaritalStatusModel(sequelize, Sequelize);
-const number_of_calls = NumberOfCallsModel(sequelize, Sequelize);
-const plan_involvement = PlanInvolvementModel(sequelize, Sequelize);
-const age = AgeModel(sequelize, Sequelize);
+const volunteer = new VolunteerModel(sequelize, Sequelize);
+const call = new CallModel(sequelize, Sequelize);
+const contact_type = new ContactTypeModel(sequelize, Sequelize);
+const call_type = new CallTypeModel(sequelize, Sequelize);
+const problem_type = new ProblemTypeModel(sequelize, Sequelize);
+const suicide_risk = new SuicideRiskModel(sequelize, Sequelize);
+const suicide_factor = new SuicideFactorModel(sequelize, Sequelize);
+const call_resolution_type = new CallResolutionTypeModel(sequelize, Sequelize);
+const gender = new GenderModel(sequelize, Sequelize);
+const marital_status = new MaritalStatusModel(sequelize, Sequelize);
+const number_of_calls = new NumberOfCallsModel(sequelize, Sequelize);
+const plan_involvement = new PlanInvolvementModel(sequelize, Sequelize);
+const age = new AgeModel(sequelize, Sequelize);
 
 sequelize.sync();
 
@@ -999,5 +1010,65 @@ function databaseOperations() {
     checkIfDatabaseExists();
 }
 
-app.on('ready', databaseOperations);
-app.on('ready', createWindow);
+class CreateVolunteer1582466752001 implements MigrationInterface {
+    async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.createTable(
+            new Table({
+                name: 'Volunteers',
+                columns: [
+                    {
+                        name: 'id',
+                        type: 'integer',
+                        isPrimary: true,
+                        isGenerated: true,
+                        generationStrategy: 'increment',
+                    },
+                    {
+                        name: 'name',
+                        type: 'text',
+                    },
+                ],
+            })
+        );
+    }
+    async down(queryRunner: QueryRunner): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+}
+
+@Entity('Volunteers')
+class VolunteerEntity extends BaseEntity {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column('text')
+    name: string;
+}
+
+const run = async () => {
+    try {
+        await app.whenReady();
+        const window = new BrowserWindow({
+            webPreferences: {
+                nodeIntegration: true,
+            },
+        });
+        window.loadURL('http://localhost:3000/');
+        const connection = await createConnection({
+            type: 'sqlite',
+            database: 'srce.db',
+            entities: [VolunteerEntity],
+            migrations: [CreateVolunteer1582466752001],
+            migrationsTableName: 'Migrations',
+        });
+        await connection.runMigrations();
+        const testVolunteer = new VolunteerEntity();
+        testVolunteer.name = 'TEST_VOLUNTEER';
+        testVolunteer.save();
+    } catch (error) {
+        console.error(error);
+        process.exit(1);
+    }
+};
+
+run();

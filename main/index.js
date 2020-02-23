@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const { app, BrowserWindow, Menu, ipcMain } = require('electron');
-const dbHelper = require('./src/database/dbHelper');
+const dbHelper = require('./database/dbHelper');
 
 let window;
 

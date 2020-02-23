@@ -5,7 +5,7 @@ import { ReactComponent as Logo } from '../assets/logo.svg';
 import { ReactComponent as IcnSettings } from '../assets/settings.svg';
 import { ReactComponent as IcnStatistics } from '../assets/statistics.svg';
 import ThemeContext from '../theme/ThemeContext';
-import { fileRead } from '../user_settings/loadUserSettings';
+// import { fileRead } from '../user_settings/loadUserSettings';
 
 let toggle;
 class Navigation extends Component {
@@ -15,7 +15,7 @@ class Navigation extends Component {
         super(props);
         this.state = {
             isDropdownShowing: false,
-            isDarkThemeActive: fileRead(),
+            isDarkThemeActive: false,
             location: props.location,
         };
     }

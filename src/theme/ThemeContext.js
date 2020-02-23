@@ -1,18 +1,18 @@
-import React from 'react';
-import { useState, useLayoutEffect } from 'react';
-import { fileWrite, fileRead } from '../user_settings/loadUserSettings';
+import React, { useLayoutEffect, useState } from 'react';
+// import { fileWrite, fileRead } from '../user_settings/loadUserSettings';
 
-let m = fileRead();
+// let m = fileRead();
 
 const ThemeContext = React.createContext({
-    dark: m.dark_theme,
+    dark: false,
     toggle: () => {},
 });
 
 export default ThemeContext;
 
 export function ThemeProvider(props) {
-    const [dark, setDark] = useState(m.dark_theme);
+    // const [dark, setDark] = useState(m.dark_theme);
+    const [dark, setDark] = useState(false);
 
     useLayoutEffect(() => {
         const lastTheme = dark;
@@ -32,9 +32,9 @@ export function ThemeProvider(props) {
     };
 
     const toggle = () => {
-        m.dark_theme = !dark;
+        // m.dark_theme = !dark;
         setDark(!dark);
-        fileWrite(m);
+        // fileWrite(m);
         const body = document.getElementsByTagName('body')[0];
         body.style.cssText = 'transition: background .5s ease';
     };

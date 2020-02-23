@@ -43,7 +43,7 @@
     "popper.js": "^1.14.3"
   },
   "scripts": {
-    "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron main\"",
     "react-start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "prettier --check \"./src/**/*.{js,jsx}\"",

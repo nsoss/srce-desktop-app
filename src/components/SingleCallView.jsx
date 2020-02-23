@@ -35,15 +35,25 @@ class SingleCallView extends React.Component {
         super(props);
         this.state = {
             call: {},
-            formData: Array(12).fill([]),
+            formData: {
+                callTypes: [],
+                problemTypes: [],
+                suicideRisks: [],
+                suicideFactors: [],
+                postCallStates: [],
+                genders: [],
+                maritalStatuses: [],
+                callOrdinalities: [],
+                volunteers: [],
+            },
         };
         this.handleChangeInput = this.handleChangeInput.bind(this);
     }
 
     componentDidMount() {
         ipcRenderer.send('getFormData');
-        ipcRenderer.once('formDataSent', (event, formDataObject) => {
-            this.setState({ formData: formDataObject });
+        ipcRenderer.once('formDataSent', (_, formData) => {
+            this.setState({ formData });
         });
     }
 
@@ -56,18 +66,17 @@ class SingleCallView extends React.Component {
     };
 
     render() {
-        const callTypes = this.state.formData[2];
-        const contactTypes = this.state.formData[3];
-        const days = createFakeData('Dan');
-        const genders = this.state.formData[5];
-        const ages = this.state.formData[11];
-        const maritalStatuses = this.state.formData[7];
-        const planInvolvements = this.state.formData[8];
-        const volunteers = this.state.formData[10];
-        const problemTypes = this.state.formData[9];
-        const suicideRisks = this.state.formData[0];
-        const suicideFactors = this.state.formData[1];
-        const attempts = createFakeData('Pokušaj');
+        const {
+            callTypes,
+            problemTypes,
+            suicideRisks,
+            suicideFactors,
+            postCallStates,
+            genders,
+            maritalStatuses,
+            callOrdinalities,
+            volunteers,
+        } = this.state.formData;
 
         return (
             <div className="m-3 mr-0">
@@ -81,7 +90,7 @@ class SingleCallView extends React.Component {
                                 </label>{' '}
                                 <br />
                                 <label className="form-label">
-                                    Vrsta kontakta *
+                                    Vrsta kontakta
                                 </label>{' '}
                                 <br />
                                 <label className="form-label">
@@ -111,7 +120,7 @@ class SingleCallView extends React.Component {
                                 />{' '}
                                 <br />
                                 <Dropdown
-                                    data={contactTypes}
+                                    data={createFakeData('Vrsta kontakta')}
                                     handleChange={this.handleChangeInput}
                                     required={true}
                                 />
@@ -148,7 +157,7 @@ class SingleCallView extends React.Component {
                                     placeholder="10:00"
                                 />
                                 <Dropdown
-                                    data={days}
+                                    data={createFakeData('Dan')}
                                     handleChange={this.handleChangeInput}
                                 />{' '}
                                 <br />
@@ -203,7 +212,7 @@ class SingleCallView extends React.Component {
                                 <br />
                                 <Dropdown
                                     name="age"
-                                    data={ages}
+                                    data={createFakeData('Starost')}
                                     handleChange={this.handleChangeInput}
                                 />{' '}
                                 <br />
@@ -212,15 +221,13 @@ class SingleCallView extends React.Component {
                                     handleChange={this.handleChangeInput}
                                 />{' '}
                                 <br />
-                                <input
-                                    type="text"
-                                    name="number-of-times-called"
-                                    className="form-input"
-                                    placeholder="Koji put zove"
+                                <Dropdown
+                                    data={callOrdinalities}
+                                    handleChange={this.handleChangeInput}
                                 />{' '}
                                 <br />
                                 <Dropdown
-                                    data={planInvolvements}
+                                    data={createFakeData('Uključenost u plan')}
                                     handleChange={this.handleChangeInput}
                                 />{' '}
                                 <br />
@@ -277,7 +284,7 @@ class SingleCallView extends React.Component {
                                     />{' '}
                                     <br />
                                     <Dropdown
-                                        data={attempts}
+                                        data={postCallStates}
                                         handleChange={this.handleChangeInput}
                                     />{' '}
                                     <br />

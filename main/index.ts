@@ -260,7 +260,41 @@ const getMaritalStatuses = async (): Promise<MaritalStatusEntity[]> =>
 const getCallOrdinalities = async (): Promise<CallOrdinalityEntity[]> =>
     await CallOrdinalityEntity.find();
 
-const getFormData = () => Array(12).fill([]);
+const getFormData = async () => {
+    const [
+        callTypes,
+        problemTypes,
+        suicideRisks,
+        suicideFactors,
+        postCallStates,
+        genders,
+        maritalStatuses,
+        callOrdinalities,
+        volunteers,
+    ] = await Promise.all([
+        getCallTypes(),
+        getProblemTypes(),
+        getSuicideRisks(),
+        getSuicideFactors(),
+        getPostCallStates(),
+        getGenders(),
+        getMaritalStatuses(),
+        getCallOrdinalities(),
+        getVolunteers(),
+    ]);
+
+    return {
+        callTypes,
+        problemTypes,
+        suicideRisks,
+        suicideFactors,
+        postCallStates,
+        genders,
+        maritalStatuses,
+        callOrdinalities,
+        volunteers,
+    };
+};
 
 /******************************************************************************/
 
@@ -333,11 +367,6 @@ function createWindow() {
     ipcMain.on('getCalls', async function() {
         const results = await getCalls();
         window.webContents.send('callsSent', results);
-    });
-
-    ipcMain.on('getFormData', async function() {
-        const results = getFormData();
-        window.webContents.send('formDataSent', results);
     });
 
     window.setMenu(menu);
@@ -541,6 +570,12 @@ const run = async () => {
                 nodeIntegration: true,
             },
         });
+
+        ipcMain.on('getFormData', async () => {
+            const formData = await getFormData();
+            window.webContents.send('formDataSent', formData);
+        });
+
         window.loadURL('http://localhost:3000/');
         const connection = await createConnection({
             type: 'sqlite',
@@ -561,14 +596,6 @@ const run = async () => {
             migrationsTableName: 'Migrations',
         });
         await connection.runMigrations();
-        let testVolunteer = new VolunteerEntity();
-        testVolunteer.name = 'TEST_VOLUNTEER';
-        testVolunteer = await testVolunteer.save();
-        let testCall = new CallEntity();
-        testCall.volunteer = testVolunteer;
-        const testCallType = await CallTypeEntity.findOne(4);
-        testCall.callType = testCallType;
-        testCall = await testCall.save();
     } catch (error) {
         console.error(error);
         process.exit(1);

@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain, Menu } from 'electron';
 import isDev from 'electron-is-dev';
 import { autoUpdater } from 'electron-updater';
+import fs from 'fs';
 import path from 'path';
 import {
     BaseEntity,
@@ -675,7 +676,10 @@ const run = async () => {
             autoUpdater.checkForUpdatesAndNotify();
         });
     } catch (error) {
-        console.error(error);
+        fs.writeFileSync(
+            path.join(path.dirname(app.getAppPath()), 'error.log'),
+            error
+        );
         process.exit(1);
     }
 };

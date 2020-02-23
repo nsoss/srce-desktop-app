@@ -629,6 +629,10 @@ const run = async () => {
             window.webContents.send('volunteerInserted', volunteer);
         });
 
+        ipcMain.on('get_version_string', event => {
+            event.sender.send('get_version_string', app.getVersion());
+        });
+
         window.loadURL(
             isDev
                 ? 'http://localhost:3000/'

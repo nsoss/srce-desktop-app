@@ -599,6 +599,11 @@ const run = async () => {
             },
         });
 
+        ipcMain.on('getCalls', async () => {
+            const calls = await getCalls();
+            window.webContents.send('callsSent', calls);
+        });
+
         ipcMain.on('getFormData', async () => {
             const formData = await getFormData();
             window.webContents.send('formDataSent', formData);

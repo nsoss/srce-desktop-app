@@ -29,8 +29,9 @@ class CallsView extends Component {
 
     handleChangeTableData = date => {
         let callsByDate = this.props.calls.filter(p => {
-            var str = this.formatDate(p.created_at);
-            return str === format(date, 'dd/MM/yyyy').toString();
+            // var str = this.formatDate(p.created_at);
+            // return str === format(date, 'dd/MM/yyyy').toString();
+            return true;
         });
 
         this.setState({
@@ -75,17 +76,18 @@ class CallsView extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.currentData.map((c, i) => {
+                                {this.props.calls.map((c, i) => {
                                     return (
                                         <tr key={i} className="text-center">
-                                            <th scope="row">{c.call_id}</th>
+                                            <th scope="row">{c.id}</th>
                                             <td>
-                                                {format(
+                                                TODO
+                                                {/* {format(
                                                     new Date(
                                                         Date.parse(c.created_at)
                                                     ),
                                                     'dd.MM.yyyy'
-                                                )}
+                                                )} */}
                                             </td>
                                             <td>{c.volunteerId}</td>
                                         </tr>

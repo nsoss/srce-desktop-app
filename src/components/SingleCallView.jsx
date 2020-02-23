@@ -317,7 +317,29 @@ class SingleCallView extends React.Component {
                         <div className="single-call-buttons">
                             <button
                                 className="btn-srce"
-                                onClick={this.handleSaveData}
+                                onClick={event => {
+                                    event.preventDefault();
+                                    ipcRenderer.send('insertCall', {
+                                        call_number: 'REG-0001',
+                                        call_duration: '12:34',
+                                        volunteer_id: 1,
+                                        contact_type_id: 1,
+                                        call_type_id: 1,
+                                        problem_type_id: 1,
+                                        suicide_risk_id: 1,
+                                        suicide_factor_id: 1,
+                                        call_resolution_type_id: 1,
+                                        note: 'NOTE',
+                                        short_content: 'SHORT_CONTENT',
+                                        caller_name: 'CALLER_NAME',
+                                        age_id: 1,
+                                        gender_id: 1,
+                                        marital_status_id: 1,
+                                        number_of_calls_id: 1,
+                                        plan_involvement_id: 1,
+                                        created_at: Date.now(),
+                                    });
+                                }}
                             >
                                 <FaSave />
                                 &nbsp;Snimi

@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
                 foreignKey: true,
                 references: {
-                    model: 'Volunteer',
+                    model: 'Volunteers',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
@@ -37,7 +37,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
                 foreignKey: true,
                 references: {
-                    model: 'Contact_type',
+                    model: 'Contact_types',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
@@ -48,7 +48,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
                 foreignKey: true,
                 references: {
-                    model: 'Call_type',
+                    model: 'Call_types',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
@@ -59,7 +59,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
                 foreignKey: true,
                 references: {
-                    model: 'Problem_type',
+                    model: 'Problem_types',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
@@ -70,7 +70,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
                 foreignKey: true,
                 references: {
-                    model: 'Suicide_risk',
+                    model: 'Suicide_risks',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
@@ -81,7 +81,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
                 foreignKey: true,
                 references: {
-                    model: 'Suicide_factor',
+                    model: 'Suicide_factors',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
@@ -92,7 +92,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
                 foreignKey: true,
                 references: {
-                    model: 'Call_resolution_type',
+                    model: 'Call_resolution_types',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
@@ -115,7 +115,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
                 foreignKey: true,
                 references: {
-                    model: 'Age',
+                    model: 'Ages',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
@@ -126,7 +126,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
                 foreignKey: true,
                 references: {
-                    model: 'Gender',
+                    model: 'Genders',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
@@ -137,7 +137,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
                 foreignKey: true,
                 references: {
-                    model: 'Marital_status',
+                    model: 'Marital_statuses',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
@@ -159,7 +159,7 @@ module.exports = (sequelize, Sequelize) => {
                 allowNull: false,
                 foreignKey: true,
                 references: {
-                    model: 'Plan_involvement',
+                    model: 'Plan_involvements',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',

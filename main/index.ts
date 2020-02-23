@@ -229,9 +229,38 @@ const insertVolunteer = async (): Promise<void> => {
 
 const getCalls = async (): Promise<CallEntity[]> => await CallEntity.find();
 
-// TODO
-const insertCall = async (): Promise<void> => {
+interface CallData {
+    callTypeId: number;
+    volunteerId: number;
+    problemTypeId: number;
+    suicideRiskId: number;
+    suicideFactorId: number;
+}
+
+const insertCall = async (callData: CallData): Promise<void> => {
     const call = new CallEntity();
+
+    const {
+        callTypeId,
+        volunteerId,
+        problemTypeId,
+        suicideRiskId,
+        suicideFactorId,
+    } = callData;
+
+    const callType = await CallTypeEntity.findOne({ id: callTypeId });
+    const volunteer = await VolunteerEntity.findOne({ id: volunteerId });
+    const problemType = await ProblemTypeEntity.findOne({ id: problemTypeId });
+    const suicideRisk = await SuicideRiskEntity.findOne({ id: suicideRiskId });
+    const suicideFactor = await SuicideFactorEntity.findOne({
+        id: suicideFactorId,
+    });
+
+    call.callType = callType;
+    call.volunteer = volunteer;
+    call.problemType = problemType;
+    call.suicideRisk = suicideRisk;
+    call.suicideFactor = suicideFactor;
 
     await call.save();
 };
@@ -359,11 +388,6 @@ function createWindow() {
         window.webContents.send('volunteerInserted', insertedID);
     });
 
-    ipcMain.on('insertCall', async (event, call) => {
-        const insertedCall = await insertCall();
-        window.webContents.send('callInserted', insertedCall);
-    });
-
     ipcMain.on('getCalls', async function() {
         const results = await getCalls();
         window.webContents.send('callsSent', results);
@@ -454,18 +478,22 @@ class CreateVolunteer1582466752001 implements MigrationInterface {
                     {
                         name: 'postCallStateId',
                         type: 'integer',
+                        isNullable: true,
                     },
                     {
                         name: 'genderId',
                         type: 'integer',
+                        isNullable: true,
                     },
                     {
                         name: 'maritalStatusId',
                         type: 'integer',
+                        isNullable: true,
                     },
                     {
                         name: 'callOrdinalityId',
                         type: 'integer',
+                        isNullable: true,
                     },
                     {
                         name: 'volunteerId',
@@ -576,6 +604,11 @@ const run = async () => {
             window.webContents.send('formDataSent', formData);
         });
 
+        ipcMain.on('insertCall', async (_, call) => {
+            const insertedCall = await insertCall(call);
+            window.webContents.send('callInserted', insertedCall);
+        });
+
         window.loadURL('http://localhost:3000/');
         const connection = await createConnection({
             type: 'sqlite',
@@ -596,6 +629,9 @@ const run = async () => {
             migrationsTableName: 'Migrations',
         });
         await connection.runMigrations();
+        const testVolunteer = new VolunteerEntity();
+        testVolunteer.name = 'EXAMPLE';
+        testVolunteer.save();
     } catch (error) {
         console.error(error);
         process.exit(1);

@@ -85,9 +85,7 @@ class SingleCallView extends React.Component {
                         <p className="single-call-area-label">Poziv</p>
                         <div className="single-call-call ">
                             <div className="column-labels">
-                                <label className="form-label">
-                                    Redni broj *
-                                </label>{' '}
+                                <label className="form-label">Redni broj</label>{' '}
                                 <br />
                                 <label className="form-label">
                                     Vrsta kontakta
@@ -97,18 +95,12 @@ class SingleCallView extends React.Component {
                                     Vrsta poziva *
                                 </label>{' '}
                                 <br />
-                                <label className="form-label">
-                                    Datum *
-                                </label>{' '}
+                                <label className="form-label">Datum</label>{' '}
                                 <br />
-                                <label className="form-label">
-                                    Vreme *
-                                </label>{' '}
+                                <label className="form-label">Vreme</label>{' '}
                                 <br />
                                 <label className="form-label">Dan</label> <br />
-                                <label className="form-label ">
-                                    Trajanje *
-                                </label>
+                                <label className="form-label ">Trajanje</label>
                             </div>
                             <div className="column-inputs">
                                 <input
@@ -127,7 +119,14 @@ class SingleCallView extends React.Component {
                                 <br />
                                 <Dropdown
                                     data={callTypes}
-                                    handleChange={this.handleChangeInput}
+                                    handleChange={(_, data) =>
+                                        this.setState({
+                                            call: {
+                                                ...this.state.call,
+                                                callTypeId: data.id,
+                                            },
+                                        })
+                                    }
                                     required={true}
                                 />{' '}
                                 <br />
@@ -233,7 +232,14 @@ class SingleCallView extends React.Component {
                                 <br />
                                 <Dropdown
                                     data={volunteers}
-                                    handleChange={this.handleChangeInput}
+                                    handleChange={(_, data) =>
+                                        this.setState({
+                                            call: {
+                                                ...this.state.call,
+                                                volunteerId: data.id,
+                                            },
+                                        })
+                                    }
                                     required={true}
                                 />{' '}
                                 <br />
@@ -267,19 +273,40 @@ class SingleCallView extends React.Component {
                                 <div className="column-inputs">
                                     <Dropdown
                                         data={problemTypes}
-                                        handleChange={this.handleChangeInput}
+                                        handleChange={(_, data) =>
+                                            this.setState({
+                                                call: {
+                                                    ...this.state.call,
+                                                    problemTypeId: data.id,
+                                                },
+                                            })
+                                        }
                                         required={true}
                                     />{' '}
                                     <br />
                                     <Dropdown
                                         data={suicideRisks}
-                                        handleChange={this.handleChangeInput}
+                                        handleChange={(_, data) =>
+                                            this.setState({
+                                                call: {
+                                                    ...this.state.call,
+                                                    suicideRiskId: data.id,
+                                                },
+                                            })
+                                        }
                                         required={true}
                                     />{' '}
                                     <br />
                                     <Dropdown
                                         data={suicideFactors}
-                                        handleChange={this.handleChangeInput}
+                                        handleChange={(_, data) =>
+                                            this.setState({
+                                                call: {
+                                                    ...this.state.call,
+                                                    suicideFactorId: data.id,
+                                                },
+                                            })
+                                        }
                                         required={true}
                                     />{' '}
                                     <br />
@@ -296,7 +323,7 @@ class SingleCallView extends React.Component {
                             >
                                 <div className="column-labels">
                                     <label className="form-label">
-                                        Kratak sadržaj *
+                                        Kratak sadržaj
                                     </label>{' '}
                                     <br />
                                     <label
@@ -326,18 +353,10 @@ class SingleCallView extends React.Component {
                                 className="btn-srce"
                                 onClick={event => {
                                     event.preventDefault();
-                                    ipcRenderer.send('insertCall', {
-                                        call_number: 'REG-0001',
-                                        call_duration: '12:34',
-                                        volunteer_id: 1,
-                                        contact_type_id: 1,
-                                        call_type_id: 1,
-                                        problem_type_id: 1,
-                                        suicide_risk_id: 1,
-                                        suicide_factor_id: 1,
-                                        short_content: 'SHORT_CONTENT',
-                                        created_at: Date.now(),
-                                    });
+                                    ipcRenderer.send(
+                                        'insertCall',
+                                        this.state.call
+                                    );
                                 }}
                             >
                                 <FaSave />

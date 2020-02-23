@@ -89,7 +89,6 @@ module.exports = (sequelize, Sequelize) => {
             },
             call_resolution_type_id: {
                 type: Sequelize.INTEGER,
-                allowNull: false,
                 foreignKey: true,
                 references: {
                     model: 'Call_resolution_types',
@@ -100,7 +99,6 @@ module.exports = (sequelize, Sequelize) => {
             },
             note: {
                 type: Sequelize.STRING,
-                allowNull: false,
             },
             short_content: {
                 type: Sequelize.STRING,
@@ -108,11 +106,9 @@ module.exports = (sequelize, Sequelize) => {
             },
             caller_name: {
                 type: Sequelize.STRING,
-                allowNull: false,
             },
             age_id: {
                 type: Sequelize.INTEGER,
-                allowNull: false,
                 foreignKey: true,
                 references: {
                     model: 'Ages',
@@ -123,7 +119,6 @@ module.exports = (sequelize, Sequelize) => {
             },
             gender_id: {
                 type: Sequelize.INTEGER,
-                allowNull: false,
                 foreignKey: true,
                 references: {
                     model: 'Genders',
@@ -134,7 +129,6 @@ module.exports = (sequelize, Sequelize) => {
             },
             marital_status_id: {
                 type: Sequelize.INTEGER,
-                allowNull: false,
                 foreignKey: true,
                 references: {
                     model: 'Marital_statuses',
@@ -145,7 +139,6 @@ module.exports = (sequelize, Sequelize) => {
             },
             number_of_calls_id: {
                 type: Sequelize.INTEGER,
-                allowNull: false,
                 foreignKey: true,
                 references: {
                     model: 'Number_of_calls',
@@ -156,7 +149,6 @@ module.exports = (sequelize, Sequelize) => {
             },
             plan_involvement_id: {
                 type: Sequelize.INTEGER,
-                allowNull: false,
                 foreignKey: true,
                 references: {
                     model: 'Plan_involvements',

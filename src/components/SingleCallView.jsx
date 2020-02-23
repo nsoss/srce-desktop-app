@@ -328,15 +328,7 @@ class SingleCallView extends React.Component {
                                         problem_type_id: 1,
                                         suicide_risk_id: 1,
                                         suicide_factor_id: 1,
-                                        call_resolution_type_id: 1,
-                                        note: 'NOTE',
                                         short_content: 'SHORT_CONTENT',
-                                        caller_name: 'CALLER_NAME',
-                                        age_id: 1,
-                                        gender_id: 1,
-                                        marital_status_id: 1,
-                                        number_of_calls_id: 1,
-                                        plan_involvement_id: 1,
                                         created_at: Date.now(),
                                     });
                                 }}

@@ -13,11 +13,29 @@ ipcRenderer.once('get_version_string', (_, version) => {
     document.title += ' ' + version;
 });
 
+let updateAvailable = false;
+ipcRenderer.once('update_available', () => {
+    updateAvailable = true;
+});
+
+let updateDownloaded = false;
+ipcRenderer.once('update_downloaded', () => {
+    updateDownloaded = true;
+});
+
+const update = () => {
+    ipcRenderer.send('update');
+};
+
 const app = document.getElementById('app');
 ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider>
-            <App />
+            <App
+                updateAvailable={updateAvailable}
+                updateDownloaded={updateDownloaded}
+                update={update}
+            />
         </ThemeProvider>
     </Provider>,
     app

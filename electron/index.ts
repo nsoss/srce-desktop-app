@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain, Menu } from 'electron';
 import isDev from 'electron-is-dev';
+import { autoUpdater } from 'electron-updater';
 import path from 'path';
 import {
     BaseEntity,
@@ -593,10 +594,11 @@ class CreateVolunteer1582466752001 implements MigrationInterface {
     }
 }
 
+let mainWindow: BrowserWindow;
 const run = async () => {
     try {
         await app.whenReady();
-        const window = new BrowserWindow({
+        mainWindow = new BrowserWindow({
             webPreferences: {
                 nodeIntegration: true,
             },
@@ -604,36 +606,40 @@ const run = async () => {
 
         ipcMain.on('getCalls', async () => {
             const calls = await getCalls();
-            window.webContents.send('callsSent', calls);
+            mainWindow.webContents.send('callsSent', calls);
         });
 
         ipcMain.on('getFormData', async () => {
             const formData = await getFormData();
-            window.webContents.send('formDataSent', formData);
+            mainWindow.webContents.send('formDataSent', formData);
         });
 
         ipcMain.on('getVolunteers', async () => {
             const volunteers = await getVolunteers();
-            window.webContents.send('volunteersSent', volunteers);
+            mainWindow.webContents.send('volunteersSent', volunteers);
         });
 
         ipcMain.on('insertCall', async (_, call) => {
             const insertedCall = await insertCall(call);
-            window.webContents.send('callInserted', insertedCall);
+            mainWindow.webContents.send('callInserted', insertedCall);
         });
 
         ipcMain.on('insertVolunteer', async (_, { name }) => {
             const volunteer = new VolunteerEntity();
             volunteer.name = name;
             await volunteer.save();
-            window.webContents.send('volunteerInserted', volunteer);
+            mainWindow.webContents.send('volunteerInserted', volunteer);
         });
 
         ipcMain.on('get_version_string', event => {
             event.sender.send('get_version_string', app.getVersion());
         });
 
-        window.loadURL(
+        ipcMain.on('update', () => {
+            autoUpdater.quitAndInstall();
+        });
+
+        mainWindow.loadURL(
             isDev
                 ? 'http://localhost:3000/'
                 : url.format({
@@ -664,10 +670,22 @@ const run = async () => {
         const testVolunteer = new VolunteerEntity();
         testVolunteer.name = 'EXAMPLE';
         testVolunteer.save();
+
+        mainWindow.once('ready-to-show', () => {
+            autoUpdater.checkForUpdatesAndNotify();
+        });
     } catch (error) {
         console.error(error);
         process.exit(1);
     }
 };
+
+autoUpdater.on('update_available', () => {
+    mainWindow.webContents.send('update_available');
+});
+
+autoUpdater.on('update_downloaded', () => {
+    mainWindow.webContents.send('update_downloaded');
+});
 
 run();

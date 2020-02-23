@@ -14,8 +14,8 @@ function createWindow() {
                     label: 'Exit',
                     click() {
                         app.quit();
-                    }
-                }
+                    },
+                },
             ],
             label: 'Tools',
             submenu: [
@@ -24,20 +24,20 @@ function createWindow() {
                     accelerator: 'Ctrl+Shift+I',
                     click: (item, focusedWindow) => {
                         if (focusedWindow) {
-                            focusedWindow.toggleDevTools()
+                            focusedWindow.toggleDevTools();
                         }
-                    }
-                }
-            ]
-        }
+                    },
+                },
+            ],
+        },
     ]);
 
     Menu.setApplicationMenu(menu);
 
     window = new BrowserWindow({
         webPreferences: {
-            nodeIntegration: true
-        }
+            nodeIntegration: true,
+        },
     });
     window.maximize();
     window.loadURL('http://localhost:3000');
@@ -46,7 +46,7 @@ function createWindow() {
         window = null;
     });
 
-    ipcMain.on('getVolunteers', async function () {
+    ipcMain.on('getVolunteers', async function() {
         const result = await dbHelper.getVolunteers();
         window.webContents.send('volunteersSent', result);
     });
@@ -66,12 +66,12 @@ function createWindow() {
         window.webContents.send('callInserted', insertedCall);
     });
 
-    ipcMain.on('getCalls', async function () {
+    ipcMain.on('getCalls', async function() {
         const results = await dbHelper.getCalls();
         window.webContents.send('callsSent', results);
     });
 
-    ipcMain.on('getFormData', async function () {
+    ipcMain.on('getFormData', async function() {
         const results = await dbHelper.getFormData();
         window.webContents.send('formDataSent', results);
     });

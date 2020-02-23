@@ -5,7 +5,7 @@
 
   "overrides": [
     {
-      "files": "{.prettierrc,package.json}",
+      "files": ".prettierrc",
       "options": {
         "parser": "json",
         "tabWidth": 2

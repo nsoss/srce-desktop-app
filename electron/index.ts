@@ -1,4 +1,6 @@
 import { app, BrowserWindow, ipcMain, Menu } from 'electron';
+import isDev from 'electron-is-dev';
+import path from 'path';
 import {
     BaseEntity,
     Column,
@@ -12,6 +14,7 @@ import {
     Table,
     TableForeignKey,
 } from 'typeorm';
+import url from 'url';
 
 /********************************* seed data **********************************/
 
@@ -626,7 +629,15 @@ const run = async () => {
             window.webContents.send('volunteerInserted', volunteer);
         });
 
-        window.loadURL('http://localhost:3000/');
+        window.loadURL(
+            isDev
+                ? 'http://localhost:3000/'
+                : url.format({
+                      pathname: path.join(__dirname, '../index.html'),
+                      protocol: 'file:',
+                      slashes: true,
+                  })
+        );
         const connection = await createConnection({
             type: 'sqlite',
             database: app.getAppPath() + '/srce.db',

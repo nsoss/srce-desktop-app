@@ -1,4 +1,4 @@
-import { FETCH_VOLUNTEERS, ADD_VOLUNTEER, DELETE_VOLUNTEER } from './type';
+import { ADD_VOLUNTEER, DELETE_VOLUNTEER, FETCH_VOLUNTEERS } from './type';
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
 
@@ -14,15 +14,11 @@ export const fetchVolunteers = () => dispatch => {
 
 export const addVolunteer = newVolunteer => dispatch => {
     ipcRenderer.send('insertVolunteer', newVolunteer);
-    ipcRenderer.once('volunteerInserted', (event, insertedID) => {
-        if (insertedID) {
-            newVolunteer.id = insertedID;
-            dispatch({
-                type: ADD_VOLUNTEER,
-                payload: newVolunteer,
-            });
-        } else {
-        }
+    ipcRenderer.once('volunteerInserted', (_, volunteer) => {
+        dispatch({
+            type: ADD_VOLUNTEER,
+            payload: volunteer,
+        });
     });
 };
 

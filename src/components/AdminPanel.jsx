@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import React, { Component } from 'react';
 import { FaUserMinus } from 'react-icons/fa';
 import { connect } from 'react-redux';
@@ -19,7 +18,7 @@ class Admin extends Component {
         isSaveButtonEnabled: false,
         password: '123',
         inputPassword: '',
-        dataPerPage: 2,
+        dataPerPage: 10,
         currentData: [],
     };
 
@@ -72,7 +71,7 @@ class Admin extends Component {
     render() {
         return (
             <div className="admin-panel">
-                {!this.props.admin ? (
+                {false ? (
                     <Modal
                         onClose={this.passwordCheck}
                         onCancel={() =>
@@ -109,15 +108,16 @@ class Admin extends Component {
                                 return (
                                     <tr key={i}>
                                         <th scope="row">{v.id}</th>
-                                        <td>{v.first_name}</td>
-                                        <td>{v.last_name}</td>
+                                        <td>{v.name}</td>
+                                        <td>TODO</td>
                                         <td>
-                                            {format(
+                                            TODO
+                                            {/* {format(
                                                 new Date(
                                                     Date.parse(v.created_at)
                                                 ),
                                                 'dd.MM.yyyy'
-                                            )}
+                                            )} */}
                                         </td>
                                         <td className="text-center">
                                             <button

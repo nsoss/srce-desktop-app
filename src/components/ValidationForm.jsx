@@ -1,12 +1,13 @@
 import React from 'react';
-import Input from './Input';
 import { FaUserPlus } from 'react-icons/fa';
+import Input from './Input';
 
 class ValidationForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            name: '',
             newUser: {
                 firstName: '',
                 lastName: '',
@@ -33,15 +34,23 @@ class ValidationForm extends React.Component {
 
     render() {
         return (
-            <form className="admin-add-volunteer-form">
+            <form
+                className="admin-add-volunteer-form"
+                onSubmit={event => {
+                    event.preventDefault();
+                    this.props.addVolunteerFunc({
+                        name: this.state.name,
+                    });
+                }}
+            >
                 <Input
-                    type={'text'}
-                    inputName={'firstName'}
-                    fieldName={'ime'}
+                    name={'ime'}
                     title={'Ime'}
-                    value={this.state.newUser.firstName}
+                    value={this.state.name}
                     placeholder={'Unesite ime volontera'}
-                    handleChange={this.handleChangeInput}
+                    onChange={event => {
+                        this.setState({ name: event.target.value });
+                    }}
                 />
 
                 <Input
@@ -60,19 +69,6 @@ class ValidationForm extends React.Component {
                         backgroundColor: 'var(--admin-accent)',
                         marginRight: '0',
                     }}
-                    disabled={
-                        !(
-                            this.state.newUser.firstName &&
-                            this.state.newUser.lastName
-                        )
-                    }
-                    onClick={() =>
-                        this.props.addVolunteerFunc({
-                            first_name: this.state.newUser.firstName,
-                            last_name: this.state.newUser.lastName,
-                            created_at: new Date().toISOString(),
-                        })
-                    }
                 >
                     {' '}
                     Dodaj &nbsp;

@@ -23,18 +23,10 @@ class Input extends React.Component {
                 style={{ display: 'inline-block', width: '542px' }}
                 className="validation-group"
             >
-                <label htmlFor={this.props.inputName} className="form-label">
+                <label htmlFor={this.props.name} className="form-label">
                     {this.props.title}
                 </label>
-                <input
-                    id={this.props.inputName}
-                    name={this.props.inputName}
-                    type={this.props.type}
-                    value={this.props.value}
-                    onChange={this.props.handleChange}
-                    onBlur={this.handleBlur}
-                    //{...this.props}
-                />
+                <input {...this.props} />
                 <div
                     className="validate-massage"
                     style={{
@@ -42,7 +34,7 @@ class Input extends React.Component {
                         visibility: this.state.errorVisibility,
                     }}
                 >
-                    Polje {this.props.fieldName} ne sme biti prazno!
+                    Polje {this.props.title} ne sme biti prazno!
                 </div>
             </div>
         );

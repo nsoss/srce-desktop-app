@@ -604,9 +604,21 @@ const run = async () => {
             window.webContents.send('formDataSent', formData);
         });
 
+        ipcMain.on('getVolunteers', async () => {
+            const volunteers = await getVolunteers();
+            window.webContents.send('volunteersSent', volunteers);
+        });
+
         ipcMain.on('insertCall', async (_, call) => {
             const insertedCall = await insertCall(call);
             window.webContents.send('callInserted', insertedCall);
+        });
+
+        ipcMain.on('insertVolunteer', async (_, { name }) => {
+            const volunteer = new VolunteerEntity();
+            volunteer.name = name;
+            await volunteer.save();
+            window.webContents.send('volunteerInserted', volunteer);
         });
 
         window.loadURL('http://localhost:3000/');

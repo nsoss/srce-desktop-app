@@ -1,8 +1,11 @@
 {
   "name": "srce-desktop-app",
-  "productName": "Registar Srce",
   "version": "0.1.1",
   "description": "Desktop application for Centar Srce",
+  "author": {
+    "name": "The Novi Sad Open Source Software Initiative",
+    "url": "https://nsoss.org/"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,12 +13,6 @@
   },
   "main": "electron/index.js",
   "homepage": "./",
-  "build": {
-    "appId": "org.nsoss.RegistarSrce",
-    "files": [
-      "build/**/*"
-    ]
-  },
   "dependencies": {
     "@types/node": "12.12.28",
     "bootstrap": "^4.3.1",

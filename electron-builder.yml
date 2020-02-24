@@ -1,0 +1,8 @@
+appId: org.nsoss.RegistarSrce
+productName: Registar
+artifactName: ${productName}-${version}.${ext}
+files:
+    - build/**/*
+win:
+    target:
+        - nsis

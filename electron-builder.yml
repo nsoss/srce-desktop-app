@@ -5,4 +5,4 @@ files:
     - build/**/*
 win:
     target:
-        - nsis
+        - zip

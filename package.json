@@ -1,5 +1,6 @@
 {
   "name": "srce-desktop-app",
+  "productName": "Registar Srce",
   "version": "0.1.0",
   "description": "Desktop application for Centar Srce",
   "license": "MIT",
@@ -10,6 +11,7 @@
   "main": "electron/index.js",
   "homepage": "./",
   "build": {
+    "appId": "org.nsoss.RegistarSrce",
     "files": [
       "build/**/*"
     ]
@@ -62,7 +64,9 @@
     "build-electron": "tsc --project ./electron/ && mkdir -p ./build/electron/ && cp ./electron/index.js ./build/electron",
     "lint": "prettier --check \"./{src,main}/**/*.{js,jsx,ts}\"",
     "format": "prettier --write \"./{src,main}/**/*.{js,jsx,ts}\"",
-    "package": "yarn build && yarn build-electron && electron-builder -c.extraMetadata.main=build/electron/index.js"
+    "prepare": "yarn build && yarn build-electron && electron-builder --dir -c.extraMetadata.main=build/electron/index.js",
+    "package": "yarn build && yarn build-electron && electron-builder --win -c.extraMetadata.main=build/electron/index.js --publish never",
+    "deploy": "yarn build && yarn build-electron && electron-builder --win -c.extraMetadata.main=build/electron/index.js --publish always"
   },
   "eslintConfig": {
     "extends": "react-app",

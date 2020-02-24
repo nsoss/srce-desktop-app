@@ -1,7 +1,7 @@
 {
   "name": "srce-desktop-app",
   "productName": "Registar Srce",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Desktop application for Centar Srce",
   "license": "MIT",
   "repository": {
@@ -49,7 +49,7 @@
     "typescript": "3.8.2"
   },
   "devDependencies": {
-    "electron": "^7.1.2",
+    "electron": "8.0.1",
     "electron-builder": "22.3.2"
   },
   "peerDependencies": {

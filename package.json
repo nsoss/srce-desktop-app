@@ -60,9 +60,9 @@
     "build-electron": "tsc --project ./electron/ && mkdir -p ./build/electron/ && cp ./electron/index.js ./build/electron",
     "lint": "prettier --check \"./{src,main}/**/*.{js,jsx,ts}\"",
     "format": "prettier --write \"./{src,main}/**/*.{js,jsx,ts}\"",
-    "prepare": "yarn build && yarn build-electron && electron-builder --dir -c.extraMetadata.main=build/electron/index.js",
-    "package": "yarn build && yarn build-electron && electron-builder --win -c.extraMetadata.main=build/electron/index.js --publish never",
-    "deploy": "yarn build && yarn build-electron && electron-builder --win -c.extraMetadata.main=build/electron/index.js --publish always"
+    "preflight": "yarn build && yarn build-electron && electron-builder --dir -c.extraMetadata.main=build/electron/index.js --publish never",
+    "package": "electron-builder --win -c.extraMetadata.main=build/electron/index.js --publish never",
+    "deploy": "electron-builder --win -c.extraMetadata.main=build/electron/index.js --publish always"
   },
   "eslintConfig": {
     "extends": "react-app",

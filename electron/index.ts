@@ -595,6 +595,8 @@ class CreateVolunteer1582466752001 implements MigrationInterface {
     }
 }
 
+const appDir = path.dirname(app.getAppPath());
+
 let mainWindow: BrowserWindow;
 const run = async () => {
     try {
@@ -651,7 +653,7 @@ const run = async () => {
         );
         const connection = await createConnection({
             type: 'sqlite',
-            database: app.getAppPath() + '/srce.db',
+            database: path.join(appDir, 'srce.db'),
             entities: [
                 VolunteerEntity,
                 CallEntity,
@@ -676,10 +678,7 @@ const run = async () => {
             autoUpdater.checkForUpdatesAndNotify();
         });
     } catch (error) {
-        fs.writeFileSync(
-            path.join(path.dirname(app.getAppPath()), 'error.log'),
-            error
-        );
+        fs.writeFileSync(path.join(appDir, 'error.log'), error);
         process.exit(1);
     }
 };

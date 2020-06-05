@@ -64,7 +64,7 @@ class CallsView extends Component {
 
     render() {
         return (
-            <>
+            <div className="calls-container">
                 <div className="calls-table">
                     {this.state.currentData.length > 0 ? (
                         <table hover className="call-data">
@@ -106,28 +106,35 @@ class CallsView extends Component {
                         handleClick={this.handleClick}
                     />
                 </div>
-                <div className="calls-view">
-                    <button
-                        className="btn-srce"
-                        onClick={() => this.props.handleChangeLocation('call')}
-                    >
-                        Snimi
-                    </button>
-                    <button
-                        className="btn-srce"
-                        style={{ marginTop: '40px' }}
-                        onClick={() => this.props.handleChangeLocation('call')}
-                    >
-                        Izmeni
-                    </button>
-                    <button className="btn-srce" style={{ marginTop: '40px' }}>
-                        Kopiraj
-                    </button>
+                <div className="calls-side-info">
+                    <div style={{ flex: 1 }}>
+                        <CalendarNew
+                            onDateSelect={date =>
+                                this.handleChangeTableData(date)
+                            }
+                        />
+                    </div>
+                    <div className="calls-buttons">
+                        <button
+                            className="btn-srce"
+                            onClick={() =>
+                                this.props.handleChangeLocation('call')
+                            }
+                        >
+                            Snimi
+                        </button>
+                        <button
+                            className="btn-srce"
+                            onClick={() =>
+                                this.props.handleChangeLocation('call')
+                            }
+                        >
+                            Izmeni
+                        </button>
+                        <button className="btn-srce">Kopiraj</button>
+                    </div>
                 </div>
-                <CalendarNew
-                    onDateSelect={date => this.handleChangeTableData(date)}
-                />
-            </>
+            </div>
         );
     }
 }

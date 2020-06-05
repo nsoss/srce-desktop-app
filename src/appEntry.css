@@ -2,6 +2,8 @@ body {
     color: var(--text);
     background-color: var(--color-bg);
     font-size: 14px;
+    padding: 0;
+    margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
         'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
         'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -35,8 +37,7 @@ button {
     margin: 0.5em 0 0.5em 0;
 }
 
-.call-actions-menu,
-.call-data {
+.call-actions-menu {
     margin-top: 1em;
 }
 
@@ -173,18 +174,26 @@ button {
     width: 62px;
 }
 
+/* CALLS SCREEN ------------------------------------------------------ */
+
+.calls-container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 32px 32px 32px 94px;
+}
+
 .call-data tbody td:nth-of-type(odd),
-.call-data tbody tr:nth-of-type(odd) {
+.call-data tbody tr:nth-of-type(odd),
+.call-data thead th:nth-of-type(odd) {
     background-color: #f7f7f7;
     mix-blend-mode: multiply;
 }
 
 .calls-table {
-    position: absolute;
-    width: 1032px;
-    height: 696px;
-    left: 96px;
-    top: 32px;
+    box-sizing: border-box;
+    flex: 4 1 auto;
+    min-height: calc(100vh - 64px);
     background: var(--single-call-panels-bg);
     border: 1px solid var(--single-call-panels-border);
     box-sizing: border-box;
@@ -193,54 +202,35 @@ button {
     color: black;
 }
 
-.volunteer-data {
-    color: var(--text);
-}
-
-.admin-table {
-    padding: 20px;
-    background-color: var(--admin-accent);
-    height: 500px;
-    width: 1132px;
+.calls-side-info {
+    flex: 1;
+    flex-direction: column;
+    margin-left: 32px;
+    height: calc(100vh - 64px);
 }
 
 .call-data {
-    width: 1032px;
+    width: 100%;
     border-spacing: 0;
-}
-
-.volunteer-data {
-    width: 1132px;
-}
-
-.call-data td,
-.call-data th {
-    width: 190px !important;
-}
-
-.volunteer-data td,
-.volunteer-data th {
-    width: 200px !important;
 }
 
 .calendar-srce {
     padding: 10px 20px 5px 20px;
-    position: absolute;
     width: 288px;
-    height: 290px;
-    left: 1160px;
-    top: 32px;
+    min-height: 290px;
     background: var(--single-call-panels-bg);
     border: 1px solid var(--single-call-panels-border);
     box-sizing: border-box;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
+    border-radius: 2px;
     color: black;
+    flex: 1;
 }
 
 .calendar-srce tbody td:hover {
     cursor: pointer;
     background-color: var(--calendar-selected);
+    color: white;
 }
 
 .calendar-srce .selected-date {
@@ -264,7 +254,85 @@ button {
     outline: 0;
 }
 
-td {
+.calls-buttons {
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 290px - 64px);
+}
+
+.btn-srce {
+    position: relative;
+    margin: 0;
+    /* margin-right: 10px; */
+    background-color: var(--btn-bg);
+    user-select: none;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    width: 85px;
+    height: 32px;
+    font-size: inherit;
+}
+
+.btn-srce:not(:last-child) {
+    margin-bottom: 32px;
+}
+
+@media screen and (max-height: 540px) {
+    .calls-buttons {
+        flex-direction: row;
+    }
+    .btn-srce:not(:last-child) {
+        margin-right: 10px;
+        margin-bottom: 0;
+    }
+}
+
+.btn-srce:focus {
+    outline: 0;
+}
+
+.btn-srce:hover {
+    cursor: pointer;
+    opacity: 0.6;
+    background-color: var(--btn-selected);
+    top: -2px;
+    box-shadow: 1px 8px 22px -9px rgba(0, 0, 0, 0.55);
+    transition: box-shadow 0.2s ease-out;
+}
+
+.btn-srce[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.admin-table {
+    padding: 20px;
+    background-color: var(--admin-accent);
+    height: 500px;
+    width: 1132px;
+}
+
+.call-data td,
+.call-data th {
+    width: 190px !important;
+}
+
+.volunteer-data td,
+.volunteer-data th {
+    width: 200px !important;
+}
+
+.volunteer-data {
+    width: 1132px;
+    color: var(--text);
+}
+
+td,
+th {
     width: 32px;
     height: 32px;
     margin-left: 2px;
@@ -437,45 +505,6 @@ textarea:focus {
 
 .single-call-buttons button:hover {
     cursor: pointer;
-    opacity: 0.6;
-}
-
-.calls-view {
-    position: absolute;
-    top: 424px;
-    left: 1266px;
-    width: 95px;
-}
-
-.btn-srce {
-    position: relative;
-    margin: 0;
-    margin-right: 10px;
-    background-color: var(--btn-bg);
-    user-select: none;
-    border: none;
-    border-radius: 3px;
-    color: white;
-    width: 85px;
-    height: 32px;
-    font-size: inherit;
-}
-
-.btn-srce:focus {
-    outline: 0;
-}
-
-.btn-srce:hover {
-    cursor: pointer;
-    opacity: 0.6;
-    background-color: var(--btn-selected);
-    top: -2px;
-    box-shadow: 1px 8px 22px -9px rgba(0, 0, 0, 0.55);
-    transition: box-shadow 0.2s ease-out;
-}
-
-.btn-srce[disabled] {
-    cursor: not-allowed;
     opacity: 0.6;
 }
 

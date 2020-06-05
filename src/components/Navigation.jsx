@@ -43,74 +43,78 @@ class Navigation extends Component {
     render() {
         return (
             <nav className="side-nav">
-                <div
-                    className={`side-nav-item  ${
-                        this.props.location === '/'
-                            ? 'side-nav-item-active'
-                            : ''
-                    }`}
-                    onClick={() => this.handleLocation('/')}
-                >
-                    <Logo />
-                </div>
-                <div
-                    className={`side-nav-item  ${
-                        this.props.location === 'call'
-                            ? 'side-nav-item-active'
-                            : ''
-                    }`}
-                    onClick={() => this.handleLocation('call')}
-                >
-                    <IcnDetails />
-                </div>
-                <div
-                    className={`side-nav-item ${
-                        this.props.location === 'calls-statistics'
-                            ? 'side-nav-item-active'
-                            : ''
-                    }`}
-                    onClick={() => this.handleLocation('calls-statistics')}
-                >
-                    <IcnStatistics />
-                </div>
-                <div
-                    className={`side-nav-item ${
-                        this.props.location === 'admin-page'
-                            ? 'side-nav-item-active'
-                            : ''
-                    }`}
-                    onClick={() => this.handleLocation('admin-page')}
-                >
-                    <IcnSettings />
-                </div>
-                <div
-                    className="side-nav-item dropright m-0"
-                    onClick={this.handleDropdown}
-                >
-                    <More style={{ fontSize: '32px' }} />
+                <div>
                     <div
-                        className="dropdown-menu-srce dropdown-menu"
-                        style={{
-                            display: this.state.isDropdownShowing
-                                ? 'block'
-                                : 'none',
-                        }}
+                        className={`side-nav-item  ${
+                            this.props.location === '/'
+                                ? 'side-nav-item-active'
+                                : ''
+                        }`}
+                        onClick={() => this.handleLocation('/')}
                     >
-                        <div className="dropdown-item m-0 pr-2 pl-5 ">
-                            <input
-                                className="pointer mr-1"
-                                type="checkbox"
-                                id="gridCheck1"
-                                onClick={() => {
-                                    this.setState(prevState => ({
-                                        isDropdownShowing: false,
-                                        isDarkThemeActive: !prevState.isDarkThemeActive,
-                                    }));
-                                    toggle();
-                                }}
-                                checked={this.state.isDarkThemeActive}
-                            ></input>
-                            Tamna tema
+                        <Logo />
+                    </div>
+                    <div
+                        className={`side-nav-item  ${
+                            this.props.location === 'call'
+                                ? 'side-nav-item-active'
+                                : ''
+                        }`}
+                        onClick={() => this.handleLocation('call')}
+                    >
+                        <IcnDetails />
+                    </div>
+                    <div
+                        className={`side-nav-item ${
+                            this.props.location === 'calls-statistics'
+                                ? 'side-nav-item-active'
+                                : ''
+                        }`}
+                        onClick={() => this.handleLocation('calls-statistics')}
+                    >
+                        <IcnStatistics />
+                    </div>
+                </div>
+                <div>
+                    <div
+                        className={`side-nav-item ${
+                            this.props.location === 'admin-page'
+                                ? 'side-nav-item-active'
+                                : ''
+                        }`}
+                        onClick={() => this.handleLocation('admin-page')}
+                    >
+                        <IcnSettings />
+                    </div>
+                    <div
+                        className="side-nav-item dropright m-0"
+                        onClick={this.handleDropdown}
+                    >
+                        <More style={{ fontSize: '32px' }} />
+                        <div
+                            className="dropdown-menu-srce dropdown-menu"
+                            style={{
+                                display: this.state.isDropdownShowing
+                                    ? 'block'
+                                    : 'none',
+                            }}
+                        >
+                            <div className="dropdown-item m-0 pr-2 pl-5 ">
+                                <input
+                                    className="pointer mr-1"
+                                    type="checkbox"
+                                    id="gridCheck1"
+                                    onClick={() => {
+                                        this.setState(prevState => ({
+                                            isDropdownShowing: false,
+                                            isDarkThemeActive: !prevState.isDarkThemeActive,
+                                        }));
+                                        toggle();
+                                    }}
+                                    checked={this.state.isDarkThemeActive}
+                                ></input>
+                                Tamna tema
+                            </div>
                         </div>
                     </div>
                 </div>

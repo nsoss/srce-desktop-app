@@ -133,6 +133,9 @@ button {
     left: 0px;
     top: 0px;
     background: var(--color-nav);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .side-nav-item {
@@ -156,18 +159,6 @@ button {
     margin-right: auto;
     padding-top: 16px;
     display: block;
-}
-
-.side-nav-item:last-child {
-    position: absolute;
-    left: 0px;
-    top: 716px;
-}
-
-.side-nav-item:nth-child(4) {
-    position: absolute;
-    left: 0px;
-    top: 654px;
 }
 
 .side-nav-item:hover {

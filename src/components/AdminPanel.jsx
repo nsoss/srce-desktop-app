@@ -18,7 +18,7 @@ class Admin extends Component {
         isSaveButtonEnabled: false,
         password: '123',
         inputPassword: '',
-        dataPerPage: 10,
+        dataPerPage: 9,
         currentData: [],
     };
 
@@ -107,7 +107,7 @@ class Admin extends Component {
                             {this.state.currentData.map((v, i) => {
                                 return (
                                     <tr key={i}>
-                                        <th scope="row">{v.id}</th>
+                                        <td>{v.id}</td>
                                         <td>{v.name}</td>
                                         <td>TODO</td>
                                         <td>

@@ -19,14 +19,11 @@ class Input extends React.Component {
 
     render() {
         return (
-            <div
-                style={{ display: 'inline-block', width: '542px' }}
-                className="validation-group"
-            >
+            <div className="validation-group">
                 <label htmlFor={this.props.name} className="form-label">
                     {this.props.title}
                 </label>
-                <input {...this.props} />
+                <input {...this.props} style={{ width: '100%' }} />
                 <div
                     className="validate-massage"
                     style={{

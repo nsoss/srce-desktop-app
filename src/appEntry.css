@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    padding: 0;
     color: var(--text);
     background-color: var(--color-bg);
     font-size: 14px;
@@ -527,30 +528,54 @@ textarea:focus {
 }
 
 .admin-panel {
-    position: absolute;
-    width: 865px;
-    height: 582px;
-    left: 222px;
-    top: 111px;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 90px 190px 32px 224px;
+    min-width: 337px;
+}
+
+.admin-table {
+    padding: 20px;
+    background-color: var(--admin-accent);
+    width: 100%;
+    min-width: 337px;
+    height: 100%;
+    height: calc(100% - 60px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .admin-add-volunteer-form {
-    margin-bottom: 20px;
-    color: var(--text);
-    width: 1172px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    min-width: 337px;
 }
 
 .admin-add-volunteer-form label {
-    width: 62px;
     margin-left: 3px;
 }
 
 .admin-add-volunteer-form input {
     background-color: var(--admin-accent);
     border: none;
-    width: 450px;
     height: 32px;
-    margin-right: 20px;
+    flex: 4;
+    margin-left: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.volunteer-data {
+    color: var(--text);
+    width: 100%;
+}
+
+.volunteer-data td,
+.volunteer-data th {
+    text-align: center;
 }
 
 .form-input-modal {
@@ -569,12 +594,6 @@ textarea:focus {
     position: absolute;
     top: 630px;
     left: 480px;
-}
-
-.admin-table .pagination {
-    position: absolute;
-    top: 530px;
-    left: 560px;
 }
 
 .popup {
@@ -598,7 +617,7 @@ textarea:focus {
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.5);
-    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .popup ul {
@@ -875,4 +894,11 @@ textarea:focus {
 .validation-group:nth-child(2) .validate-massage {
     top: 40px;
     left: 615px;
+}
+
+.validation-group {
+    display: flex;
+    justify-content: 'space-between';
+    width: 50%;
+    margin-right: 10px;
 }

@@ -1,4 +1,5 @@
 body {
+    margin: 0;
     color: var(--text);
     background-color: var(--color-bg);
     font-size: 14px;
@@ -31,6 +32,16 @@ label {
 
 button {
     margin: 0 0 0.5em 0.5em;
+}
+
+.single-call-container {
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 48px 32px 32px 96px;
+    display: flex;
+    flex-direction: column;
+    min-width: 570px;
+    min-height: 640px;
 }
 
 .dropdown {
@@ -128,7 +139,7 @@ button {
 }
 
 .side-nav {
-    position: absolute;
+    position: fixed;
     width: 64px;
     height: 100%;
     left: 0px;
@@ -137,6 +148,7 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 9999;
 }
 
 .side-nav-item {
@@ -339,22 +351,22 @@ th {
     margin-right: 2px;
 }
 
-.single-call-call {
-    position: absolute;
-    width: 700px;
-    height: 320px;
-    left: 96px;
-    top: 48px;
+.single-call-area {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     background: var(--single-call-panels-bg);
     border: 0.5px solid var(--single-call-panels-border);
     box-sizing: border-box;
     border-radius: 2px;
     padding: 20px;
-    display: flex;
+    padding-bottom: 24px;
+    width: 100%;
+    min-width: 386px;
 }
 
-.single-call-call:focus-within {
-    top: 46px;
+.single-call-area:focus-within {
+    top: -5px;
     box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.2s ease-out;
 }
@@ -369,56 +381,32 @@ th {
     width: 75%;
 }
 
-.column-details:first-child {
-    float: left;
+.column-details {
     width: 50%;
-}
-.column-details:last-child {
-    float: left;
-    width: 47%;
-}
-
-.single-call-caller {
-    position: absolute;
-    width: 700px;
-    height: 320px;
-    left: 818px;
-    top: 48px;
-    background: var(--single-call-panels-bg);
-    border: 0.5px solid var(--single-call-panels-border);
-    box-sizing: border-box;
-    border-radius: 2px;
-    padding: 20px;
-}
-
-.single-call-caller:focus-within {
-    top: 46px;
-    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.2s ease-out;
 }
 
 .single-call-coversation-details {
-    position: absolute;
-    width: 1422px;
-    height: 230px;
-    left: 96px;
-    top: 400px;
+    display: flex;
+    position: relative;
     background: var(--single-call-panels-bg);
     border: 0.5px solid var(--single-call-panels-border);
     box-sizing: border-box;
     border-radius: 2px;
     padding: 20px;
+    padding-bottom: 24px;
+    width: 100%;
+    min-width: 802px;
 }
 
 .single-call-coversation-details:focus-within {
-    top: 398px;
+    top: -10px;
     box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.2s ease-out;
 }
 
 .single-call-area-label {
     position: absolute;
-    width: 75px;
+    top: -15px;
     height: 24px;
     background: var(--single-call-panels-bg);
     color: var(--text);
@@ -428,54 +416,42 @@ th {
     text-align: center;
     font-size: 16px;
     z-index: 999;
-}
-
-.single-call-area-label:first-child {
-    left: 112px;
-    top: 32px;
-}
-
-.single-call-area-label:nth-child(3) {
-    left: 834px;
-    top: 32px;
-}
-
-.single-call-area-label:nth-child(5) {
-    width: 150px;
-    left: 112.91px;
-    top: 386px;
-    z-index: 9999;
+    padding: 0 10px;
+    margin: 0;
 }
 
 .form-label {
-    width: 122px;
+    display: flex;
+    flex: 1;
+    width: 100%;
     height: 32px;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
     line-height: 32px;
     color: var(--text);
-    margin-top: 2px;
+    margin: 0;
 }
 
 .form-input {
-    width: 490px;
     height: 32px;
+    width: 100%;
     border: none;
     border-bottom: 1px solid var(--form-input-border);
     font-size: 14px;
     padding-left: 3px;
-    margin-top: 7px;
     background-color: var(--single-call-panels-bg);
+    flex: 2;
 }
 
 textarea {
     border: 1px solid var(--form-input-border);
     font-size: 14px;
-    width: 492px;
     background-color: var(--single-call-panels-bg);
     -webkit-appearance: none;
     resize: none;
+    width: 100%;
+    flex: 2;
 }
 
 textarea:focus {
@@ -496,15 +472,57 @@ textarea:focus {
 }
 
 .single-call-buttons {
-    position: absolute;
-    width: 80%;
-    height: 32px;
-    left: 96px;
-    top: 682px;
+    margin-top: 17px;
 }
 
 .single-call-buttons button:hover {
     cursor: pointer;
+    opacity: 0.6;
+}
+
+.single-call-form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.calls-view {
+    position: absolute;
+    top: 424px;
+    left: 1266px;
+    width: 95px;
+}
+
+.btn-srce {
+    position: relative;
+    margin: 0;
+    margin-right: 10px;
+    background-color: var(--btn-bg);
+    user-select: none;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    width: 85px;
+    height: 32px;
+    font-size: inherit;
+    min-width: 85px;
+}
+
+.btn-srce:focus {
+    outline: 0;
+}
+
+.btn-srce:hover {
+    cursor: pointer;
+    opacity: 0.6;
+    background-color: var(--btn-selected);
+    top: -2px;
+    box-shadow: 1px 8px 22px -9px rgba(0, 0, 0, 0.55);
+    transition: box-shadow 0.2s ease-out;
+}
+
+.btn-srce[disabled] {
+    cursor: not-allowed;
     opacity: 0.6;
 }
 
@@ -564,9 +582,23 @@ textarea:focus {
     position: absolute;
     will-change: transform;
     background-color: var(--form-input-bg);
-    width: 473px;
+    width: 100%;
     padding: 10px;
     border-radius: 3px;
+    top: 35px;
+    box-sizing: border-box;
+    max-height: 250px;
+    overflow: scroll;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .popup ul {
@@ -605,13 +637,15 @@ textarea:focus {
 
 .input-with-arrrow {
     position: relative;
-    display: inline-block;
+    display: flex;
+    width: 100%;
+    flex: 2;
 }
 
 .input-with-arrrow::before {
     position: absolute;
     content: url('./assets/arrow.svg');
-    top: 12px;
+    top: 6px;
     right: -3px;
     height: 20px;
     width: 20px;

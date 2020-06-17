@@ -79,325 +79,303 @@ class SingleCallView extends React.Component {
         } = this.state.formData;
 
         return (
-            <div className="m-3 mr-0">
-                <form>
-                    <div>
+            <form className="single-call-container">
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        marginBottom: '30px',
+                    }}
+                >
+                    <div
+                        className="single-call-area "
+                        style={{ marginRight: '30px' }}
+                    >
                         <p className="single-call-area-label">Poziv</p>
-                        <div className="single-call-call ">
-                            <div className="column-labels">
-                                <label className="form-label">Redni broj</label>{' '}
-                                <br />
-                                <label className="form-label">
-                                    Vrsta kontakta
-                                </label>{' '}
-                                <br />
-                                <label className="form-label">
-                                    Vrsta poziva *
-                                </label>{' '}
-                                <br />
-                                <label className="form-label">Datum</label>{' '}
-                                <br />
-                                <label className="form-label">Vreme</label>{' '}
-                                <br />
-                                <label className="form-label">Dan</label> <br />
-                                <label className="form-label ">Trajanje</label>
-                            </div>
-                            <div className="column-inputs">
-                                <input
-                                    type="text"
-                                    name="call-number"
-                                    className="form-input "
-                                    placeholder="Redni broj"
-                                    style={{ marginTop: '0' }}
-                                />{' '}
-                                <br />
-                                <Dropdown
-                                    data={createFakeData('Vrsta kontakta')}
-                                    handleChange={this.handleChangeInput}
-                                    required={true}
-                                />
-                                <br />
-                                <Dropdown
-                                    data={callTypes}
-                                    handleChange={(_, data) =>
-                                        this.setState({
-                                            call: {
-                                                ...this.state.call,
-                                                callTypeId: data.id,
-                                            },
-                                        })
-                                    }
-                                    required={true}
-                                />{' '}
-                                <br />
-                                <MaskedInput
-                                    name="date"
-                                    className="form-input required"
-                                    pipe={autoCorrectedDatePipe}
-                                    keepCharPositions={true}
-                                    mask={[
-                                        /\d/,
-                                        /\d/,
-                                        '/',
-                                        /\d/,
-                                        /\d/,
-                                        '/',
-                                        /\d/,
-                                        /\d/,
-                                        /\d/,
-                                        /\d/,
-                                    ]}
-                                    placeholder="25/09/1970"
-                                />
-                                <MaskedInput
-                                    name="time"
-                                    className="form-input required"
-                                    mask={timeMask}
-                                    placeholder="10:00"
-                                />
-                                <Dropdown
-                                    data={createFakeData('Dan')}
-                                    handleChange={this.handleChangeInput}
-                                />{' '}
-                                <br />
-                                <MaskedInput
-                                    name="duration"
-                                    className="form-input required"
-                                    mask={[/\d/, /\d/, ':', /[1-5]/, /\d/]}
-                                    placeholder="10:00"
-                                />
-                            </div>
+                        <div className="single-call-form-row">
+                            <label className="form-label">Redni broj</label>
+                            <input
+                                type="text"
+                                name="call-number"
+                                className="form-input "
+                                placeholder="Redni broj"
+                                style={{ marginTop: '0' }}
+                            />
+                        </div>
+                        <div className="single-call-form-row">
+                            <label className="form-label">Vrsta kontakta</label>
+                            <Dropdown
+                                data={createFakeData('Vrsta kontakta')}
+                                handleChange={this.handleChangeInput}
+                                required={true}
+                            />
                         </div>
 
-                        <p className="single-call-area-label">Pozivar</p>
-                        <div className="single-call-caller ">
-                            <div className="column-labels">
-                                <label className="form-label">
-                                    Ime ili nadimak
-                                </label>{' '}
-                                <br />
-                                <label className="form-label">Pol</label> <br />
-                                <label className="form-label">
-                                    Starost
-                                </label>{' '}
-                                <br />
-                                <label className="form-label">
-                                    Bračno stanje
-                                </label>{' '}
-                                <br />
-                                <label className="form-label">
-                                    Koji put zove
-                                </label>{' '}
-                                <br />
-                                <label className="form-label">
-                                    Uključenost u plan
-                                </label>{' '}
-                                <br />
-                                <label className="form-label">Volonter *</label>
-                            </div>
-                            <div className="column-inputs">
-                                <input
-                                    type="text"
-                                    name="caller-name"
-                                    className="form-input"
-                                    placeholder="Ime ili nadimak"
-                                    style={{ marginTop: '0' }}
-                                />{' '}
-                                <br />
-                                <Dropdown
-                                    data={genders}
-                                    handleChange={this.handleChangeInput}
-                                />{' '}
-                                <br />
-                                <Dropdown
-                                    name="age"
-                                    data={createFakeData('Starost')}
-                                    handleChange={this.handleChangeInput}
-                                />{' '}
-                                <br />
-                                <Dropdown
-                                    data={maritalStatuses}
-                                    handleChange={this.handleChangeInput}
-                                />{' '}
-                                <br />
-                                <Dropdown
-                                    data={callOrdinalities}
-                                    handleChange={this.handleChangeInput}
-                                />{' '}
-                                <br />
-                                <Dropdown
-                                    data={createFakeData('Uključenost u plan')}
-                                    handleChange={this.handleChangeInput}
-                                />{' '}
-                                <br />
-                                <Dropdown
-                                    data={volunteers}
-                                    handleChange={(_, data) =>
-                                        this.setState({
-                                            call: {
-                                                ...this.state.call,
-                                                volunteerId: data.id,
-                                            },
-                                        })
-                                    }
-                                    required={true}
-                                />{' '}
-                                <br />
-                            </div>
-                        </div>
-
-                        <p className="single-call-area-label">Opis razgovora</p>
-                        <div className="single-call-coversation-details ">
-                            <div className="column-details">
-                                <div className="column-labels">
-                                    <label
-                                        className="form-label"
-                                        style={{ marginTop: '8px' }}
-                                    >
-                                        Vrsta problema *
-                                    </label>{' '}
-                                    <br />
-                                    <label className="form-label">
-                                        Suicidalni rizik *
-                                    </label>{' '}
-                                    <br />
-                                    <label className="form-label">
-                                        Suicidalni faktor *
-                                    </label>{' '}
-                                    <br />
-                                    <label className="form-label">
-                                        Pokušaji
-                                    </label>{' '}
-                                    <br />
-                                </div>
-                                <div className="column-inputs">
-                                    <Dropdown
-                                        data={problemTypes}
-                                        handleChange={(_, data) =>
-                                            this.setState({
-                                                call: {
-                                                    ...this.state.call,
-                                                    problemTypeId: data.id,
-                                                },
-                                            })
-                                        }
-                                        required={true}
-                                    />{' '}
-                                    <br />
-                                    <Dropdown
-                                        data={suicideRisks}
-                                        handleChange={(_, data) =>
-                                            this.setState({
-                                                call: {
-                                                    ...this.state.call,
-                                                    suicideRiskId: data.id,
-                                                },
-                                            })
-                                        }
-                                        required={true}
-                                    />{' '}
-                                    <br />
-                                    <Dropdown
-                                        data={suicideFactors}
-                                        handleChange={(_, data) =>
-                                            this.setState({
-                                                call: {
-                                                    ...this.state.call,
-                                                    suicideFactorId: data.id,
-                                                },
-                                            })
-                                        }
-                                        required={true}
-                                    />{' '}
-                                    <br />
-                                    <Dropdown
-                                        data={postCallStates}
-                                        handleChange={this.handleChangeInput}
-                                    />{' '}
-                                    <br />
-                                </div>
-                            </div>
-                            <div
-                                className="column-details"
-                                style={{ marginLeft: '30px' }}
-                            >
-                                <div className="column-labels">
-                                    <label className="form-label">
-                                        Kratak sadržaj
-                                    </label>{' '}
-                                    <br />
-                                    <label
-                                        className="form-label"
-                                        style={{ marginTop: '55px' }}
-                                    >
-                                        Napomena
-                                    </label>{' '}
-                                    <br />
-                                </div>
-                                <div className="column-inputs">
-                                    <textarea
-                                        name="content required"
-                                        rows="6"
-                                    ></textarea>{' '}
-                                    <br />
-                                    <textarea
-                                        name="content"
-                                        rows="4"
-                                    ></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="single-call-buttons">
-                            <button
-                                className="btn-srce"
-                                onClick={event => {
-                                    event.preventDefault();
-                                    ipcRenderer.send(
-                                        'insertCall',
-                                        this.state.call
-                                    );
-                                }}
-                            >
-                                <FaSave />
-                                &nbsp;Snimi
-                            </button>
-                            <button
-                                className="btn-srce"
-                                onClick={this.handleUpdateData}
-                            >
-                                <FaPencilAlt />
-                                &nbsp;Izmeni
-                            </button>
-                            <button
-                                className="btn-srce"
-                                onClick={this.handleCopyData}
-                            >
-                                <FaCopy />
-                                &nbsp;Kopiraj
-                            </button>
-                            <button
-                                className="btn-srce"
-                                onClick={this.handleExportToExcel}
-                                style={{ width: '135px' }}
-                            >
-                                <FaFileCsv />
-                                &nbsp;Prebaci u CSV
-                            </button>
-                            <button
-                                className="btn-srce"
-                                style={{ backgroundColor: '#CC8066 ' }}
-                                onClick={() =>
-                                    this.props.handleChangeLocation('calls')
+                        <div className="single-call-form-row">
+                            <label className="form-label">Vrsta poziva *</label>
+                            <Dropdown
+                                data={callTypes}
+                                handleChange={(_, data) =>
+                                    this.setState({
+                                        call: {
+                                            ...this.state.call,
+                                            callTypeId: data.id,
+                                        },
+                                    })
                                 }
-                            >
-                                <IoIosExit />
-                                &nbsp;Izadji
-                            </button>
+                                required={true}
+                            />
+                        </div>
+
+                        <div className="single-call-form-row">
+                            <label className="form-label">Datum</label> <br />
+                            <MaskedInput
+                                name="date"
+                                className="form-input required"
+                                pipe={autoCorrectedDatePipe}
+                                keepCharPositions={true}
+                                mask={[
+                                    /\d/,
+                                    /\d/,
+                                    '/',
+                                    /\d/,
+                                    /\d/,
+                                    '/',
+                                    /\d/,
+                                    /\d/,
+                                    /\d/,
+                                    /\d/,
+                                ]}
+                                placeholder="25/09/1970"
+                            />
+                        </div>
+                        <div className="single-call-form-row">
+                            <label className="form-label">Vreme</label> <br />
+                            <MaskedInput
+                                name="time"
+                                className="form-input required"
+                                mask={timeMask}
+                                placeholder="10:00"
+                            />
+                        </div>
+                        <div className="single-call-form-row">
+                            <label className="form-label">Dan</label> <br />
+                            <Dropdown
+                                data={createFakeData('Dan')}
+                                handleChange={this.handleChangeInput}
+                            />
+                        </div>
+                        <div className="single-call-form-row">
+                            <label className="form-label ">Trajanje</label>
+                            <MaskedInput
+                                name="duration"
+                                className="form-input required"
+                                mask={[/\d/, /\d/, ':', /[1-5]/, /\d/]}
+                                placeholder="10:00"
+                            />
                         </div>
                     </div>
-                </form>
-            </div>
+
+                    <div className="single-call-area ">
+                        <p className="single-call-area-label">Pozivar</p>
+                        <div className="single-call-form-row">
+                            <label className="form-label">
+                                Ime ili nadimak
+                            </label>
+                            <input
+                                type="text"
+                                name="caller-name"
+                                className="form-input"
+                                placeholder="Ime ili nadimak"
+                                style={{ marginTop: '0' }}
+                            />
+                        </div>
+                        <div className="single-call-form-row">
+                            <label className="form-label">Pol</label>
+                            <Dropdown
+                                data={genders}
+                                handleChange={this.handleChangeInput}
+                            />
+                        </div>
+                        <div className="single-call-form-row">
+                            <label className="form-label">Starost</label>
+                            <Dropdown
+                                name="age"
+                                data={createFakeData('Starost')}
+                                handleChange={this.handleChangeInput}
+                            />
+                        </div>
+                        <div className="single-call-form-row">
+                            <label className="form-label">Bračno stanje</label>
+                            <Dropdown
+                                data={maritalStatuses}
+                                handleChange={this.handleChangeInput}
+                            />
+                        </div>
+                        <div className="single-call-form-row">
+                            <label className="form-label">Koji put zove</label>
+                            <Dropdown
+                                data={callOrdinalities}
+                                handleChange={this.handleChangeInput}
+                            />
+                        </div>
+                        <div className="single-call-form-row">
+                            <label className="form-label">
+                                Uključenost u plan
+                            </label>
+                            <Dropdown
+                                data={createFakeData('Uključenost u plan')}
+                                handleChange={this.handleChangeInput}
+                            />
+                        </div>
+                        <div className="single-call-form-row">
+                            <label className="form-label">Volonter *</label>
+                            <Dropdown
+                                data={volunteers}
+                                handleChange={(_, data) =>
+                                    this.setState({
+                                        call: {
+                                            ...this.state.call,
+                                            volunteerId: data.id,
+                                        },
+                                    })
+                                }
+                                required={true}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div style={{ display: 'flex' }}>
+                    <div className="single-call-coversation-details ">
+                        <p className="single-call-area-label">Opis razgovora</p>
+                        <div className="column-details">
+                            <div className="single-call-form-row">
+                                <label
+                                    className="form-label"
+                                    style={{ marginTop: '8px' }}
+                                >
+                                    Vrsta problema *
+                                </label>
+                                <Dropdown
+                                    data={problemTypes}
+                                    handleChange={(_, data) =>
+                                        this.setState({
+                                            call: {
+                                                ...this.state.call,
+                                                problemTypeId: data.id,
+                                            },
+                                        })
+                                    }
+                                    required={true}
+                                />
+                            </div>
+                            <div className="single-call-form-row">
+                                <label className="form-label">
+                                    Suicidalni rizik *
+                                </label>
+                                <Dropdown
+                                    data={suicideRisks}
+                                    handleChange={(_, data) =>
+                                        this.setState({
+                                            call: {
+                                                ...this.state.call,
+                                                suicideRiskId: data.id,
+                                            },
+                                        })
+                                    }
+                                    required={true}
+                                />
+                            </div>
+                            <div className="single-call-form-row">
+                                <label className="form-label">
+                                    Suicidalni faktor *
+                                </label>
+                                <Dropdown
+                                    data={suicideFactors}
+                                    handleChange={(_, data) =>
+                                        this.setState({
+                                            call: {
+                                                ...this.state.call,
+                                                suicideFactorId: data.id,
+                                            },
+                                        })
+                                    }
+                                    required={true}
+                                />
+                            </div>
+                            <div className="single-call-form-row">
+                                <label className="form-label">Pokušaji</label>
+                                <Dropdown
+                                    data={postCallStates}
+                                    handleChange={this.handleChangeInput}
+                                />
+                            </div>
+                        </div>
+                        <div
+                            className="column-details"
+                            style={{ marginLeft: '30px' }}
+                        >
+                            <div
+                                className="single-call-form-row"
+                                style={{ marginBottom: '10px' }}
+                            >
+                                <label className="form-label">
+                                    Kratak sadržaj
+                                </label>
+                                <textarea name="content required" rows="5" />
+                            </div>
+                            <div className="single-call-form-row">
+                                <label className="form-label">Napomena</label>
+                                <textarea name="content" rows="3" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    style={{ display: 'flex', flexDirection: 'row' }}
+                    className="single-call-buttons"
+                >
+                    <button
+                        className="btn-srce"
+                        onClick={event => {
+                            event.preventDefault();
+                            ipcRenderer.send('insertCall', this.state.call);
+                        }}
+                    >
+                        <FaSave />
+                        &nbsp;Snimi
+                    </button>
+                    <button
+                        className="btn-srce"
+                        onClick={this.handleUpdateData}
+                    >
+                        <FaPencilAlt />
+                        &nbsp;Izmeni
+                    </button>
+                    <button className="btn-srce" onClick={this.handleCopyData}>
+                        <FaCopy />
+                        &nbsp;Kopiraj
+                    </button>
+                    <button
+                        className="btn-srce"
+                        onClick={this.handleExportToExcel}
+                        style={{ width: '135px' }}
+                    >
+                        <FaFileCsv />
+                        &nbsp;Prebaci u CSV
+                    </button>
+                    <button
+                        className="btn-srce"
+                        style={{ backgroundColor: '#CC8066 ' }}
+                        onClick={() => this.props.handleChangeLocation('calls')}
+                    >
+                        <IoIosExit />
+                        &nbsp;Izadji
+                    </button>
+                </div>
+            </form>
         );
     }
 }

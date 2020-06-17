@@ -239,7 +239,12 @@ class Calendar extends Component {
                                     colSpan="5"
                                 >
                                     <form>
-                                        <div className="ml-3 mr-3">
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                            }}
+                                        >
                                             <Dropdown
                                                 data={months}
                                                 date={format(

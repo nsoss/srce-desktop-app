@@ -4,19 +4,23 @@ import { autoUpdater } from 'electron-updater';
 import fs from 'fs';
 import path from 'path';
 import {
-    BaseEntity,
-    Column,
     createConnection,
-    Entity,
-    ManyToOne,
     MigrationInterface,
-    OneToMany,
-    PrimaryGeneratedColumn,
     QueryRunner,
     Table,
     TableForeignKey,
 } from 'typeorm';
 import url from 'url';
+import Call from './models/Call';
+import CallOrdinality from './models/CallOrdinality';
+import CallType from './models/CallType';
+import Gender from './models/Gender';
+import MaritalStatus from './models/MaritalStatus';
+import PostCallState from './models/PostCallState';
+import ProblemType from './models/ProblemType';
+import SuicideFactor from './models/SuicideFactor';
+import SuicideRisk from './models/SuicideRisk';
+import Volunteer from './models/Volunteer';
 
 /********************************* seed data **********************************/
 
@@ -99,140 +103,24 @@ const callOrdinalities = [
     '2 i više',
 ];
 
-/*********************************** models ***********************************/
-
-@Entity('Volunteers')
-class VolunteerEntity extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column('text')
-    name: string;
-
-    @OneToMany(
-        type => CallEntity,
-        call => call.volunteer
-    )
-    calls: CallEntity[];
-}
-
-@Entity('Calls')
-class CallEntity extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @ManyToOne(
-        type => CallTypeEntity,
-        callType => callType.calls
-    )
-    callType: CallTypeEntity;
-
-    @ManyToOne(
-        type => ProblemTypeEntity,
-        callType => callType.calls
-    )
-    problemType: ProblemTypeEntity;
-
-    @ManyToOne(
-        type => SuicideRiskEntity,
-        callType => callType.calls
-    )
-    suicideRisk: SuicideRiskEntity;
-
-    @ManyToOne(
-        type => SuicideFactorEntity,
-        callType => callType.calls
-    )
-    suicideFactor: SuicideFactorEntity;
-
-    @ManyToOne(
-        type => PostCallStateEntity,
-        callType => callType.calls
-    )
-    postCallState: PostCallStateEntity;
-
-    @ManyToOne(
-        type => GenderEntity,
-        callType => callType.calls
-    )
-    gender: GenderEntity;
-
-    @ManyToOne(
-        type => MaritalStatusEntity,
-        callType => callType.calls
-    )
-    maritalStatus: MaritalStatusEntity;
-
-    @ManyToOne(
-        type => CallOrdinalityEntity,
-        callType => callType.calls
-    )
-    callOrdinality: CallOrdinalityEntity;
-
-    @ManyToOne(
-        type => VolunteerEntity,
-        volunteer => volunteer.calls
-    )
-    volunteer: VolunteerEntity;
-}
-
-class DropdownEntity extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column('text')
-    name: string;
-
-    @OneToMany(
-        type => CallEntity,
-        call => call.callType
-    )
-    calls: CallEntity[];
-}
-
-@Entity('CallTypes')
-class CallTypeEntity extends DropdownEntity {}
-
-@Entity('ProblemTypes')
-class ProblemTypeEntity extends DropdownEntity {}
-
-@Entity('SuicideRisks')
-class SuicideRiskEntity extends DropdownEntity {}
-
-@Entity('SuicideFactors')
-class SuicideFactorEntity extends DropdownEntity {}
-
-@Entity('PostCallStates')
-class PostCallStateEntity extends DropdownEntity {}
-
-@Entity('Genders')
-class GenderEntity extends DropdownEntity {}
-
-@Entity('MaritalStatuses')
-class MaritalStatusEntity extends DropdownEntity {}
-
-@Entity('CallOrdinalities')
-class CallOrdinalityEntity extends DropdownEntity {}
-
 /********************************** dbHelper **********************************/
 
-const getVolunteers = async (): Promise<VolunteerEntity[]> =>
-    await VolunteerEntity.find();
+const getVolunteers = async (): Promise<Volunteer[]> => await Volunteer.find();
 
 const deleteVolunteer = async (id: number): Promise<void> => {
-    await VolunteerEntity.delete({ id });
+    await Volunteer.delete({ id });
 };
 
 // TODO
 const insertVolunteer = async (): Promise<void> => {
-    const volunteer = new VolunteerEntity();
+    const volunteer = new Volunteer();
 
     volunteer.name = 'TEST_VOLUNTEER';
 
     await volunteer.save();
 };
 
-const getCalls = async (): Promise<CallEntity[]> => await CallEntity.find();
+const getCalls = async (): Promise<Call[]> => await Call.find();
 
 interface CallData {
     callTypeId: number;
@@ -243,7 +131,7 @@ interface CallData {
 }
 
 const insertCall = async (callData: CallData): Promise<void> => {
-    const call = new CallEntity();
+    const call = new Call();
 
     const {
         callTypeId,
@@ -253,11 +141,11 @@ const insertCall = async (callData: CallData): Promise<void> => {
         suicideFactorId,
     } = callData;
 
-    const callType = await CallTypeEntity.findOne({ id: callTypeId });
-    const volunteer = await VolunteerEntity.findOne({ id: volunteerId });
-    const problemType = await ProblemTypeEntity.findOne({ id: problemTypeId });
-    const suicideRisk = await SuicideRiskEntity.findOne({ id: suicideRiskId });
-    const suicideFactor = await SuicideFactorEntity.findOne({
+    const callType = await CallType.findOne({ id: callTypeId });
+    const volunteer = await Volunteer.findOne({ id: volunteerId });
+    const problemType = await ProblemType.findOne({ id: problemTypeId });
+    const suicideRisk = await SuicideRisk.findOne({ id: suicideRiskId });
+    const suicideFactor = await SuicideFactor.findOne({
         id: suicideFactorId,
     });
 
@@ -270,29 +158,27 @@ const insertCall = async (callData: CallData): Promise<void> => {
     await call.save();
 };
 
-const getCallTypes = async (): Promise<CallTypeEntity[]> =>
-    await CallTypeEntity.find();
+const getCallTypes = async (): Promise<CallType[]> => await CallType.find();
 
-const getProblemTypes = async (): Promise<ProblemTypeEntity[]> =>
-    await ProblemTypeEntity.find();
+const getProblemTypes = async (): Promise<ProblemType[]> =>
+    await ProblemType.find();
 
-const getSuicideRisks = async (): Promise<SuicideRiskEntity[]> =>
-    await SuicideRiskEntity.find();
+const getSuicideRisks = async (): Promise<SuicideRisk[]> =>
+    await SuicideRisk.find();
 
-const getSuicideFactors = async (): Promise<SuicideFactorEntity[]> =>
-    await SuicideFactorEntity.find();
+const getSuicideFactors = async (): Promise<SuicideFactor[]> =>
+    await SuicideFactor.find();
 
-const getPostCallStates = async (): Promise<PostCallStateEntity[]> =>
-    await PostCallStateEntity.find();
+const getPostCallStates = async (): Promise<PostCallState[]> =>
+    await PostCallState.find();
 
-const getGenders = async (): Promise<GenderEntity[]> =>
-    await GenderEntity.find();
+const getGenders = async (): Promise<Gender[]> => await Gender.find();
 
-const getMaritalStatuses = async (): Promise<MaritalStatusEntity[]> =>
-    await MaritalStatusEntity.find();
+const getMaritalStatuses = async (): Promise<MaritalStatus[]> =>
+    await MaritalStatus.find();
 
-const getCallOrdinalities = async (): Promise<CallOrdinalityEntity[]> =>
-    await CallOrdinalityEntity.find();
+const getCallOrdinalities = async (): Promise<CallOrdinality[]> =>
+    await CallOrdinality.find();
 
 const getFormData = async () => {
     const [
@@ -542,49 +428,49 @@ class CreateVolunteer1582466752001 implements MigrationInterface {
         );
 
         callTypes.forEach(async (callType, index) => {
-            const entity = new CallTypeEntity();
+            const entity = new CallType();
             entity.id = index + 1;
             entity.name = callType;
             await entity.save();
         });
         problemTypes.forEach(async (problemType, index) => {
-            const entity = new ProblemTypeEntity();
+            const entity = new ProblemType();
             entity.id = index + 1;
             entity.name = problemType;
             await entity.save();
         });
         suicideRisks.forEach(async (suicideRisk, index) => {
-            const entity = new SuicideRiskEntity();
+            const entity = new SuicideRisk();
             entity.id = index + 1;
             entity.name = suicideRisk;
             await entity.save();
         });
         suicideFactors.forEach(async (suicideFactor, index) => {
-            const entity = new SuicideFactorEntity();
+            const entity = new SuicideFactor();
             entity.id = index + 1;
             entity.name = suicideFactor;
             await entity.save();
         });
         postCallStates.forEach(async (postCallState, index) => {
-            const entity = new PostCallStateEntity();
+            const entity = new PostCallState();
             entity.id = index + 1;
             entity.name = postCallState;
             await entity.save();
         });
         genders.forEach(async (gender, index) => {
-            const entity = new GenderEntity();
+            const entity = new Gender();
             entity.id = index + 1;
             entity.name = gender;
             await entity.save();
         });
         maritalStatuses.forEach(async (maritalStatus, index) => {
-            const entity = new MaritalStatusEntity();
+            const entity = new MaritalStatus();
             entity.id = index + 1;
             entity.name = maritalStatus;
             await entity.save();
         });
         callOrdinalities.forEach(async (callOrdinality, index) => {
-            const entity = new CallOrdinalityEntity();
+            const entity = new CallOrdinality();
             entity.id = index + 1;
             entity.name = callOrdinality;
             await entity.save();
@@ -628,7 +514,7 @@ const run = async () => {
         });
 
         ipcMain.on('insertVolunteer', async (_, { name }) => {
-            const volunteer = new VolunteerEntity();
+            const volunteer = new Volunteer();
             volunteer.name = name;
             await volunteer.save();
             mainWindow.webContents.send('volunteerInserted', volunteer);
@@ -655,22 +541,22 @@ const run = async () => {
             type: 'sqlite',
             database: path.join(appDir, 'srce.db'),
             entities: [
-                VolunteerEntity,
-                CallEntity,
-                CallTypeEntity,
-                ProblemTypeEntity,
-                SuicideRiskEntity,
-                SuicideFactorEntity,
-                PostCallStateEntity,
-                GenderEntity,
-                MaritalStatusEntity,
-                CallOrdinalityEntity,
+                Volunteer,
+                Call,
+                CallType,
+                ProblemType,
+                SuicideRisk,
+                SuicideFactor,
+                PostCallState,
+                Gender,
+                MaritalStatus,
+                CallOrdinality,
             ],
             migrations: [CreateVolunteer1582466752001],
             migrationsTableName: 'Migrations',
         });
         await connection.runMigrations();
-        const testVolunteer = new VolunteerEntity();
+        const testVolunteer = new Volunteer();
         testVolunteer.name = 'EXAMPLE';
         testVolunteer.save();
 

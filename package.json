@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://github.com/nsoss/srce-desktop-app.git"
   },
-  "main": "electron/index.js",
+  "main": "electron/build/index.js",
   "homepage": "./",
   "dependencies": {
     "@types/node": "12.12.28",

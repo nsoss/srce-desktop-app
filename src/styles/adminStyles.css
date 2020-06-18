@@ -1,0 +1,46 @@
+.admin-panel {
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 90px 190px 32px 224px;
+    min-width: 337px;
+}
+
+.admin-table {
+    padding: 20px;
+    background-color: var(--admin-accent);
+    width: 100%;
+    min-width: 337px;
+    height: 100%;
+    height: calc(100% - 60px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.admin-add-volunteer-form {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    min-width: 337px;
+}
+
+.admin-add-volunteer-form label {
+    margin-left: 3px;
+}
+
+.admin-add-volunteer-form input {
+    background-color: var(--admin-accent);
+    border: none;
+    height: 32px;
+}
+
+.volunteer-data {
+    color: var(--text);
+    width: 100%;
+}
+
+.volunteer-data td,
+.volunteer-data th {
+    text-align: center;
+}

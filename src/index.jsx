@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './App.jsx';
 import './appEntry.css';
+import './styles/adminStyles.css';
 import store from './store';
 import { ThemeProvider } from './theme/ThemeContext';
 

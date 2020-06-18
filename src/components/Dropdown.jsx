@@ -46,13 +46,18 @@ class Dropdown extends React.Component {
                 >
                     <ul>
                         {this.props.data.map(d => {
+                            const data =
+                                typeof d === 'object'
+                                    ? d.first_name || d.name
+                                    : d;
+
                             return (
                                 <li
                                     className="popup-items"
                                     key={d.id}
                                     onMouseDown={e => this.handleChange(e, d)}
                                 >
-                                    {d.name || d.first_name}
+                                    {data}
                                 </li>
                             );
                         })}

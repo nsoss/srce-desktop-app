@@ -343,16 +343,21 @@ class SingleCallView extends React.Component {
                         <div className="single-call-form-row">
                             <label className="form-label">Volonter *</label>
                             <Dropdown
-                                data={volunteers}
-                                handleChange={(_, data) =>
-                                    this.setState({
-                                        call: {
-                                            ...this.state.call,
-                                            volunteerId: data.id,
-                                        },
-                                    })
+                                label={
+                                    this.state.formData.volunteers
+                                        ? this.state.formData.volunteer?.name
+                                        : 'Izaberi'
                                 }
-                                required={true}
+                                items={volunteers}
+                                itemToLabel={(volunteer) => volunteer.name}
+                                onSelect={(item) => {
+                                    this.setState({
+                                        formData: {
+                                            ...this.state.formData,
+                                            volunteer: item,
+                                        },
+                                    });
+                                }}
                             />
                         </div>
                     </div>

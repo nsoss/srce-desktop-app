@@ -10,6 +10,9 @@ cloning this repository, and every time `package.json` changes. After that you
 need to rebuild native modules like sqlite3. Run `bash windows_rebuild_script`
 if you use Windows, or `bash rebuild_script` for Linux.
 
+Editor support is provided for [Visual Studio Code], with features such as
+import sorting configured out of the box.
+
 ## Scripts
 
 `npm start` will run the app as a desktop application.
@@ -42,3 +45,4 @@ Type ".help" for more information.
 [Figma](https://www.figma.com/file/3GkovVdGabhJmCOXC4X5Pi/srce-desktop-app?node-id=1%3A14)
 
 [Node.js REPL]:https://nodejs.dev/learn/how-to-use-the-nodejs-repl
+[Visual Studio Code]:https://code.visualstudio.com/

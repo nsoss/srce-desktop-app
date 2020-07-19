@@ -1,4 +1,5 @@
 import React from 'react';
+import problemTypes from '../enums/problemTypes';
 
 class Dropdown extends React.Component {
     constructor(props) {
@@ -46,10 +47,11 @@ class Dropdown extends React.Component {
                 >
                     <ul>
                         {this.props.data.map(d => {
-                            const data =
-                                typeof d === 'object'
-                                    ? d.first_name || d.name
-                                    : d;
+                            // TODO: Handle volunteers.
+                            // const data =
+                            //     typeof d === 'object'
+                            //         ? d.first_name || d.name
+                            //         : d;
 
                             return (
                                 <li
@@ -57,7 +59,8 @@ class Dropdown extends React.Component {
                                     key={d.id}
                                     onMouseDown={e => this.handleChange(e, d)}
                                 >
-                                    {data}
+                                    {/* // TODO: Don't hard-code this particular enum. */}
+                                    {problemTypes[d.id]}
                                 </li>
                             );
                         })}

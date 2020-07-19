@@ -1,4 +1,10 @@
-import { BaseEntity, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    BaseEntity,
+    Column,
+    Entity,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
 import CallOrdinality from './CallOrdinality';
 import CallType from './CallType';
 import Gender from './Gender';
@@ -14,6 +20,21 @@ export default class Call extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column('bigint', { name: 'created_at' })
+    createdAt: Date;
+
+    @ManyToOne(
+        type => Volunteer,
+        volunteer => volunteer.calls
+    )
+    volunteer: Volunteer;
+
+    @ManyToOne(
+        type => CallOrdinality,
+        callOrdinality => callOrdinality.calls
+    )
+    callOrdinality: CallOrdinality;
+
     @ManyToOne(
         type => CallType,
         callType => callType.calls
@@ -21,50 +42,38 @@ export default class Call extends BaseEntity {
     callType: CallType;
 
     @ManyToOne(
-        type => ProblemType,
-        callType => callType.calls
-    )
-    problemType: ProblemType;
-
-    @ManyToOne(
-        type => SuicideRisk,
-        callType => callType.calls
-    )
-    suicideRisk: SuicideRisk;
-
-    @ManyToOne(
-        type => SuicideFactor,
-        callType => callType.calls
-    )
-    suicideFactor: SuicideFactor;
-
-    @ManyToOne(
-        type => PostCallState,
-        callType => callType.calls
-    )
-    postCallState: PostCallState;
-
-    @ManyToOne(
         type => Gender,
-        callType => callType.calls
+        gender => gender.calls
     )
     gender: Gender;
 
     @ManyToOne(
         type => MaritalStatus,
-        callType => callType.calls
+        maritalStatus => maritalStatus.calls
     )
     maritalStatus: MaritalStatus;
 
     @ManyToOne(
-        type => CallOrdinality,
-        callType => callType.calls
+        type => PostCallState,
+        postCallState => postCallState.calls
     )
-    callOrdinality: CallOrdinality;
+    postCallState: PostCallState;
 
     @ManyToOne(
-        type => Volunteer,
-        volunteer => volunteer.calls
+        type => ProblemType,
+        problemType => problemType.calls
     )
-    volunteer: Volunteer;
+    problemType: ProblemType;
+
+    @ManyToOne(
+        type => SuicideFactor,
+        suicideFactor => suicideFactor.calls
+    )
+    suicideFactor: SuicideFactor;
+
+    @ManyToOne(
+        type => SuicideRisk,
+        suicideRisk => suicideRisk.calls
+    )
+    suicideRisk: SuicideRisk;
 }

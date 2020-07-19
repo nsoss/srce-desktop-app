@@ -12,8 +12,11 @@ export default class Volunteer extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column('text')
+    @Column('varchar')
     name: string;
+
+    @Column('bigint', { name: 'created_at' })
+    createdAt: Date;
 
     @OneToMany(
         type => Call,

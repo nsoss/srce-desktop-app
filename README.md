@@ -19,6 +19,26 @@ if you use Windows, or `bash rebuild_script` for Linux.
 
 `npm dev` will track live changes for CSS and JS files
 
+* `npm run typeorm migration:run` Execute all pending database migrations.
+* `npm run typeorm migration:revert` Revert the last executed migration. Use
+  this command to test your `down()` method.
+* `npm run typeorm schema:drop` can come in handy if something goes wrong.
+
+## Migrations
+
+Migration files live under `electron/migrations`, and follow the
+`TIMESTAMP-MigrationName.ts` naming convention. You can use the [Node.js REPL]
+to generate timestamps:
+
+```
+Welcome to Node.js v12.18.2.
+Type ".help" for more information.
+> Date.now();
+1595165573664
+```
+
 ## Design
 
 [Figma](https://www.figma.com/file/3GkovVdGabhJmCOXC4X5Pi/srce-desktop-app?node-id=1%3A14)
+
+[Node.js REPL]:https://nodejs.dev/learn/how-to-use-the-nodejs-repl

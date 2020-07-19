@@ -1,0 +1,8 @@
+default:
+    type: "sqlite"
+    database: "srce.db"
+    entities:
+        - "electron/models/*.ts"
+    migrations:
+        - "electron/migrations/*.ts"
+    migrationsTableName: "Migrations"

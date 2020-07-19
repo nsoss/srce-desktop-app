@@ -1,0 +1,54 @@
+.Dropdown {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex: 2;
+}
+
+.Dropdown::before {
+    position: absolute;
+    content: url('../assets/arrow.svg');
+    top: 6px;
+    right: -3px;
+    height: 20px;
+    width: 20px;
+}
+
+.Dropdown-list {
+    z-index: 9999;
+    position: absolute;
+    will-change: transform;
+    background-color: var(--form-input-bg);
+    width: 100%;
+    padding: 10px;
+    border-radius: 3px;
+    top: 35px;
+    box-sizing: border-box;
+    max-height: 250px;
+    overflow: scroll;
+}
+
+.Dropdown-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.Dropdown-list .Dropdown-list-items {
+    margin-top: 5px;
+    padding: 2px;
+    font-size: 14px;
+}
+
+.Dropdown-list .Dropdown-list-items:hover {
+    background-color: var(--form-input-hover);
+}
+
+.calendar-srce .Dropdown-list {
+    width: 50px;
+}
+
+.Dropdown-list-items:hover {
+    background-color: #e5e5e5;
+    cursor: pointer;
+}

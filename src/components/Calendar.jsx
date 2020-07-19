@@ -246,19 +246,21 @@ class Calendar extends Component {
                                             }}
                                         >
                                             <Dropdown
-                                                data={months}
-                                                date={format(
+                                                label={format(
                                                     this.state.selectedDate,
                                                     'MMM'
                                                 )}
-                                                handleChange={
+                                                items={months}
+                                                itemToLabel={(month) => month}
+                                                onSelect={
                                                     this.handleChangeInputMonth
                                                 }
                                             />
                                             <Dropdown
-                                                data={years}
-                                                date={this.state.selectedDate.getFullYear()}
-                                                handleChange={
+                                                label={this.state.selectedDate.getFullYear()}
+                                                items={years}
+                                                itemToLabel={(year) => year}
+                                                onSelect={
                                                     this.handleChangeInputYear
                                                 }
                                             />

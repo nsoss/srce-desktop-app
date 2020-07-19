@@ -42,7 +42,7 @@
     "sqlite3": "^4.1.0",
     "text-mask-addons": "^3.8.0",
     "ts-node": "8.10.2",
-    "typeorm": "0.2.22",
+    "typeorm": "0.2.25",
     "typescript": "3.8.2"
   },
   "devDependencies": {

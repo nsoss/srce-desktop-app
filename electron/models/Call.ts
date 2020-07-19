@@ -24,6 +24,24 @@ export default class Call extends BaseEntity {
   @Column('bigint', { name: 'created_at' })
   createdAt: Date;
 
+  @Column('varchar', { name: 'serial_number' })
+  serialNumber: string;
+
+  @Column('bigint', { name: 'datetime' })
+  date: Date;
+
+  @Column('integer', { name: 'duration_in_seconds' })
+  durationInMinutes: number;
+
+  @Column('varchar', { name: 'caller_name' })
+  callerName: string;
+
+  @Column('text', { name: 'summary' })
+  summary: string;
+
+  @Column('text', { name: 'note' })
+  note: string;
+
   @ManyToOne((type) => Volunteer, (volunteer) => volunteer.calls)
   @JoinColumn({ name: 'volunteer_id' })
   volunteer: Volunteer;

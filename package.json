@@ -43,7 +43,7 @@
     "text-mask-addons": "^3.8.0",
     "ts-node": "8.10.2",
     "typeorm": "0.2.25",
-    "typescript": "3.8.2"
+    "typescript": "3.9.7"
   },
   "devDependencies": {
     "electron": "8.0.1",

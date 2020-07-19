@@ -25,8 +25,7 @@ class Pagination extends React.Component {
                         href="_"
                         className="page-link pagination-number-link"
                         id={i}
-                        onClick={this.handleClick}
-                    >
+                        onClick={this.handleClick}>
                         {i}
                     </a>
                 </li>

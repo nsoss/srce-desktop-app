@@ -36,8 +36,7 @@ const UpdateNotification = ({ downloaded, onClick }) => {
             }}
             onClick={onClick}
             onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
-        >
+            onMouseLeave={() => setHovering(false)}>
             {downloaded
                 ? 'Nova verzija preuzeta. Restart?'
                 : 'Nova verzija je dostupna i upravo se preuzima'}

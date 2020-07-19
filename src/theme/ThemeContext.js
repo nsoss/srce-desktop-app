@@ -44,8 +44,7 @@ export function ThemeProvider(props) {
             value={{
                 dark,
                 toggle,
-            }}
-        >
+            }}>
             {props.children}
         </ThemeContext.Provider>
     );

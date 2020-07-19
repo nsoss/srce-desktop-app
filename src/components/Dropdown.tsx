@@ -51,8 +51,7 @@ export default function Dropdown<TItem>({
                 onClick={() => {
                   onSelect(item);
                   setDropped(false);
-                }}
-              >
+                }}>
                 {itemToLabel ? itemToLabel(item) : (item as any).toString()}
               </li>
             ))}

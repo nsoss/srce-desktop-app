@@ -41,8 +41,7 @@ class ValidationForm extends React.Component {
                     this.props.addVolunteerFunc({
                         name: this.state.name,
                     });
-                }}
-            >
+                }}>
                 <Input
                     name={'ime'}
                     title={'Ime'}
@@ -68,8 +67,7 @@ class ValidationForm extends React.Component {
                     style={{
                         backgroundColor: 'var(--admin-accent)',
                         marginRight: '0',
-                    }}
-                >
+                    }}>
                     {' '}
                     Dodaj &nbsp;
                     <FaUserPlus />

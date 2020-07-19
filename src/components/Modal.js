@@ -8,8 +8,7 @@ export default class Modal extends React.Component {
         return ReactDOM.createPortal(
             <div
                 className="modal align-items-center justify-content-center"
-                onClick={this.props.onClose}
-            >
+                onClick={this.props.onClose}>
                 <div className="modal-body text-center">
                     <h5 style={{ color: 'var(--text)' }}>Morate uneti šifru</h5>
                     <hr />
@@ -21,8 +20,7 @@ export default class Modal extends React.Component {
                     <button
                         className="btn-srce"
                         style={{ marginLeft: 'auto' }}
-                        onClick={this.props.onCancel}
-                    >
+                        onClick={this.props.onCancel}>
                         Povratak
                     </button>
                 </div>

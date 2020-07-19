@@ -76,8 +76,7 @@ class Admin extends Component {
                         onClose={this.passwordCheck}
                         onCancel={() =>
                             this.props.handleChangeLocation('calls')
-                        }
-                    >
+                        }>
                         <input
                             className="form-input-modal"
                             type="text"
@@ -129,8 +128,7 @@ class Admin extends Component {
                                                     this.handleDeleteVolunteer(
                                                         v.id
                                                     )
-                                                }
-                                            >
+                                                }>
                                                 {' '}
                                                 Izbriši &nbsp;
                                                 <FaUserMinus />

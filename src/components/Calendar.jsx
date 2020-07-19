@@ -153,8 +153,7 @@ class Calendar extends Component {
                 <td
                     key={i + 'p'}
                     onClick={this.handleOnDateClickPreviousMonth}
-                    className="text-center text-secondary"
-                >
+                    className="text-center text-secondary">
                     {i}
                 </td>
             );
@@ -167,8 +166,7 @@ class Calendar extends Component {
                     <td
                         key={i + 'd'}
                         onClick={this.handleOnDateClickCurrentMonth}
-                        className="text-center selected-date"
-                    >
+                        className="text-center selected-date">
                         {i}
                     </td>
                 );
@@ -177,8 +175,7 @@ class Calendar extends Component {
                     <td
                         key={i + 'd'}
                         onClick={this.handleOnDateClickCurrentMonth}
-                        className="text-center"
-                    >
+                        className="text-center">
                         {i}
                     </td>
                 );
@@ -190,8 +187,7 @@ class Calendar extends Component {
                 <td
                     key={i + 'n'}
                     onClick={this.handleOnDateClickNextMonth}
-                    className="text-center text-secondary"
-                >
+                    className="text-center text-secondary">
                     {i}
                 </td>
             );
@@ -230,21 +226,18 @@ class Calendar extends Component {
                             <tr>
                                 <td
                                     onClick={this.handleMonthBackward}
-                                    className="text-center"
-                                >
+                                    className="text-center">
                                     <IoIosArrowBack />
                                 </td>
                                 <td
                                     className="text-center justify-content-center "
-                                    colSpan="5"
-                                >
+                                    colSpan="5">
                                     <form>
                                         <div
                                             style={{
                                                 display: 'flex',
                                                 alignItems: 'center',
-                                            }}
-                                        >
+                                            }}>
                                             <Dropdown
                                                 label={format(
                                                     this.state.selectedDate,
@@ -269,8 +262,7 @@ class Calendar extends Component {
                                 </td>
                                 <td
                                     onClick={this.handleMonthForward}
-                                    className="text-center"
-                                >
+                                    className="text-center">
                                     <IoIosArrowForward />
                                 </td>
                             </tr>

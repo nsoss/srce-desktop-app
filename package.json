@@ -60,8 +60,8 @@
     "start-electron": "tsc --project ./electron/ && electron .",
     "build": "react-scripts build",
     "build-electron": "tsc --project ./electron/ && mkdir -p ./build/electron/ && cp ./electron/index.js ./build/electron",
-    "lint": "prettier --check \"./{src,electron}/**/*.{js,jsx,ts}\"",
-    "format": "prettier --write \"./{src,electron}/**/*.{js,jsx,ts}\"",
+    "lint": "prettier --check \"./{src,electron}/**/*.{js,jsx,ts,tsx}\"",
+    "format": "prettier --write \"./{src,electron}/**/*.{js,jsx,ts,tsx}\"",
     "preflight": "yarn build && yarn build-electron && electron-builder --dir -c.extraMetadata.main=build/electron/index.js --publish never",
     "package": "electron-builder --win -c.extraMetadata.main=build/electron/index.js --publish never",
     "deploy": "electron-builder --win -c.extraMetadata.main=build/electron/index.js --publish always"

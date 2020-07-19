@@ -119,16 +119,14 @@ class CallsView extends Component {
                             className="btn-srce"
                             onClick={() =>
                                 this.props.handleChangeLocation('call')
-                            }
-                        >
+                            }>
                             Snimi
                         </button>
                         <button
                             className="btn-srce"
                             onClick={() =>
                                 this.props.handleChangeLocation('call')
-                            }
-                        >
+                            }>
                             Izmeni
                         </button>
                         <button className="btn-srce">Kopiraj</button>

@@ -29,8 +29,7 @@ class Input extends React.Component {
                     style={{
                         color: '#dc3545',
                         visibility: this.state.errorVisibility,
-                    }}
-                >
+                    }}>
                     Polje {this.props.title} ne sme biti prazno!
                 </div>
             </div>

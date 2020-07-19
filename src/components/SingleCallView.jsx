@@ -93,12 +93,10 @@ class SingleCallView extends React.Component {
                         display: 'flex',
                         flexDirection: 'row',
                         marginBottom: '30px',
-                    }}
-                >
+                    }}>
                     <div
                         className="single-call-area "
-                        style={{ marginRight: '30px' }}
-                    >
+                        style={{ marginRight: '30px' }}>
                         <p className="single-call-area-label">Poziv</p>
                         <div className="single-call-form-row">
                             <label className="form-label">Redni broj</label>
@@ -365,8 +363,7 @@ class SingleCallView extends React.Component {
                             <div className="single-call-form-row">
                                 <label
                                     className="form-label"
-                                    style={{ marginTop: '8px' }}
-                                >
+                                    style={{ marginTop: '8px' }}>
                                     Vrsta problema *
                                 </label>
                                 <Dropdown
@@ -474,12 +471,10 @@ class SingleCallView extends React.Component {
                         </div>
                         <div
                             className="column-details"
-                            style={{ marginLeft: '30px' }}
-                        >
+                            style={{ marginLeft: '30px' }}>
                             <div
                                 className="single-call-form-row"
-                                style={{ marginBottom: '10px' }}
-                            >
+                                style={{ marginBottom: '10px' }}>
                                 <label className="form-label">
                                     Kratak sadržaj
                                 </label>
@@ -495,22 +490,19 @@ class SingleCallView extends React.Component {
 
                 <div
                     style={{ display: 'flex', flexDirection: 'row' }}
-                    className="single-call-buttons"
-                >
+                    className="single-call-buttons">
                     <button
                         className="btn-srce"
                         onClick={(event) => {
                             event.preventDefault();
                             ipcRenderer.send('insertCall', this.state.call);
-                        }}
-                    >
+                        }}>
                         <FaSave />
                         &nbsp;Snimi
                     </button>
                     <button
                         className="btn-srce"
-                        onClick={this.handleUpdateData}
-                    >
+                        onClick={this.handleUpdateData}>
                         <FaPencilAlt />
                         &nbsp;Izmeni
                     </button>
@@ -521,16 +513,16 @@ class SingleCallView extends React.Component {
                     <button
                         className="btn-srce"
                         onClick={this.handleExportToExcel}
-                        style={{ width: '135px' }}
-                    >
+                        style={{ width: '135px' }}>
                         <FaFileCsv />
                         &nbsp;Prebaci u CSV
                     </button>
                     <button
                         className="btn-srce"
                         style={{ backgroundColor: '#CC8066 ' }}
-                        onClick={() => this.props.handleChangeLocation('calls')}
-                    >
+                        onClick={() =>
+                            this.props.handleChangeLocation('calls')
+                        }>
                         <IoIosExit />
                         &nbsp;Izadji
                     </button>

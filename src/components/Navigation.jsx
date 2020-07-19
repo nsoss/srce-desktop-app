@@ -50,8 +50,7 @@ class Navigation extends Component {
                                 ? 'side-nav-item-active'
                                 : ''
                         }`}
-                        onClick={() => this.handleLocation('/')}
-                    >
+                        onClick={() => this.handleLocation('/')}>
                         <Logo />
                     </div>
                     <div
@@ -60,8 +59,7 @@ class Navigation extends Component {
                                 ? 'side-nav-item-active'
                                 : ''
                         }`}
-                        onClick={() => this.handleLocation('call')}
-                    >
+                        onClick={() => this.handleLocation('call')}>
                         <IcnDetails />
                     </div>
                     <div
@@ -70,8 +68,7 @@ class Navigation extends Component {
                                 ? 'side-nav-item-active'
                                 : ''
                         }`}
-                        onClick={() => this.handleLocation('calls-statistics')}
-                    >
+                        onClick={() => this.handleLocation('calls-statistics')}>
                         <IcnStatistics />
                     </div>
                 </div>
@@ -82,14 +79,12 @@ class Navigation extends Component {
                                 ? 'side-nav-item-active'
                                 : ''
                         }`}
-                        onClick={() => this.handleLocation('admin-page')}
-                    >
+                        onClick={() => this.handleLocation('admin-page')}>
                         <IcnSettings />
                     </div>
                     <div
                         className="side-nav-item dropright m-0"
-                        onClick={this.handleDropdown}
-                    >
+                        onClick={this.handleDropdown}>
                         <More style={{ fontSize: '32px' }} />
                         <div
                             className="dropdown-menu-srce dropdown-menu"
@@ -97,8 +92,7 @@ class Navigation extends Component {
                                 display: this.state.isDropdownShowing
                                     ? 'block'
                                     : 'none',
-                            }}
-                        >
+                            }}>
                             <div className="dropdown-item m-0 pr-2 pl-5 ">
                                 <input
                                     className="pointer mr-1"
@@ -111,8 +105,9 @@ class Navigation extends Component {
                                         }));
                                         toggle();
                                     }}
-                                    checked={this.state.isDarkThemeActive}
-                                ></input>
+                                    checked={
+                                        this.state.isDarkThemeActive
+                                    }></input>
                                 Tamna tema
                             </div>
                         </div>

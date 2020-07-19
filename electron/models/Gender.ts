@@ -4,9 +4,6 @@ import CallField from './CallField';
 
 @Entity('Genders')
 export default class Gender extends CallField {
-    @OneToMany(
-        type => Call,
-        call => call.gender
-    )
-    calls: Array<Call>;
+  @OneToMany((type) => Call, (call) => call.gender)
+  calls: Array<Call>;
 }

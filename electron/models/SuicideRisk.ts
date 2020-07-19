@@ -4,9 +4,6 @@ import CallField from './CallField';
 
 @Entity('SuicideRisks')
 export default class SuicideRisk extends CallField {
-    @OneToMany(
-        type => Call,
-        call => call.suicideRisk
-    )
-    calls: Array<Call>;
+  @OneToMany((type) => Call, (call) => call.suicideRisk)
+  calls: Array<Call>;
 }

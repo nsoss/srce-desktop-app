@@ -24,112 +24,112 @@ import Volunteer from './models/Volunteer';
 const getVolunteers = async (): Promise<Volunteer[]> => await Volunteer.find();
 
 const deleteVolunteer = async (id: number): Promise<void> => {
-    await Volunteer.delete({ id });
+  await Volunteer.delete({ id });
 };
 
 // TODO
 const insertVolunteer = async (): Promise<void> => {
-    const volunteer = new Volunteer();
+  const volunteer = new Volunteer();
 
-    volunteer.name = 'TEST_VOLUNTEER';
+  volunteer.name = 'TEST_VOLUNTEER';
 
-    await volunteer.save();
+  await volunteer.save();
 };
 
 const getCalls = async (): Promise<Call[]> => await Call.find();
 
 interface CallData {
-    callTypeId: number;
-    volunteerId: number;
-    problemTypeId: number;
-    suicideRiskId: number;
-    suicideFactorId: number;
+  callTypeId: number;
+  volunteerId: number;
+  problemTypeId: number;
+  suicideRiskId: number;
+  suicideFactorId: number;
 }
 
 const insertCall = async (callData: CallData): Promise<void> => {
-    const call = new Call();
+  const call = new Call();
 
-    const {
-        callTypeId,
-        volunteerId,
-        problemTypeId,
-        suicideRiskId,
-        suicideFactorId,
-    } = callData;
+  const {
+    callTypeId,
+    volunteerId,
+    problemTypeId,
+    suicideRiskId,
+    suicideFactorId,
+  } = callData;
 
-    const callType = await CallType.findOne({ id: callTypeId });
-    const volunteer = await Volunteer.findOne({ id: volunteerId });
-    const problemType = await ProblemType.findOne({ id: problemTypeId });
-    const suicideRisk = await SuicideRisk.findOne({ id: suicideRiskId });
-    const suicideFactor = await SuicideFactor.findOne({
-        id: suicideFactorId,
-    });
+  const callType = await CallType.findOne({ id: callTypeId });
+  const volunteer = await Volunteer.findOne({ id: volunteerId });
+  const problemType = await ProblemType.findOne({ id: problemTypeId });
+  const suicideRisk = await SuicideRisk.findOne({ id: suicideRiskId });
+  const suicideFactor = await SuicideFactor.findOne({
+    id: suicideFactorId,
+  });
 
-    call.callType = callType;
-    call.volunteer = volunteer;
-    call.problemType = problemType;
-    call.suicideRisk = suicideRisk;
-    call.suicideFactor = suicideFactor;
+  call.callType = callType;
+  call.volunteer = volunteer;
+  call.problemType = problemType;
+  call.suicideRisk = suicideRisk;
+  call.suicideFactor = suicideFactor;
 
-    await call.save();
+  await call.save();
 };
 
 const getCallTypes = async (): Promise<CallType[]> => await CallType.find();
 
 const getProblemTypes = async (): Promise<ProblemType[]> =>
-    await ProblemType.find();
+  await ProblemType.find();
 
 const getSuicideRisks = async (): Promise<SuicideRisk[]> =>
-    await SuicideRisk.find();
+  await SuicideRisk.find();
 
 const getSuicideFactors = async (): Promise<SuicideFactor[]> =>
-    await SuicideFactor.find();
+  await SuicideFactor.find();
 
 const getPostCallStates = async (): Promise<PostCallState[]> =>
-    await PostCallState.find();
+  await PostCallState.find();
 
 const getGenders = async (): Promise<Gender[]> => await Gender.find();
 
 const getMaritalStatuses = async (): Promise<MaritalStatus[]> =>
-    await MaritalStatus.find();
+  await MaritalStatus.find();
 
 const getCallOrdinalities = async (): Promise<CallOrdinality[]> =>
-    await CallOrdinality.find();
+  await CallOrdinality.find();
 
 const getFormData = async () => {
-    const [
-        callTypes,
-        problemTypes,
-        suicideRisks,
-        suicideFactors,
-        postCallStates,
-        genders,
-        maritalStatuses,
-        callOrdinalities,
-        volunteers,
-    ] = await Promise.all([
-        getCallTypes(),
-        getProblemTypes(),
-        getSuicideRisks(),
-        getSuicideFactors(),
-        getPostCallStates(),
-        getGenders(),
-        getMaritalStatuses(),
-        getCallOrdinalities(),
-        getVolunteers(),
-    ]);
+  const [
+    callTypes,
+    problemTypes,
+    suicideRisks,
+    suicideFactors,
+    postCallStates,
+    genders,
+    maritalStatuses,
+    callOrdinalities,
+    volunteers,
+  ] = await Promise.all([
+    getCallTypes(),
+    getProblemTypes(),
+    getSuicideRisks(),
+    getSuicideFactors(),
+    getPostCallStates(),
+    getGenders(),
+    getMaritalStatuses(),
+    getCallOrdinalities(),
+    getVolunteers(),
+  ]);
 
-    return {
-        callTypes,
-        problemTypes,
-        suicideRisks,
-        suicideFactors,
-        postCallStates,
-        genders,
-        maritalStatuses,
-        callOrdinalities,
-        volunteers,
-    };
+  return {
+    callTypes,
+    problemTypes,
+    suicideRisks,
+    suicideFactors,
+    postCallStates,
+    genders,
+    maritalStatuses,
+    callOrdinalities,
+    volunteers,
+  };
 };
 
 /******************************************************************************/
@@ -137,203 +137,203 @@ const getFormData = async () => {
 let window;
 
 function createWindow() {
-    // Menu
-    const menu = Menu.buildFromTemplate([
+  // Menu
+  const menu = Menu.buildFromTemplate([
+    {
+      // TODO: Remove duplicate object keys.
+      // label: 'Main',
+      // submenu: [
+      //     {
+      //         label: 'Exit',
+      //         click() {
+      //             app.quit();
+      //         },
+      //     },
+      // ],
+      label: 'Tools',
+      submenu: [
         {
-            // TODO: Remove duplicate object keys.
-            // label: 'Main',
-            // submenu: [
-            //     {
-            //         label: 'Exit',
-            //         click() {
-            //             app.quit();
-            //         },
-            //     },
-            // ],
-            label: 'Tools',
-            submenu: [
-                {
-                    label: 'Toggle Developer Tools',
-                    accelerator: 'Ctrl+Shift+I',
-                    click: (item, focusedWindow) => {
-                        if (focusedWindow) {
-                            // @ts-ignore
-                            focusedWindow.toggleDevTools();
-                        }
-                    },
-                },
-            ],
+          label: 'Toggle Developer Tools',
+          accelerator: 'Ctrl+Shift+I',
+          click: (item, focusedWindow) => {
+            if (focusedWindow) {
+              // @ts-ignore
+              focusedWindow.toggleDevTools();
+            }
+          },
         },
-    ]);
+      ],
+    },
+  ]);
 
-    Menu.setApplicationMenu(menu);
+  Menu.setApplicationMenu(menu);
 
-    window = new BrowserWindow({
-        webPreferences: {
-            nodeIntegration: true,
-        },
-    });
-    window.maximize();
-    window.loadURL('http://localhost:3000');
+  window = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+  window.maximize();
+  window.loadURL('http://localhost:3000');
 
-    window.on('closed', () => {
-        window = null;
-    });
+  window.on('closed', () => {
+    window = null;
+  });
 
-    ipcMain.on('getVolunteers', async function() {
-        const result = await getVolunteers();
-        window.webContents.send('volunteersSent', result);
-    });
+  ipcMain.on('getVolunteers', async function () {
+    const result = await getVolunteers();
+    window.webContents.send('volunteersSent', result);
+  });
 
-    ipcMain.on('deleteVolunteer', async (event, id) => {
-        const result = await deleteVolunteer(id);
-        window.webContents.send('volunteerDeleted', result);
-    });
+  ipcMain.on('deleteVolunteer', async (event, id) => {
+    const result = await deleteVolunteer(id);
+    window.webContents.send('volunteerDeleted', result);
+  });
 
-    ipcMain.on('insertVolunteer', async (event, volunteer) => {
-        const insertedID = await insertVolunteer();
-        window.webContents.send('volunteerInserted', insertedID);
-    });
+  ipcMain.on('insertVolunteer', async (event, volunteer) => {
+    const insertedID = await insertVolunteer();
+    window.webContents.send('volunteerInserted', insertedID);
+  });
 
-    ipcMain.on('getCalls', async function() {
-        const results = await getCalls();
-        window.webContents.send('callsSent', results);
-    });
+  ipcMain.on('getCalls', async function () {
+    const results = await getCalls();
+    window.webContents.send('callsSent', results);
+  });
 
-    window.setMenu(menu);
+  window.setMenu(menu);
 }
 
 const createDropdownTable = async (
-    queryRunner: QueryRunner,
-    tableName: string,
-    foreignKeyName: string
+  queryRunner: QueryRunner,
+  tableName: string,
+  foreignKeyName: string
 ): Promise<void> => {
-    await queryRunner.createTable(
-        new Table({
-            name: tableName,
-            columns: [
-                {
-                    name: 'id',
-                    type: 'integer',
-                    isPrimary: true,
-                },
-                {
-                    name: 'name',
-                    type: 'text',
-                    isNullable: false,
-                },
-            ],
-        })
-    );
-    await queryRunner.createForeignKey(
-        'Calls',
-        new TableForeignKey({
-            columnNames: [foreignKeyName],
-            referencedColumnNames: ['id'],
-            referencedTableName: tableName,
-        })
-    );
+  await queryRunner.createTable(
+    new Table({
+      name: tableName,
+      columns: [
+        {
+          name: 'id',
+          type: 'integer',
+          isPrimary: true,
+        },
+        {
+          name: 'name',
+          type: 'text',
+          isNullable: false,
+        },
+      ],
+    })
+  );
+  await queryRunner.createForeignKey(
+    'Calls',
+    new TableForeignKey({
+      columnNames: [foreignKeyName],
+      referencedColumnNames: ['id'],
+      referencedTableName: tableName,
+    })
+  );
 };
 
 const appDir = path.dirname(app.getAppPath());
 
 let mainWindow: BrowserWindow;
 const run = async () => {
-    try {
-        await app.whenReady();
-        mainWindow = new BrowserWindow({
-            webPreferences: {
-                nodeIntegration: true,
-            },
-        });
+  try {
+    await app.whenReady();
+    mainWindow = new BrowserWindow({
+      webPreferences: {
+        nodeIntegration: true,
+      },
+    });
 
-        ipcMain.on('getCalls', async () => {
-            const calls = await getCalls();
-            mainWindow.webContents.send('callsSent', calls);
-        });
+    ipcMain.on('getCalls', async () => {
+      const calls = await getCalls();
+      mainWindow.webContents.send('callsSent', calls);
+    });
 
-        ipcMain.on('getFormData', async () => {
-            const formData = await getFormData();
-            mainWindow.webContents.send('formDataSent', formData);
-        });
+    ipcMain.on('getFormData', async () => {
+      const formData = await getFormData();
+      mainWindow.webContents.send('formDataSent', formData);
+    });
 
-        ipcMain.on('getVolunteers', async () => {
-            const volunteers = await getVolunteers();
-            mainWindow.webContents.send('volunteersSent', volunteers);
-        });
+    ipcMain.on('getVolunteers', async () => {
+      const volunteers = await getVolunteers();
+      mainWindow.webContents.send('volunteersSent', volunteers);
+    });
 
-        ipcMain.on('insertCall', async (_, call) => {
-            const insertedCall = await insertCall(call);
-            mainWindow.webContents.send('callInserted', insertedCall);
-        });
+    ipcMain.on('insertCall', async (_, call) => {
+      const insertedCall = await insertCall(call);
+      mainWindow.webContents.send('callInserted', insertedCall);
+    });
 
-        ipcMain.on('insertVolunteer', async (_, { name }) => {
-            const volunteer = new Volunteer();
-            volunteer.name = name;
-            await volunteer.save();
-            mainWindow.webContents.send('volunteerInserted', volunteer);
-        });
+    ipcMain.on('insertVolunteer', async (_, { name }) => {
+      const volunteer = new Volunteer();
+      volunteer.name = name;
+      await volunteer.save();
+      mainWindow.webContents.send('volunteerInserted', volunteer);
+    });
 
-        ipcMain.on('get_version_string', event => {
-            event.sender.send('get_version_string', app.getVersion());
-        });
+    ipcMain.on('get_version_string', (event) => {
+      event.sender.send('get_version_string', app.getVersion());
+    });
 
-        ipcMain.on('update', () => {
-            autoUpdater.quitAndInstall();
-        });
+    ipcMain.on('update', () => {
+      autoUpdater.quitAndInstall();
+    });
 
-        mainWindow.loadURL(
-            isDev
-                ? 'http://localhost:3000/'
-                : url.format({
-                      pathname: path.join(__dirname, '../index.html'),
-                      protocol: 'file:',
-                      slashes: true,
-                  })
-        );
-        const connection = await createConnection({
-            type: 'sqlite',
-            database: 'srce.db',
-            entities: [
-                Call,
-                CallOrdinality,
-                CallType,
-                Gender,
-                MaritalStatus,
-                PostCallState,
-                ProblemType,
-                SuicideFactor,
-                SuicideRisk,
-                Volunteer,
-            ],
-            migrations: [
-                CreateVolunteer1595152988343,
-                CreateCall1595156477733,
-                AddCallDataToCall1595157453390,
-            ],
-            migrationsTableName: 'Migrations',
-        });
-        await connection.runMigrations();
-        const testVolunteer = new Volunteer();
-        testVolunteer.name = 'EXAMPLE';
-        testVolunteer.createdAt = new Date();
-        testVolunteer.save();
+    mainWindow.loadURL(
+      isDev
+        ? 'http://localhost:3000/'
+        : url.format({
+            pathname: path.join(__dirname, '../index.html'),
+            protocol: 'file:',
+            slashes: true,
+          })
+    );
+    const connection = await createConnection({
+      type: 'sqlite',
+      database: 'srce.db',
+      entities: [
+        Call,
+        CallOrdinality,
+        CallType,
+        Gender,
+        MaritalStatus,
+        PostCallState,
+        ProblemType,
+        SuicideFactor,
+        SuicideRisk,
+        Volunteer,
+      ],
+      migrations: [
+        CreateVolunteer1595152988343,
+        CreateCall1595156477733,
+        AddCallDataToCall1595157453390,
+      ],
+      migrationsTableName: 'Migrations',
+    });
+    await connection.runMigrations();
+    const testVolunteer = new Volunteer();
+    testVolunteer.name = 'EXAMPLE';
+    testVolunteer.createdAt = new Date();
+    testVolunteer.save();
 
-        mainWindow.once('ready-to-show', () => {
-            autoUpdater.checkForUpdatesAndNotify();
-        });
-    } catch (error) {
-        fs.writeFileSync(path.join(appDir, 'error.log'), error);
-        process.exit(1);
-    }
+    mainWindow.once('ready-to-show', () => {
+      autoUpdater.checkForUpdatesAndNotify();
+    });
+  } catch (error) {
+    fs.writeFileSync(path.join(appDir, 'error.log'), error);
+    process.exit(1);
+  }
 };
 
 autoUpdater.on('update_available', () => {
-    mainWindow.webContents.send('update_available');
+  mainWindow.webContents.send('update_available');
 });
 
 autoUpdater.on('update_downloaded', () => {
-    mainWindow.webContents.send('update_downloaded');
+  mainWindow.webContents.send('update_downloaded');
 });
 
 run();

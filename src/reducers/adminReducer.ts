@@ -1,21 +1,21 @@
 import { AppAction } from '../store';
 
 interface AdminState {
-    admin: boolean;
+  admin: boolean;
 }
 
 const initialState: AdminState = {
-    admin: false,
+  admin: false,
 };
 
 export default function adminReducer(state = initialState, action: AppAction) {
-    switch (action.type) {
-        case 'SET_ADMIN':
-            return {
-                ...state,
-                admin: action.payload,
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case 'SET_ADMIN':
+      return {
+        ...state,
+        admin: action.payload,
+      };
+    default:
+      return state;
+  }
 }

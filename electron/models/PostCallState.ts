@@ -4,9 +4,6 @@ import CallField from './CallField';
 
 @Entity('PostCallStates')
 export default class PostCallState extends CallField {
-    @OneToMany(
-        type => Call,
-        call => call.postCallState
-    )
-    calls: Array<Call>;
+  @OneToMany((type) => Call, (call) => call.postCallState)
+  calls: Array<Call>;
 }

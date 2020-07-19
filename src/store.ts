@@ -10,18 +10,18 @@ import { FormAction } from './actions/formActions';
 import { VolunteersAction } from './actions/volunteersActions';
 
 const rootReducer = combineReducers({
-    admin: adminReducer,
-    calls: callsReducer,
-    form: formReducer,
-    volunteers: volunteersReducer,
+  admin: adminReducer,
+  calls: callsReducer,
+  form: formReducer,
+  volunteers: volunteersReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppAction =
-    | AdminAction
-    | CallsAction
-    | FormAction
-    | VolunteersAction;
+  | AdminAction
+  | CallsAction
+  | FormAction
+  | VolunteersAction;
 export type AppDispatch = Dispatch<AppAction>;
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

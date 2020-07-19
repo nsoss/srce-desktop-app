@@ -27,7 +27,7 @@ export default function volunteersReducer(
             return {
                 ...state,
                 volunteers: [
-                    ...state.volunteers.filter(function(obj) {
+                    ...state.volunteers.filter(function (obj) {
                         return obj.id !== action.payload;
                     }),
                 ],

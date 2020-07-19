@@ -10,7 +10,7 @@ class Routes extends Component {
         location: '/',
     };
 
-    handleChangeLocation = newLocation => {
+    handleChangeLocation = (newLocation) => {
         this.setState({ location: newLocation });
     };
 

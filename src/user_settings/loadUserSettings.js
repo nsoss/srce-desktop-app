@@ -8,7 +8,7 @@ export function fileRead() {
 }
 
 export function fileWrite(data) {
-    fs.writeFile(pathSettings, JSON.stringify(data), function(err) {
+    fs.writeFile(pathSettings, JSON.stringify(data), function (err) {
         if (err) {
         }
     });

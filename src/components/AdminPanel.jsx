@@ -29,7 +29,7 @@ class Admin extends Component {
         this.props.fetchVolunteers();
     }
 
-    handleChangeInput = event => {
+    handleChangeInput = (event) => {
         const target = event.target;
         const name = target.name;
         const value = target.value;
@@ -37,7 +37,7 @@ class Admin extends Component {
         this.setState({ [name]: value });
     };
 
-    handleAddVolunteer = newVolunteer => {
+    handleAddVolunteer = (newVolunteer) => {
         this.props.addVolunteer(newVolunteer);
         this.setState({
             inputFirstName: '',
@@ -49,19 +49,19 @@ class Admin extends Component {
         return this.props.admin;
     };
 
-    handleClick = data => {
+    handleClick = (data) => {
         this.setState({
             currentData: data,
         });
     };
 
-    passwordCheck = e => {
+    passwordCheck = (e) => {
         if (this.state.inputPassword === this.state.password) {
             this.props.setAdmin(true);
         }
     };
 
-    handleDeleteVolunteer = id => {
+    handleDeleteVolunteer = (id) => {
         this.props.deleteVolunteer(id);
         this.setState({
             inputFirstName: '',
@@ -151,7 +151,7 @@ class Admin extends Component {
         );
     }
 }
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     volunteers: state.volunteers.volunteers,
     admin: state.admin.admin,
 });

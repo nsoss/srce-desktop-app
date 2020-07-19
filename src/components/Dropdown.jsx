@@ -46,7 +46,7 @@ class Dropdown extends React.Component {
                     style={{ display: this.state.isShowing ? 'block' : 'none' }}
                 >
                     <ul>
-                        {this.props.data.map(d => {
+                        {this.props.data.map((d) => {
                             // TODO: Handle volunteers.
                             // const data =
                             //     typeof d === 'object'
@@ -57,7 +57,7 @@ class Dropdown extends React.Component {
                                 <li
                                     className="popup-items"
                                     key={d.id}
-                                    onMouseDown={e => this.handleChange(e, d)}
+                                    onMouseDown={(e) => this.handleChange(e, d)}
                                 >
                                     {/* // TODO: Don't hard-code this particular enum. */}
                                     {problemTypes[d.id]}

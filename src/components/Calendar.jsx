@@ -46,7 +46,7 @@ class Calendar extends Component {
         this.props.onDateSelect(this.state.selectedDate);
     }
 
-    handleOnDateClickCurrentMonth = event => {
+    handleOnDateClickCurrentMonth = (event) => {
         const clickedDay = event.target.textContent;
 
         const { selectedDate } = this.state;
@@ -61,7 +61,7 @@ class Calendar extends Component {
         this.props.onDateSelect(newSelectedDate);
     };
 
-    handleOnDateClickPreviousMonth = event => {
+    handleOnDateClickPreviousMonth = (event) => {
         const clickedDay = event.target.textContent;
 
         const { selectedDate } = this.state;
@@ -73,7 +73,7 @@ class Calendar extends Component {
         this.props.onDateSelect(newSelectedDate);
     };
 
-    handleOnDateClickNextMonth = event => {
+    handleOnDateClickNextMonth = (event) => {
         const clickedDay = event.target.textContent;
 
         const { selectedDate } = this.state;
@@ -85,14 +85,14 @@ class Calendar extends Component {
         this.props.onDateSelect(newSelectedDate);
     };
 
-    handleMonthForward = event => {
+    handleMonthForward = (event) => {
         const { selectedDate } = this.state;
         const newSelectedDate = addMonths(selectedDate, 1);
         this.setState({ selectedDate: newSelectedDate });
         this.props.onDateSelect(newSelectedDate);
     };
 
-    handleMonthBackward = event => {
+    handleMonthBackward = (event) => {
         const { selectedDate } = this.state;
         const newSelectedDate = subMonths(selectedDate, 1);
         this.setState({ selectedDate: newSelectedDate });

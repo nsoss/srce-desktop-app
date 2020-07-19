@@ -6,7 +6,7 @@ class Input extends React.Component {
         this.state = { errorVisibility: 'hidden' };
     }
 
-    handleBlur = event => {
+    handleBlur = (event) => {
         let value = event.target.value;
         let errorVisibility = 'hidden';
 

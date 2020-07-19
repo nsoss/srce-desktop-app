@@ -21,38 +21,30 @@ class BarChart extends Component {
 
         const node = this.node;
 
-        select(node)
-            .selectAll('rect')
-            .data(data)
-            .enter()
-            .append('rect');
+        select(node).selectAll('rect').data(data).enter().append('rect');
 
         select(node)
             .selectAll('rect')
             .data(data)
             .attr('height', 40)
-            .attr('width', d => d.value)
+            .attr('width', (d) => d.value)
             .attr('y', (d, i) => i * 70 + 50)
             .attr('x', 100)
             .attr('class', 'chart');
 
-        select(node)
-            .selectAll('text')
-            .data(data)
-            .enter()
-            .append('text');
+        select(node).selectAll('text').data(data).enter().append('text');
 
         select(node)
             .selectAll('text')
             .data(data)
             .attr('x', -1)
             .attr('y', (d, i) => i * 70 + 50 + 22)
-            .text(d => d.skill);
+            .text((d) => d.skill);
     }
     render() {
         return (
             <svg
-                ref={node => (this.node = node)}
+                ref={(node) => (this.node = node)}
                 width={500}
                 height={500}
             ></svg>

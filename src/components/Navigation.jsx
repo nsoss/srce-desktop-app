@@ -105,7 +105,7 @@ class Navigation extends Component {
                                     type="checkbox"
                                     id="gridCheck1"
                                     onClick={() => {
-                                        this.setState(prevState => ({
+                                        this.setState((prevState) => ({
                                             isDropdownShowing: false,
                                             isDarkThemeActive: !prevState.isDarkThemeActive,
                                         }));

@@ -5,7 +5,7 @@ import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
 import Dropdown from './Dropdown';
 
-const createFakeData = label => {
+const createFakeData = (label) => {
     const fakeData = [];
     for (let i = 1; i <= 3; ++i) {
         fakeData.push({
@@ -339,7 +339,7 @@ class SingleCallView extends React.Component {
                 >
                     <button
                         className="btn-srce"
-                        onClick={event => {
+                        onClick={(event) => {
                             event.preventDefault();
                             ipcRenderer.send('insertCall', this.state.call);
                         }}

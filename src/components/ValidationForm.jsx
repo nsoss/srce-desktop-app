@@ -16,14 +16,14 @@ class ValidationForm extends React.Component {
         };
     }
 
-    handleChangeInput = event => {
+    handleChangeInput = (event) => {
         const target = event.target;
         const name = target.name;
         const value = target.value;
 
         const regex = /^([A-Za-zŠšĐđČčĆćŽž]+\s)*[A-Za-zŠšĐđČčĆćŽž]*$/;
         if (value === '' || regex.test(value)) {
-            this.setState(prevState => ({
+            this.setState((prevState) => ({
                 newUser: {
                     ...prevState.newUser,
                     [name]: value,
@@ -36,7 +36,7 @@ class ValidationForm extends React.Component {
         return (
             <form
                 className="admin-add-volunteer-form"
-                onSubmit={event => {
+                onSubmit={(event) => {
                     event.preventDefault();
                     this.props.addVolunteerFunc({
                         name: this.state.name,
@@ -48,7 +48,7 @@ class ValidationForm extends React.Component {
                     title={'Ime'}
                     value={this.state.name}
                     placeholder={'Unesite ime volontera'}
-                    onChange={event => {
+                    onChange={(event) => {
                         this.setState({ name: event.target.value });
                     }}
                 />

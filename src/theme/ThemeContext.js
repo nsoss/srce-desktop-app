@@ -26,7 +26,7 @@ export function ThemeProvider(props) {
         }
     }, [dark]);
 
-    const applyTheme = theme => {
+    const applyTheme = (theme) => {
         const root = document.getElementsByTagName('html')[0];
         root.style.cssText = theme.join(';');
     };

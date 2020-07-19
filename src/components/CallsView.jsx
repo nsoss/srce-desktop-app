@@ -23,12 +23,12 @@ class CallsView extends Component {
         this.props.fetchCalls();
     }
 
-    formatDate = datedb => {
+    formatDate = (datedb) => {
         return format(new Date(Date.parse(datedb)), 'dd/MM/yyyy');
     };
 
-    handleChangeTableData = date => {
-        let callsByDate = this.props.calls.filter(p => {
+    handleChangeTableData = (date) => {
+        let callsByDate = this.props.calls.filter((p) => {
             // var str = this.formatDate(p.created_at);
             // return str === format(date, 'dd/MM/yyyy').toString();
             return true;
@@ -39,7 +39,7 @@ class CallsView extends Component {
         });
     };
 
-    handleClick = data => {
+    handleClick = (data) => {
         this.setState({
             currentData: data,
         });
@@ -109,7 +109,7 @@ class CallsView extends Component {
                 <div className="calls-side-info">
                     <div style={{ flex: 1 }}>
                         <CalendarNew
-                            onDateSelect={date =>
+                            onDateSelect={(date) =>
                                 this.handleChangeTableData(date)
                             }
                         />
@@ -139,7 +139,7 @@ class CallsView extends Component {
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     calls: state.calls.calls,
 });
 

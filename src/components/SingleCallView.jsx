@@ -134,13 +134,13 @@ class SingleCallView extends React.Component {
                                 label={
                                     this.state.formData.callType
                                         ? callTypesEnum[
-                                              this.state.formData.callType.id
+                                              this.state.formData.callType.value
                                           ]
                                         : 'Izaberi'
                                 }
                                 items={callTypes}
                                 itemToLabel={(callType) =>
-                                    callTypesEnum[callType.id]
+                                    callTypesEnum[callType.value]
                                 }
                                 onSelect={(item) => {
                                     this.setState({
@@ -233,12 +233,14 @@ class SingleCallView extends React.Component {
                                 label={
                                     this.state.formData.gender
                                         ? gendersEnum[
-                                              this.state.formData.gender.id
+                                              this.state.formData.gender.value
                                           ]
                                         : 'Izaberi'
                                 }
                                 items={genders}
-                                itemToLabel={(gender) => gendersEnum[gender.id]}
+                                itemToLabel={(gender) =>
+                                    gendersEnum[gender.value]
+                                }
                                 onSelect={(item) => {
                                     this.setState({
                                         formData: {
@@ -274,13 +276,13 @@ class SingleCallView extends React.Component {
                                     this.state.formData.maritalStatus
                                         ? maritalStatusesEnum[
                                               this.state.formData.maritalStatus
-                                                  .id
+                                                  .value
                                           ]
                                         : 'Izaberi'
                                 }
                                 items={maritalStatuses}
                                 itemToLabel={(maritalStatus) =>
-                                    maritalStatusesEnum[maritalStatus.id]
+                                    maritalStatusesEnum[maritalStatus.value]
                                 }
                                 onSelect={(item) => {
                                     this.setState({
@@ -299,13 +301,13 @@ class SingleCallView extends React.Component {
                                     this.state.formData.callOrdinality
                                         ? callOrdinalitiesEnum[
                                               this.state.formData.callOrdinality
-                                                  .id
+                                                  .value
                                           ]
                                         : 'Izaberi'
                                 }
                                 items={callOrdinalities}
                                 itemToLabel={(callOrdinality) =>
-                                    callOrdinalitiesEnum[callOrdinality.id]
+                                    callOrdinalitiesEnum[callOrdinality.value]
                                 }
                                 onSelect={(item) => {
                                     this.setState({
@@ -371,13 +373,13 @@ class SingleCallView extends React.Component {
                                         this.state.formData.problemType
                                             ? problemTypesEnum[
                                                   this.state.formData
-                                                      .problemType.id
+                                                      .problemType.value
                                               ]
                                             : 'Izaberi'
                                     }
                                     items={problemTypes}
                                     itemToLabel={(problemType) =>
-                                        problemTypesEnum[problemType.id]
+                                        problemTypesEnum[problemType.value]
                                     }
                                     onSelect={(item) => {
                                         this.setState({
@@ -398,13 +400,13 @@ class SingleCallView extends React.Component {
                                         this.state.formData.suicideRisk
                                             ? suicideRisksEnum[
                                                   this.state.formData
-                                                      .suicideRisk.id
+                                                      .suicideRisk.value
                                               ]
                                             : 'Izaberi'
                                     }
                                     items={suicideRisks}
                                     itemToLabel={(suicideRisk) =>
-                                        suicideRisksEnum[suicideRisk.id]
+                                        suicideRisksEnum[suicideRisk.value]
                                     }
                                     onSelect={(item) => {
                                         this.setState({
@@ -425,13 +427,13 @@ class SingleCallView extends React.Component {
                                         this.state.formData.suicideFactor
                                             ? suicideFactorsEnum[
                                                   this.state.formData
-                                                      .suicideFactor.id
+                                                      .suicideFactor.value
                                               ]
                                             : 'Izaberi'
                                     }
                                     items={suicideFactors}
                                     itemToLabel={(suicideFactor) =>
-                                        suicideFactorsEnum[suicideFactor.id]
+                                        suicideFactorsEnum[suicideFactor.value]
                                     }
                                     onSelect={(item) => {
                                         this.setState({
@@ -450,13 +452,13 @@ class SingleCallView extends React.Component {
                                         this.state.formData.postCallState
                                             ? postCallStatesEnum[
                                                   this.state.formData
-                                                      .postCallState.id
+                                                      .postCallState.value
                                               ]
                                             : 'Izaberi'
                                     }
                                     items={postCallStates}
                                     itemToLabel={(postCallState) =>
-                                        postCallStatesEnum[postCallState.id]
+                                        postCallStatesEnum[postCallState.value]
                                     }
                                     onSelect={(item) => {
                                         this.setState({

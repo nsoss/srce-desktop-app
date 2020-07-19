@@ -1,26 +1,29 @@
-import {
-    FETCH_VOLUNTEERS,
-    ADD_VOLUNTEER,
-    DELETE_VOLUNTEER,
-} from '../actions/type';
+import { AppAction } from '../store';
 
-const initialState = {
+interface VolunteersState {
+    volunteers: Array<any>;
+}
+
+const initialState: VolunteersState = {
     volunteers: [],
 };
 
-export default function(state = initialState, action) {
+export default function volunteersReducer(
+    state = initialState,
+    action: AppAction
+) {
     switch (action.type) {
-        case FETCH_VOLUNTEERS:
+        case 'FETCH_VOLUNTEERS':
             return {
                 ...state,
                 volunteers: action.payload,
             };
-        case ADD_VOLUNTEER:
+        case 'ADD_VOLUNTEER':
             return {
                 ...state,
                 volunteers: [...state.volunteers, action.payload],
             };
-        case DELETE_VOLUNTEER:
+        case 'DELETE_VOLUNTEER':
             return {
                 ...state,
                 volunteers: [

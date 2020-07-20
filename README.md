@@ -1,31 +1,35 @@
 # srce-desktop-app
 
-![Build Status](https://nsoss.semaphoreci.com/badges/srce-desktop-app.svg)
+![Build Status](https://nsoss.semaphoreci.com/badges/srce-desktop-app.svg?style=shields)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 ## Setup
 
-Make sure you have the latest version of [Node.js](https://nodejs.org/en/)
-installed (with npm). Then, run `npm install`. You will need to do this after
-cloning this repository, and every time `package.json` changes. After that you
-need to rebuild native modules like sqlite3. Run `bash windows_rebuild_script`
-if you use Windows, or `bash rebuild_script` for Linux.
+Make sure you have [Node.js] installed (with npm). Then, run `npm install`. You
+will need to do this after cloning the repository, and every time `package.json`
+changes.
+
+Optionally, you can use [nvm] to manage your local Node versions. This will
+ensure consistency between local and release environments. However, the latest
+LTS version _should_ always work (in theory).
 
 Editor support is provided for [Visual Studio Code], with features such as
-import sorting configured out of the box.
+import sorting configured out of the box. Configure the [Prettier extension] for
+automatic code formatting.
 
 ## Scripts
 
-`npm start` will run the app as a desktop application.
-
-`npm build` will create an `public/App.js` file, which is currently used by
-`index.html` for loading JavaScript.
-
-`npm dev` will track live changes for CSS and JS files
-
+* `npm start` Run the React application used by the local renderer process.
+* `npm start-electron` Build and run the Electron application. Make sure that
+  the React application is running in the background. If you see a blank screen,
+  you probably forgot to run `npm start`.
 * `npm run typeorm migration:run` Execute all pending database migrations.
 * `npm run typeorm migration:revert` Revert the last executed migration. Use
   this command to test your `down()` method.
-* `npm run typeorm schema:drop` can come in handy if something goes wrong.
+* `npm run typeorm schema:drop` ☢️ the database schema. Can come in handy if
+  something goes wrong while developing migrations.
+* `npm run format` Format the codebase using Prettier. Use this script if CI
+  complains.
 
 ## Migrations
 
@@ -42,7 +46,11 @@ Type ".help" for more information.
 
 ## Design
 
-[Figma](https://www.figma.com/file/3GkovVdGabhJmCOXC4X5Pi/srce-desktop-app?node-id=1%3A14)
+[Figma]
 
-[Node.js REPL]:https://nodejs.dev/learn/how-to-use-the-nodejs-repl
+[Node.js]:https://nodejs.org/en/
+[nvm]:https://github.com/nvm-sh/nvm
 [Visual Studio Code]:https://code.visualstudio.com/
+[Prettier extension]:https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+[Node.js REPL]:https://nodejs.dev/learn/how-to-use-the-nodejs-repl
+[Figma]:https://www.figma.com/file/3GkovVdGabhJmCOXC4X5Pi/srce-desktop-app?node-id=1%3A14

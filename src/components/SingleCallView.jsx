@@ -1,28 +1,12 @@
 import React from 'react';
 import { FaCopy, FaFileCsv, FaPencilAlt, FaSave } from 'react-icons/fa';
 import { IoIosExit } from 'react-icons/io';
+import { connect } from 'react-redux';
 import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
+import { getInitialData } from '../store';
+import CallFormDropdown from './CallFormDropdown';
 import Dropdown from './Dropdown';
-import callOrdinalitiesEnum from '../enums/callOrdinalities';
-import callTypesEnum from '../enums/callTypes';
-import gendersEnum from '../enums/genders';
-import maritalStatusesEnum from '../enums/maritalStatuses';
-import postCallStatesEnum from '../enums/postCallStates';
-import problemTypesEnum from '../enums/problemTypes';
-import suicideFactorsEnum from '../enums/suicideFactors';
-import suicideRisksEnum from '../enums/suicideRisks';
-
-const createFakeData = (label) => {
-    const fakeData = [];
-    for (let i = 1; i <= 3; ++i) {
-        fakeData.push({
-            id: i,
-            name: label + ' ' + i,
-        });
-    }
-    return fakeData;
-};
 
 function timeMask(value) {
     const chars = value.split('');
@@ -44,14 +28,6 @@ class SingleCallView extends React.Component {
         this.state = {
             call: {},
             formData: {
-                callTypes: [],
-                problemTypes: [],
-                suicideRisks: [],
-                suicideFactors: [],
-                postCallStates: [],
-                genders: [],
-                maritalStatuses: [],
-                callOrdinalities: [],
                 volunteers: [],
             },
         };
@@ -59,6 +35,7 @@ class SingleCallView extends React.Component {
     }
 
     componentDidMount() {
+        this.props.getInitialData();
         ipcRenderer.send('getFormData');
         ipcRenderer.once('formDataSent', (_, formData) => {
             this.setState({ formData });
@@ -74,17 +51,7 @@ class SingleCallView extends React.Component {
     };
 
     render() {
-        const {
-            callTypes,
-            problemTypes,
-            suicideRisks,
-            suicideFactors,
-            postCallStates,
-            genders,
-            maritalStatuses,
-            callOrdinalities,
-            volunteers,
-        } = this.state.formData;
+        const { volunteers } = this.state.formData;
 
         return (
             <form className="single-call-container">
@@ -110,47 +77,12 @@ class SingleCallView extends React.Component {
                         </div>
                         <div className="single-call-form-row">
                             <label className="form-label">Vrsta kontakta</label>
-                            <Dropdown
-                                label={
-                                    this.state.formData.contactType?.name ||
-                                    'Izaberi'
-                                }
-                                items={createFakeData('Vrsta kontakta')}
-                                itemToLabel={(item) => item.name}
-                                onSelect={(item) => {
-                                    this.setState({
-                                        formData: {
-                                            ...this.state.formData,
-                                            contactType: item,
-                                        },
-                                    });
-                                }}
-                            />
+                            <CallFormDropdown dropdownKey="contactTypes" />
                         </div>
 
                         <div className="single-call-form-row">
                             <label className="form-label">Vrsta poziva *</label>
-                            <Dropdown
-                                label={
-                                    this.state.formData.callType
-                                        ? callTypesEnum[
-                                              this.state.formData.callType.value
-                                          ]
-                                        : 'Izaberi'
-                                }
-                                items={callTypes}
-                                itemToLabel={(callType) =>
-                                    callTypesEnum[callType.value]
-                                }
-                                onSelect={(item) => {
-                                    this.setState({
-                                        formData: {
-                                            ...this.state.formData,
-                                            callType: item,
-                                        },
-                                    });
-                                }}
-                            />
+                            <CallFormDropdown dropdownKey="callTypes" />
                         </div>
 
                         <div className="single-call-form-row">
@@ -186,21 +118,7 @@ class SingleCallView extends React.Component {
                         </div>
                         <div className="single-call-form-row">
                             <label className="form-label">Dan</label> <br />
-                            <Dropdown
-                                label={
-                                    this.state.formData.day?.name || 'Izaberi'
-                                }
-                                items={createFakeData('Dan')}
-                                itemToLabel={(item) => item.name}
-                                onSelect={(item) => {
-                                    this.setState({
-                                        formData: {
-                                            ...this.state.formData,
-                                            day: item,
-                                        },
-                                    });
-                                }}
-                            />
+                            <CallFormDropdown dropdownKey="days" />
                         </div>
                         <div className="single-call-form-row">
                             <label className="form-label ">Trajanje</label>
@@ -229,116 +147,25 @@ class SingleCallView extends React.Component {
                         </div>
                         <div className="single-call-form-row">
                             <label className="form-label">Pol</label>
-                            <Dropdown
-                                label={
-                                    this.state.formData.gender
-                                        ? gendersEnum[
-                                              this.state.formData.gender.value
-                                          ]
-                                        : 'Izaberi'
-                                }
-                                items={genders}
-                                itemToLabel={(gender) =>
-                                    gendersEnum[gender.value]
-                                }
-                                onSelect={(item) => {
-                                    this.setState({
-                                        formData: {
-                                            ...this.state.formData,
-                                            gender: item,
-                                        },
-                                    });
-                                }}
-                            />
+                            <CallFormDropdown dropdownKey="genders" />
                         </div>
                         <div className="single-call-form-row">
                             <label className="form-label">Starost</label>
-                            <Dropdown
-                                label={
-                                    this.state.formData.age?.name || 'Izaberi'
-                                }
-                                items={createFakeData('Starost')}
-                                itemToLabel={(item) => item.name}
-                                onSelect={(item) => {
-                                    this.setState({
-                                        formData: {
-                                            ...this.state.formData,
-                                            age: item,
-                                        },
-                                    });
-                                }}
-                            />
+                            <CallFormDropdown dropdownKey="ages" />
                         </div>
                         <div className="single-call-form-row">
                             <label className="form-label">Bračno stanje</label>
-                            <Dropdown
-                                label={
-                                    this.state.formData.maritalStatus
-                                        ? maritalStatusesEnum[
-                                              this.state.formData.maritalStatus
-                                                  .value
-                                          ]
-                                        : 'Izaberi'
-                                }
-                                items={maritalStatuses}
-                                itemToLabel={(maritalStatus) =>
-                                    maritalStatusesEnum[maritalStatus.value]
-                                }
-                                onSelect={(item) => {
-                                    this.setState({
-                                        formData: {
-                                            ...this.state.formData,
-                                            maritalStatus: item,
-                                        },
-                                    });
-                                }}
-                            />
+                            <CallFormDropdown dropdownKey="maritalStatuses" />
                         </div>
                         <div className="single-call-form-row">
                             <label className="form-label">Koji put zove</label>
-                            <Dropdown
-                                label={
-                                    this.state.formData.callOrdinality
-                                        ? callOrdinalitiesEnum[
-                                              this.state.formData.callOrdinality
-                                                  .value
-                                          ]
-                                        : 'Izaberi'
-                                }
-                                items={callOrdinalities}
-                                itemToLabel={(callOrdinality) =>
-                                    callOrdinalitiesEnum[callOrdinality.value]
-                                }
-                                onSelect={(item) => {
-                                    this.setState({
-                                        formData: {
-                                            ...this.state.formData,
-                                            callOrdinality: item,
-                                        },
-                                    });
-                                }}
-                            />
+                            <CallFormDropdown dropdownKey="callOrdinalities" />
                         </div>
                         <div className="single-call-form-row">
                             <label className="form-label">
                                 Uključenost u plan
                             </label>
-                            <Dropdown
-                                label={
-                                    this.state.formData.planInvolvement?.name ||
-                                    'Izaberi'
-                                }
-                                items={createFakeData('Uključenost u plan')}
-                                itemToLabel={(item) => item.name}
-                                onSelect={(item) => {
-                                    this.setState({
-                                        formData: {
-                                            ...this.state.formData,
-                                            planInvolvement: item,
-                                        },
-                                    });
-                                }}
-                            />
+                            <CallFormDropdown dropdownKey="planInvolvements" />
                         </div>
                         <div className="single-call-form-row">
                             <label className="form-label">Volonter *</label>
@@ -373,107 +200,23 @@ class SingleCallView extends React.Component {
                                     style={{ marginTop: '8px' }}>
                                     Vrsta problema *
                                 </label>
-                                <Dropdown
-                                    label={
-                                        this.state.formData.problemType
-                                            ? problemTypesEnum[
-                                                  this.state.formData
-                                                      .problemType.value
-                                              ]
-                                            : 'Izaberi'
-                                    }
-                                    items={problemTypes}
-                                    itemToLabel={(problemType) =>
-                                        problemTypesEnum[problemType.value]
-                                    }
-                                    onSelect={(item) => {
-                                        this.setState({
-                                            formData: {
-                                                ...this.state.formData,
-                                                problemType: item,
-                                            },
-                                        });
-                                    }}
-                                />
+                                <CallFormDropdown dropdownKey="problemTypes" />
                             </div>
                             <div className="single-call-form-row">
                                 <label className="form-label">
                                     Suicidalni rizik *
                                 </label>
-                                <Dropdown
-                                    label={
-                                        this.state.formData.suicideRisk
-                                            ? suicideRisksEnum[
-                                                  this.state.formData
-                                                      .suicideRisk.value
-                                              ]
-                                            : 'Izaberi'
-                                    }
-                                    items={suicideRisks}
-                                    itemToLabel={(suicideRisk) =>
-                                        suicideRisksEnum[suicideRisk.value]
-                                    }
-                                    onSelect={(item) => {
-                                        this.setState({
-                                            formData: {
-                                                ...this.state.formData,
-                                                suicideRisk: item,
-                                            },
-                                        });
-                                    }}
-                                />
+                                <CallFormDropdown dropdownKey="suicideRisks" />
                             </div>
                             <div className="single-call-form-row">
                                 <label className="form-label">
                                     Suicidalni faktor *
                                 </label>
-                                <Dropdown
-                                    label={
-                                        this.state.formData.suicideFactor
-                                            ? suicideFactorsEnum[
-                                                  this.state.formData
-                                                      .suicideFactor.value
-                                              ]
-                                            : 'Izaberi'
-                                    }
-                                    items={suicideFactors}
-                                    itemToLabel={(suicideFactor) =>
-                                        suicideFactorsEnum[suicideFactor.value]
-                                    }
-                                    onSelect={(item) => {
-                                        this.setState({
-                                            formData: {
-                                                ...this.state.formData,
-                                                suicideFactor: item,
-                                            },
-                                        });
-                                    }}
-                                />
+                                <CallFormDropdown dropdownKey="suicideFactors" />
                             </div>
                             <div className="single-call-form-row">
                                 <label className="form-label">Pokušaji</label>
-                                <Dropdown
-                                    label={
-                                        this.state.formData.postCallState
-                                            ? postCallStatesEnum[
-                                                  this.state.formData
-                                                      .postCallState.value
-                                              ]
-                                            : 'Izaberi'
-                                    }
-                                    items={postCallStates}
-                                    itemToLabel={(postCallState) =>
-                                        postCallStatesEnum[postCallState.value]
-                                    }
-                                    onSelect={(item) => {
-                                        this.setState({
-                                            formData: {
-                                                ...this.state.formData,
-                                                postCallState: item,
-                                            },
-                                        });
-                                    }}
-                                />
+                                <CallFormDropdown dropdownKey="postCallStates" />
                             </div>
                         </div>
                         <div
@@ -539,4 +282,8 @@ class SingleCallView extends React.Component {
     }
 }
 
-export default SingleCallView;
+const mapDispatchToProps = {
+    getInitialData,
+};
+
+export default connect(null, mapDispatchToProps)(SingleCallView);

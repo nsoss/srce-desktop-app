@@ -18,6 +18,7 @@ import ProblemType from './models/ProblemType';
 import SuicideFactor from './models/SuicideFactor';
 import SuicideRisk from './models/SuicideRisk';
 import Volunteer from './models/Volunteer';
+import registerIpcListeners from './registerIpcListeners';
 
 /********************************** dbHelper **********************************/
 
@@ -281,6 +282,8 @@ const run = async () => {
     ipcMain.on('update', () => {
       autoUpdater.quitAndInstall();
     });
+
+    registerIpcListeners();
 
     mainWindow.loadURL(
       isDev

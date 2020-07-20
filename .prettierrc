@@ -1,24 +1,6 @@
 {
   "jsxBracketSameLine": true,
   "singleQuote": true,
-  "tabWidth": 4,
-  "trailingComma": "es5",
-
-  "overrides": [
-    {
-      "files": ".prettierrc",
-      "options": {
-        "parser": "json",
-        "tabWidth": 2
-      }
-    },
-    {
-      "files": "*.json",
-      "options": { "tabWidth": 2 }
-    },
-    {
-      "files": "*.{ts,tsx}",
-      "options": { "tabWidth": 2 }
-    }
-  ]
+  "tabWidth": 2,
+  "trailingComma": "es5"
 }

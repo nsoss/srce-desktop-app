@@ -2,21 +2,25 @@
   "[javascript]": {
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
-    }
+    },
+    "editor.tabSize": 2
   },
   "[javascriptreact]": {
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
-    }
+    },
+    "editor.tabSize": 2
   },
   "[typescript]": {
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
-    }
+    },
+    "editor.tabSize": 2
   },
   "[typescriptreact]": {
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
-    }
+    },
+    "editor.tabSize": 2
   }
 }

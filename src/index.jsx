@@ -11,33 +11,33 @@ const { ipcRenderer } = window.require('electron');
 
 ipcRenderer.send('get_version_string');
 ipcRenderer.once('get_version_string', (_, version) => {
-    document.title += ' ' + version;
+  document.title += ' ' + version;
 });
 
 let updateAvailable = false;
 ipcRenderer.once('update_available', () => {
-    updateAvailable = true;
+  updateAvailable = true;
 });
 
 let updateDownloaded = false;
 ipcRenderer.once('update_downloaded', () => {
-    updateDownloaded = true;
+  updateDownloaded = true;
 });
 
 const update = () => {
-    ipcRenderer.send('update');
+  ipcRenderer.send('update');
 };
 
 const app = document.getElementById('app');
 ReactDOM.render(
-    <Provider store={store}>
-        <ThemeProvider>
-            <App
-                updateAvailable={updateAvailable}
-                updateDownloaded={updateDownloaded}
-                update={update}
-            />
-        </ThemeProvider>
-    </Provider>,
-    app
+  <Provider store={store}>
+    <ThemeProvider>
+      <App
+        updateAvailable={updateAvailable}
+        updateDownloaded={updateDownloaded}
+        update={update}
+      />
+    </ThemeProvider>
+  </Provider>,
+  app
 );

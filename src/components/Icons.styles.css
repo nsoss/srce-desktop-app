@@ -1,0 +1,9 @@
+.icon {
+  fill: #ffffff;
+  height: 24px;
+  width: 24px;
+}
+
+.icon > * {
+  stroke: #ffffff !important;
+}

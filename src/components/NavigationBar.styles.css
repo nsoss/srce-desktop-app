@@ -1,0 +1,18 @@
+.navigation-bar {
+  background-color: var(--color-nav);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.navigation-bar__item {
+  cursor: pointer;
+  opacity: 0.45;
+  padding: 12px;
+  transition: opacity 0.3s;
+}
+
+.navigation-bar__item:hover,
+.navigation-bar__item--active {
+  opacity: 0.9;
+}

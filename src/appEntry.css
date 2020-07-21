@@ -135,58 +135,6 @@ button {
     border-color: var(--border-color);
 }
 
-.pointer {
-    cursor: pointer;
-}
-
-.side-nav {
-    position: fixed;
-    width: 64px;
-    height: 100%;
-    left: 0px;
-    top: 0px;
-    background: var(--color-nav);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 9999;
-}
-
-.side-nav-item {
-    width: 64px;
-    height: 64px;
-    border-radius: 1px;
-    color: var(--text-white);
-}
-
-.side-nav-item svg {
-    padding: 16px;
-    fill: lightgray;
-}
-
-.side-nav-item svg:hover {
-    fill: white;
-}
-
-.side-nav-item img {
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 16px;
-    display: block;
-}
-
-.side-nav-item:hover {
-    cursor: pointer;
-    background: var(--color-nav-selected);
-    color: var(--text-white);
-}
-
-.side-nav-item.side-nav-item-active {
-    border-left: 1px solid white;
-    background: var(--color-nav-selected);
-    width: 62px;
-}
-
 /* CALLS SCREEN ------------------------------------------------------ */
 
 .calls-container {
@@ -620,53 +568,6 @@ textarea:focus {
     margin-bottom: 0;
 }
 
-.dropdown-menu-srce {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    display: none;
-    float: left;
-    min-width: 10rem;
-    padding: 0.5rem 0;
-    margin: 0.125rem 0 0;
-    font-size: 1rem;
-    color: var(--text);
-    text-align: left;
-    list-style: none;
-    background-color: var(--single-call-panels-bg);
-    background-clip: padding-box;
-    border: 1px solid var(--single-call-panels-border);
-    border-radius: none !important;
-    height: 41px;
-    padding-top: 13px;
-    border-left: none;
-}
-
-.dropdown-menu-right {
-    right: 0;
-    left: auto;
-}
-
-.dropdown-item {
-    display: block;
-    width: 100%;
-    padding: 0.25rem 1.5rem;
-    clear: both;
-    font-weight: 400;
-    color: var(--text);
-    text-align: inherit;
-    white-space: nowrap;
-    background-color: transparent;
-    border: 0;
-}
-
-.dropdown-item:hover {
-    cursor: pointer;
-    background-color: var(--bg);
-    color: var(--text);
-}
-
 .modal {
     position: absolute;
     top: 0;
@@ -795,33 +696,6 @@ textarea:focus {
 
 .link-cursor {
     cursor: pointer;
-}
-
-.dropright .dropdown-menu {
-    top: 0;
-    right: auto;
-    left: 100%;
-    margin-top: 0;
-    margin-left: 0.125rem;
-}
-
-.dropright .dropdown-toggle::after {
-    display: inline-block;
-    margin-left: 0.255em;
-    vertical-align: 0.255em;
-    content: '';
-    border-top: 0.3em solid transparent;
-    border-right: 0;
-    border-bottom: 0.3em solid transparent;
-    border-left: 0.3em solid;
-}
-
-.dropright .dropdown-toggle:empty::after {
-    margin-left: 0;
-}
-
-.dropright .dropdown-toggle::after {
-    vertical-align: 0;
 }
 
 .validate-massage {

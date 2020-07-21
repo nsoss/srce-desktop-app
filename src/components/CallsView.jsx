@@ -49,7 +49,7 @@ class CallsView extends Component {
     return this.props.calls.map((item, index) => {
       const { id, time, duration, person, type, risk, volonter } = item; //destructuring
       return (
-        <tr className="text-center" key={id}>
+        <tr className='text-center' key={id}>
           <td>{id}</td>
           <td>{time}</td>
           <td>{duration}</td>
@@ -64,22 +64,22 @@ class CallsView extends Component {
 
   render() {
     return (
-      <div className="calls-container">
-        <div className="calls-table">
+      <div className='calls-container'>
+        <div className='calls-table'>
           {this.state.currentData.length > 0 ? (
-            <table hover className="call-data">
+            <table hover className='call-data'>
               <thead>
-                <tr className="text-center">
-                  <th scope="col">ID</th>
-                  <th scope="col">Datum</th>
-                  <th scope="col">Volonter</th>
+                <tr className='text-center'>
+                  <th scope='col'>ID</th>
+                  <th scope='col'>Datum</th>
+                  <th scope='col'>Volonter</th>
                 </tr>
               </thead>
               <tbody>
                 {this.props.calls.map((c, i) => {
                   return (
-                    <tr key={i} className="text-center">
-                      <th scope="row">{c.id}</th>
+                    <tr key={i} className='text-center'>
+                      <th scope='row'>{c.id}</th>
                       <td>
                         TODO
                         {/* {format(
@@ -96,7 +96,7 @@ class CallsView extends Component {
               </tbody>
             </table>
           ) : (
-            <p className="text-center call-data-msg">
+            <p className='text-center call-data-msg'>
               Nema poziva na izabrani datum.
             </p>
           )}
@@ -106,24 +106,24 @@ class CallsView extends Component {
             handleClick={this.handleClick}
           />
         </div>
-        <div className="calls-side-info">
+        <div className='calls-side-info'>
           <div style={{ flex: 1 }}>
             <CalendarNew
               onDateSelect={(date) => this.handleChangeTableData(date)}
             />
           </div>
-          <div className="calls-buttons">
+          <div className='calls-buttons'>
             <button
-              className="btn-srce"
+              className='btn-srce'
               onClick={() => this.props.handleChangeLocation('call')}>
               Snimi
             </button>
             <button
-              className="btn-srce"
+              className='btn-srce'
               onClick={() => this.props.handleChangeLocation('call')}>
               Izmeni
             </button>
-            <button className="btn-srce">Kopiraj</button>
+            <button className='btn-srce'>Kopiraj</button>
           </div>
         </div>
       </div>

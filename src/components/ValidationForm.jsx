@@ -35,7 +35,7 @@ class ValidationForm extends React.Component {
   render() {
     return (
       <form
-        className="admin-add-volunteer-form"
+        className='admin-add-volunteer-form'
         onSubmit={(event) => {
           event.preventDefault();
           this.props.addVolunteerFunc({
@@ -63,7 +63,7 @@ class ValidationForm extends React.Component {
         />
 
         <button
-          className="btn-srce"
+          className='btn-srce'
           style={{
             backgroundColor: 'var(--admin-accent)',
             marginRight: '0',

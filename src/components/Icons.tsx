@@ -7,23 +7,23 @@ import React from 'react';
 import './Icons.styles.css';
 
 function Admin() {
-  return <PeopleCircleIcon className="icon" />;
+  return <PeopleCircleIcon className='icon' />;
 }
 
 function Calendar() {
-  return <CalendarIcon className="icon" />;
+  return <CalendarIcon className='icon' />;
 }
 
 function Call() {
-  return <CallIcon className="icon" />;
+  return <CallIcon className='icon' />;
 }
 
 function Settings() {
-  return <SettingsIcon className="icon" />;
+  return <SettingsIcon className='icon' />;
 }
 
 function Stats() {
-  return <StatsChartIcon className="icon" />;
+  return <StatsChartIcon className='icon' />;
 }
 
 export default {

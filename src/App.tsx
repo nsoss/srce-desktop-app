@@ -20,7 +20,7 @@ export default function App() {
   const { location } = useNavigation();
 
   return (
-    <div className="app">
+    <div className='app'>
       <NavigationBar />
       {locationToScreen[location]}
     </div>

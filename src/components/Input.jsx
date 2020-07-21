@@ -19,13 +19,13 @@ class Input extends React.Component {
 
   render() {
     return (
-      <div className="validation-group">
-        <label htmlFor={this.props.name} className="form-label">
+      <div className='validation-group'>
+        <label htmlFor={this.props.name} className='form-label'>
           {this.props.title}
         </label>
         <input {...this.props} style={{ width: '100%' }} />
         <div
-          className="validate-massage"
+          className='validate-massage'
           style={{
             color: '#dc3545',
             visibility: this.state.errorVisibility,

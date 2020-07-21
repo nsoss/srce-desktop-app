@@ -153,7 +153,7 @@ class Calendar extends Component {
         <td
           key={i + 'p'}
           onClick={this.handleOnDateClickPreviousMonth}
-          className="text-center text-secondary">
+          className='text-center text-secondary'>
           {i}
         </td>
       );
@@ -166,7 +166,7 @@ class Calendar extends Component {
           <td
             key={i + 'd'}
             onClick={this.handleOnDateClickCurrentMonth}
-            className="text-center selected-date">
+            className='text-center selected-date'>
             {i}
           </td>
         );
@@ -175,7 +175,7 @@ class Calendar extends Component {
           <td
             key={i + 'd'}
             onClick={this.handleOnDateClickCurrentMonth}
-            className="text-center">
+            className='text-center'>
             {i}
           </td>
         );
@@ -187,7 +187,7 @@ class Calendar extends Component {
         <td
           key={i + 'n'}
           onClick={this.handleOnDateClickNextMonth}
-          className="text-center text-secondary">
+          className='text-center text-secondary'>
           {i}
         </td>
       );
@@ -220,14 +220,14 @@ class Calendar extends Component {
     }
     return (
       <>
-        <div className="calendar-srce">
-          <table className="">
+        <div className='calendar-srce'>
+          <table className=''>
             <thead>
               <tr>
-                <td onClick={this.handleMonthBackward} className="text-center">
+                <td onClick={this.handleMonthBackward} className='text-center'>
                   <IoIosArrowBack />
                 </td>
-                <td className="text-center justify-content-center " colSpan="5">
+                <td className='text-center justify-content-center ' colSpan='5'>
                   <form>
                     <div
                       style={{
@@ -249,11 +249,11 @@ class Calendar extends Component {
                     </div>
                   </form>
                 </td>
-                <td onClick={this.handleMonthForward} className="text-center">
+                <td onClick={this.handleMonthForward} className='text-center'>
                   <IoIosArrowForward />
                 </td>
               </tr>
-              <tr className="text-center">
+              <tr className='text-center'>
                 <th>PON</th>
                 <th>UTO</th>
                 <th>SRE</th>

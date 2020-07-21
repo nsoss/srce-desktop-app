@@ -7,18 +7,18 @@ export default class Modal extends React.Component {
   render() {
     return ReactDOM.createPortal(
       <div
-        className="modal align-items-center justify-content-center"
+        className='modal align-items-center justify-content-center'
         onClick={this.props.onClose}>
-        <div className="modal-body text-center">
+        <div className='modal-body text-center'>
           <h5 style={{ color: 'var(--text)' }}>Morate uneti šifru</h5>
           <hr />
           {this.props.children}
           <hr />
-          <button className="btn-srce" onClick={this.props.onClose}>
+          <button className='btn-srce' onClick={this.props.onClose}>
             Enter
           </button>
           <button
-            className="btn-srce"
+            className='btn-srce'
             style={{ marginLeft: 'auto' }}
             onClick={this.props.onCancel}>
             Povratak

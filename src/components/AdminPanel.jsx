@@ -70,34 +70,34 @@ class Admin extends Component {
   };
   render() {
     return (
-      <div className="admin-panel">
+      <div className='admin-panel'>
         {false ? (
           <Modal
             onClose={this.passwordCheck}
             onCancel={() => this.props.handleChangeLocation('calls')}>
             <input
-              className="form-input-modal"
-              type="text"
-              name="inputPassword"
+              className='form-input-modal'
+              type='text'
+              name='inputPassword'
               value={this.state.inputPassword}
               onChange={this.handleChangeInput}
               onKeyDown={this.passwordCheck}
-              id="examplePassword"
+              id='examplePassword'
             />
           </Modal>
         ) : null}
 
         <ValidationForm addVolunteerFunc={this.handleAddVolunteer} />
 
-        <div className="admin-table">
-          <table className="volunteer-data">
-            <thead striped hover className="volunteer-data mt-3">
+        <div className='admin-table'>
+          <table className='volunteer-data'>
+            <thead striped hover className='volunteer-data mt-3'>
               <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Ime</th>
-                <th scope="col">Prezime</th>
-                <th scope="col">Datum dodavanja</th>
-                <th scope="col"> </th>
+                <th scope='col'>ID</th>
+                <th scope='col'>Ime</th>
+                <th scope='col'>Prezime</th>
+                <th scope='col'>Datum dodavanja</th>
+                <th scope='col'> </th>
               </tr>
             </thead>
             <tbody>
@@ -116,9 +116,9 @@ class Admin extends Component {
                                                 'dd.MM.yyyy'
                                             )} */}
                     </td>
-                    <td className="text-center">
+                    <td className='text-center'>
                       <button
-                        className="btn-srce"
+                        className='btn-srce'
                         style={{
                           backgroundColor: '#CC8066',
                         }}

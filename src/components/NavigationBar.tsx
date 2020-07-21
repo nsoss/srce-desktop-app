@@ -7,15 +7,15 @@ import './NavigationBar.styles.css';
 
 export default function NavigationBar() {
   return (
-    <div className="navigation-bar">
+    <div className='navigation-bar'>
       <div>
-        <Item location="calendar" />
-        <Item location="call" />
-        <Item location="stats" />
+        <Item location='calendar' />
+        <Item location='call' />
+        <Item location='stats' />
       </div>
       <div>
-        <Item location="admin" />
-        <Item location="settings" />
+        <Item location='admin' />
+        <Item location='settings' />
       </div>
     </div>
   );

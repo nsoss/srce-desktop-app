@@ -20,10 +20,10 @@ class Pagination extends React.Component {
     let pageNumbers = [];
     for (let i = 1; i <= Math.ceil(data.length / dataPerPage); i++) {
       pageNumbers.push(
-        <li className="page-item" key={i} id={i}>
+        <li className='page-item' key={i} id={i}>
           <a
-            href="_"
-            className="page-link pagination-number-link"
+            href='_'
+            className='page-link pagination-number-link'
             id={i}
             onClick={this.handleClick}>
             {i}
@@ -75,7 +75,7 @@ class Pagination extends React.Component {
     return (
       this.state.data &&
       this.state.data.length > this.state.dataPerPage && (
-        <ul className="pagination justify-content-center">
+        <ul className='pagination justify-content-center'>
           {this.renderPageNumbers()}
         </ul>
       )

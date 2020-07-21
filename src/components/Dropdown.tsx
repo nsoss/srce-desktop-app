@@ -31,23 +31,23 @@ export default function Dropdown<TItem>({
   }, []);
 
   return (
-    <div className="Dropdown" ref={container}>
+    <div className='Dropdown' ref={container}>
       <input
-        className="form-input toggle-popup"
+        className='form-input toggle-popup'
         onClick={() => {
           setDropped(true);
         }}
         readOnly
-        type="text"
+        type='text'
         value={label || 'Izaberi'}
       />
       {dropped && (
-        <div className="Dropdown-list">
+        <div className='Dropdown-list'>
           <ul>
             {items.map((item, index) => (
               <li
                 key={index}
-                className="Dropdown-list-items"
+                className='Dropdown-list-items'
                 onClick={() => {
                   onSelect(item);
                   setDropped(false);

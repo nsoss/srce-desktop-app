@@ -1,11 +1,7 @@
-dist/
-node_modules/
-yarn.lock
 .vscode/*
 !.vscode/settings.json
-**/*.db
-public/js/
 build/
-electron/index.js
-yarn-error.log
+dist/
+node_modules/
 .DS_Store
+srce.db

@@ -10,8 +10,8 @@ will need to do this after cloning the repository, and every time `package.json`
 changes.
 
 Optionally, you can use [nvm] to manage your local Node versions. This will
-ensure consistency between local and release environments. However, the latest
-LTS version _should_ always work (in theory).
+ensure consistency between local and release environments. The latest LTS
+version _should_ always work.
 
 Editor support is provided for [Visual Studio Code], with features such as
 import sorting configured out of the box. Configure the [Prettier extension] for
@@ -19,17 +19,27 @@ automatic code formatting.
 
 ## Scripts
 
-* `npm start` Run the React application used by the local renderer process.
-* `npm start-electron` Build and run the Electron application. Make sure that
-  the React application is running in the background. If you see a blank screen,
-  you probably forgot to run `npm start`.
+* `npm run start:renderer` Serve the React application used by the renderer
+  process on [localhost:3000].
+* `npm run start:main` Build and run the Electron application. Make sure that
+  the React application is being served in the background. If you see a blank
+  screen, you probably forgot to run `npm start:renderer`.
 * `npm run typeorm migration:run` Execute all pending database migrations.
 * `npm run typeorm migration:revert` Revert the last executed migration. Use
   this command to test your `down()` method.
 * `npm run typeorm schema:drop` ☢️ the database schema. Can come in handy if
   something goes wrong while developing migrations.
+* `npm run lint` Check the codebase for linter errors. Used by CI.
 * `npm run format` Format the codebase using Prettier. Use this script if CI
   complains.
+* `scripts/build.sh` Package the application for your local development OS. If
+  you're integrating with native modules, this will come in handy as a preflight
+  check.
+* `npm run package` Package the application for Windows, our target platform.
+  Will attempt to cross-compile on Linux / macOS. You will need to run the above
+  build script first.
+* `npm run deploy` Same as `npm run package`, but also attempt to deploy (for
+  example, using GitHub releases).
 
 ## Migrations
 
@@ -52,5 +62,6 @@ Type ".help" for more information.
 [nvm]:https://github.com/nvm-sh/nvm
 [Visual Studio Code]:https://code.visualstudio.com/
 [Prettier extension]:https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+[localhost:3000]:http://localhost:3000/
 [Node.js REPL]:https://nodejs.dev/learn/how-to-use-the-nodejs-repl
 [Figma]:https://www.figma.com/file/3GkovVdGabhJmCOXC4X5Pi/srce-desktop-app?node-id=1%3A14

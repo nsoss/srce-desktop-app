@@ -11,8 +11,17 @@
     "type": "git",
     "url": "https://github.com/nsoss/srce-desktop-app.git"
   },
-  "main": "electron/build/index.js",
-  "homepage": "./",
+  "main": "build/index.js",
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "start:renderer": "react-scripts start",
+    "start:main": "tsc --build ./electron/ && electron .",
+    "typeorm": "TS_NODE_PROJECT=./electron/tsconfig.json node --require ts-node/register ./node_modules/typeorm/cli.js",
+    "lint": "prettier --check \"./{src,electron}/**/*.{js,json,jsx,ts,tsx}\"",
+    "format": "prettier --write \"./{src,electron}/**/*.{js,json,,jsx,ts,tsx}\"",
+    "package": "electron-builder --win -c.extraMetadata.main=build/index.js --publish never",
+    "deploy": "electron-builder --win -c.extraMetadata.main=build/index.js --publish always"
+  },
   "dependencies": {
     "@types/node": "12.12.28",
     "@types/react-redux": "7.1.9",
@@ -49,24 +58,11 @@
   },
   "devDependencies": {
     "electron": "8.0.1",
-    "electron-builder": "22.3.2"
+    "electron-builder": "22.7.0"
   },
   "peerDependencies": {
     "jquery": "^3.4.0",
     "popper.js": "^1.14.3"
-  },
-  "scripts": {
-    "typeorm": "TS_NODE_PROJECT=./electron/tsconfig.json node --require ts-node/register ./node_modules/typeorm/cli.js",
-    "postinstall": "electron-builder install-app-deps",
-    "start": "react-scripts start",
-    "start-electron": "tsc --project ./electron/ && electron .",
-    "build": "react-scripts build",
-    "build-electron": "tsc --project ./electron/ && mkdir -p ./build/electron/ && cp ./electron/index.js ./build/electron",
-    "lint": "prettier --check \"./{src,electron}/**/*.{js,jsx,ts,tsx}\"",
-    "format": "prettier --write \"./{src,electron}/**/*.{js,jsx,ts,tsx}\"",
-    "preflight": "yarn build && yarn build-electron && electron-builder --dir -c.extraMetadata.main=build/electron/index.js --publish never",
-    "package": "electron-builder --win -c.extraMetadata.main=build/electron/index.js --publish never",
-    "deploy": "electron-builder --win -c.extraMetadata.main=build/electron/index.js --publish always"
   },
   "eslintConfig": {
     "extends": "react-app",

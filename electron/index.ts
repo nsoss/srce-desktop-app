@@ -284,14 +284,14 @@ const run = async () => {
       isDev
         ? 'http://localhost:3000/'
         : url.format({
-            pathname: path.join(__dirname, '../index.html'),
+            pathname: path.join(__dirname, './index.html'),
             protocol: 'file:',
             slashes: true,
           })
     );
     const connection = await createConnection({
       type: 'sqlite',
-      database: 'srce.db',
+      database: isDev ? 'srce.db' : path.join(appDir, 'srce.db'),
       entities: [
         Call,
         CallOrdinality,

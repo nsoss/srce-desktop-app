@@ -1,6 +1,5 @@
 import { app, BrowserWindow, ipcMain, Menu } from 'electron';
 import isDev from 'electron-is-dev';
-import { autoUpdater } from 'electron-updater';
 import fs from 'fs';
 import path from 'path';
 import { createConnection, QueryRunner, Table, TableForeignKey } from 'typeorm';
@@ -279,10 +278,6 @@ const run = async () => {
       event.sender.send('get_version_string', app.getVersion());
     });
 
-    ipcMain.on('update', () => {
-      autoUpdater.quitAndInstall();
-    });
-
     registerIpcListeners();
 
     mainWindow.loadURL(
@@ -321,22 +316,10 @@ const run = async () => {
     testVolunteer.name = 'EXAMPLE';
     testVolunteer.createdAt = new Date();
     testVolunteer.save();
-
-    mainWindow.once('ready-to-show', () => {
-      autoUpdater.checkForUpdatesAndNotify();
-    });
   } catch (error) {
     fs.writeFileSync(path.join(appDir, 'error.log'), error);
     process.exit(1);
   }
 };
-
-autoUpdater.on('update_available', () => {
-  mainWindow.webContents.send('update_available');
-});
-
-autoUpdater.on('update_downloaded', () => {
-  mainWindow.webContents.send('update_downloaded');
-});
 
 run();

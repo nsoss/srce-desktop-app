@@ -28,9 +28,7 @@ export const ThemeProvider: React.FunctionComponent = (props) => {
   };
 
   const toggle = () => {
-    // m.dark_theme = !dark;
     setDark(!dark);
-    // fileWrite(m);
     const body = document.getElementsByTagName('body')[0];
     body.style.cssText = 'transition: background .5s ease';
   };

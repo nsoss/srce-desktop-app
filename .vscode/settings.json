@@ -1,14 +1,8 @@
 {
-  "[javascript]": {
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    },
+  "[json]": {
     "editor.tabSize": 2
   },
-  "[javascriptreact]": {
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    },
+  "[jsonc]": {
     "editor.tabSize": 2
   },
   "[typescript]": {

@@ -1,21 +1,18 @@
 import React from 'react';
 
-class Input extends React.Component {
-  constructor(props) {
+interface InputProps extends React.HTMLProps<HTMLInputElement> {
+  title: string;
+}
+
+interface InputState {
+  errorVisibility: 'hidden';
+}
+
+class Input extends React.Component<InputProps, InputState> {
+  constructor(props: InputProps) {
     super(props);
     this.state = { errorVisibility: 'hidden' };
   }
-
-  handleBlur = (event) => {
-    let value = event.target.value;
-    let errorVisibility = 'hidden';
-
-    if (value === '') {
-      errorVisibility = 'visible';
-    }
-
-    this.setState({ errorVisibility });
-  };
 
   render() {
     return (

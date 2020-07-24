@@ -36,17 +36,17 @@ const months = [
 
 const numberOfPastYears = 20;
 
-class Calendar extends Component {
+class Calendar extends Component<any, any> {
   state = {
     selectedDate: new Date(),
     location: '/',
-  };
+  } as any;
 
   componentDidMount() {
     this.props.onDateSelect(this.state.selectedDate);
   }
 
-  handleOnDateClickCurrentMonth = (event) => {
+  handleOnDateClickCurrentMonth = (event: any) => {
     const clickedDay = event.target.textContent;
 
     const { selectedDate } = this.state;
@@ -61,7 +61,7 @@ class Calendar extends Component {
     this.props.onDateSelect(newSelectedDate);
   };
 
-  handleOnDateClickPreviousMonth = (event) => {
+  handleOnDateClickPreviousMonth = (event: any) => {
     const clickedDay = event.target.textContent;
 
     const { selectedDate } = this.state;
@@ -73,7 +73,7 @@ class Calendar extends Component {
     this.props.onDateSelect(newSelectedDate);
   };
 
-  handleOnDateClickNextMonth = (event) => {
+  handleOnDateClickNextMonth = (event: any) => {
     const clickedDay = event.target.textContent;
 
     const { selectedDate } = this.state;
@@ -85,21 +85,21 @@ class Calendar extends Component {
     this.props.onDateSelect(newSelectedDate);
   };
 
-  handleMonthForward = (event) => {
+  handleMonthForward = (event: any) => {
     const { selectedDate } = this.state;
     const newSelectedDate = addMonths(selectedDate, 1);
     this.setState({ selectedDate: newSelectedDate });
     this.props.onDateSelect(newSelectedDate);
   };
 
-  handleMonthBackward = (event) => {
+  handleMonthBackward = (event: any) => {
     const { selectedDate } = this.state;
     const newSelectedDate = subMonths(selectedDate, 1);
     this.setState({ selectedDate: newSelectedDate });
     this.props.onDateSelect(newSelectedDate);
   };
 
-  handleChangeInputMonth = (data, event) => {
+  handleChangeInputMonth: any = (data: any, event: any) => {
     const { selectedDate } = this.state;
     const newSelectedMonth = event;
 
@@ -112,7 +112,8 @@ class Calendar extends Component {
     });
     this.props.onDateSelect(newSelectedDate);
   };
-  handleChangeInputYear = (data, event) => {
+
+  handleChangeInputYear: any = (data: any, event: any) => {
     const { selectedDate } = this.state;
     const newSelectedYear = event;
 
@@ -203,7 +204,7 @@ class Calendar extends Component {
 
     const daysInMonth = rows.map((d, i) => {
       return (
-        <tr key={d + i} style={{ width: '50px' }}>
+        <tr key={i} style={{ width: '50px' }}>
           {d}
         </tr>
       );
@@ -227,7 +228,7 @@ class Calendar extends Component {
                 <td onClick={this.handleMonthBackward} className='text-center'>
                   <IoIosArrowBack />
                 </td>
-                <td className='text-center justify-content-center ' colSpan='5'>
+                <td className='text-center justify-content-center' colSpan={5}>
                   <form>
                     <div
                       style={{
@@ -243,7 +244,7 @@ class Calendar extends Component {
                       <Dropdown
                         label={this.state.selectedDate.getFullYear()}
                         items={years}
-                        itemToLabel={(year) => year}
+                        itemToLabel={(year) => year.toString()}
                         onSelect={this.handleChangeInputYear}
                       />
                     </div>

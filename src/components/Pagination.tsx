@@ -1,7 +1,21 @@
 import React from 'react';
 
-class Pagination extends React.Component {
-  constructor(props) {
+interface PaginationProps {
+  allData: any;
+  dataPerPage: number;
+  handleClick: any;
+}
+
+interface PaginationState {
+  data: any;
+  currentPage: number;
+  dataPerPage: number;
+  pageNumbers: Array<number>;
+  currentData: Array<any>;
+}
+
+class Pagination extends React.Component<PaginationProps, PaginationState> {
+  constructor(props: PaginationProps) {
     super(props);
     this.state = {
       data: props.allData,
@@ -20,11 +34,11 @@ class Pagination extends React.Component {
     let pageNumbers = [];
     for (let i = 1; i <= Math.ceil(data.length / dataPerPage); i++) {
       pageNumbers.push(
-        <li className='page-item' key={i} id={i}>
+        <li className='page-item' key={i} id={i.toString()}>
           <a
             href='_'
             className='page-link pagination-number-link'
-            id={i}
+            id={i.toString()}
             onClick={this.handleClick}>
             {i}
           </a>
@@ -34,7 +48,7 @@ class Pagination extends React.Component {
     return pageNumbers;
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: PaginationProps) {
     if (this.state.data.length !== nextProps.allData.length) {
       this.setState({ data: nextProps.allData });
 
@@ -56,15 +70,16 @@ class Pagination extends React.Component {
     return false;
   }
 
-  handleClick(event) {
+  handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
     const { dataPerPage, data } = this.state;
-    const indexOfLast = event.target.id * dataPerPage;
+    const page = Number(event.currentTarget.id);
+    const indexOfLast = Number(page) * dataPerPage;
     const indexOfFirst = indexOfLast - dataPerPage;
 
     const currentDataCalculated = data.slice(indexOfFirst, indexOfLast);
     this.setState({
-      currentPage: Number(event.target.id),
+      currentPage: Number(page),
       currentData: currentDataCalculated,
     });
 

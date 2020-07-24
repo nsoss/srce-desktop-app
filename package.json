@@ -17,8 +17,8 @@
     "start:renderer": "react-scripts start",
     "start:main": "tsc --build ./electron/ && electron .",
     "typeorm": "TS_NODE_PROJECT=./electron/tsconfig.json node --require ts-node/register ./node_modules/typeorm/cli.js",
-    "lint": "prettier --check \"./{src,electron}/**/*.{js,json,jsx,ts,tsx}\"",
-    "format": "prettier --write \"./{src,electron}/**/*.{js,json,,jsx,ts,tsx}\"",
+    "lint": "prettier --check \"./{src,electron}/**/*.{json,ts,tsx}\"",
+    "format": "prettier --write \"./{src,electron}/**/*.{json,ts,tsx}\"",
     "package": "electron-builder --win -c.extraMetadata.main=build/index.js --publish never",
     "deploy": "electron-builder --win -c.extraMetadata.main=build/index.js --publish always"
   },
@@ -57,6 +57,8 @@
     "typescript": "3.9.7"
   },
   "devDependencies": {
+    "@types/react-dom": "16.9.8",
+    "@types/react-text-mask": "5.4.6",
     "electron": "8.0.1",
     "electron-builder": "22.7.0"
   },

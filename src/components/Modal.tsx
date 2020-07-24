@@ -1,10 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+interface ModalProps {
+  onCancel?: () => void;
+  onClose: () => void;
+}
+
 const modalRoot = document.getElementById('modal-root');
 
-export default class Modal extends React.Component {
+export default class Modal extends React.Component<ModalProps> {
   render() {
+    if (modalRoot === null) {
+      return null;
+    }
+
     return ReactDOM.createPortal(
       <div
         className='modal align-items-center justify-content-center'

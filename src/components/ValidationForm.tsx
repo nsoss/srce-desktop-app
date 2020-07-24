@@ -2,8 +2,8 @@ import React from 'react';
 import { FaUserPlus } from 'react-icons/fa';
 import Input from './Input';
 
-class ValidationForm extends React.Component {
-  constructor(props) {
+class ValidationForm extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -14,16 +14,18 @@ class ValidationForm extends React.Component {
         errorMessage: '',
       },
     };
+
+    this.handleChangeInput = this.handleChangeInput.bind(this);
   }
 
-  handleChangeInput = (event) => {
+  handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
     const name = target.name;
     const value = target.value;
 
     const regex = /^([A-Za-zŠšĐđČčĆćŽž]+\s)*[A-Za-zŠšĐđČčĆćŽž]*$/;
     if (value === '' || regex.test(value)) {
-      this.setState((prevState) => ({
+      this.setState((prevState: any) => ({
         newUser: {
           ...prevState.newUser,
           [name]: value,
@@ -47,19 +49,18 @@ class ValidationForm extends React.Component {
           title={'Ime'}
           value={this.state.name}
           placeholder={'Unesite ime volontera'}
-          onChange={(event) => {
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             this.setState({ name: event.target.value });
           }}
         />
 
         <Input
           type={'text'}
-          inputName={'lastName'}
-          fieldName={'prezime'}
+          name='prezime'
           title={'Prezime'}
           value={this.state.newUser.lastName}
           placeholder={'Unesite prezime volontera'}
-          handleChange={this.handleChangeInput}
+          onChange={this.handleChangeInput}
         />
 
         <button

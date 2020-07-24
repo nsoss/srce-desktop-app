@@ -2,11 +2,18 @@ import { format } from 'date-fns';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCalls } from '../actions/callsActions';
+import { AppState } from '../store';
 import CalendarNew from './Calendar';
 import Pagination from './Pagination';
 
-class CallsView extends Component {
-  constructor(props) {
+interface CallsViewProps {
+  onDateSelect?: () => void;
+  fetchCalls: () => void;
+  calls: Array<any>;
+}
+
+class CallsView extends Component<CallsViewProps> {
+  constructor(props: CallsViewProps) {
     super(props);
     this.state.selectedDate = props.onDateSelect;
   }
@@ -17,37 +24,31 @@ class CallsView extends Component {
     filteredCalls: [],
     dataPerPage: 2,
     currentData: [],
-  };
+  } as any;
 
   componentWillMount() {
     this.props.fetchCalls();
   }
 
-  formatDate = (datedb) => {
+  formatDate = (datedb: string) => {
     return format(new Date(Date.parse(datedb)), 'dd/MM/yyyy');
   };
 
-  handleChangeTableData = (date) => {
-    let callsByDate = this.props.calls.filter((p) => {
-      // var str = this.formatDate(p.created_at);
-      // return str === format(date, 'dd/MM/yyyy').toString();
-      return true;
-    });
-
+  handleChangeTableData: any = () => {
     this.setState({
-      filteredCalls: [...callsByDate],
+      filteredCalls: this.props.calls,
     });
   };
 
-  handleClick = (data) => {
+  handleClick = (data: any) => {
     this.setState({
       currentData: data,
     });
   };
 
   renderTableData() {
-    return this.props.calls.map((item, index) => {
-      const { id, time, duration, person, type, risk, volonter } = item; //destructuring
+    return this.props.calls.map((item) => {
+      const { id, time, duration, person, type, risk, volonter } = item;
       return (
         <tr className='text-center' key={id}>
           <td>{id}</td>
@@ -67,7 +68,7 @@ class CallsView extends Component {
       <div className='calls-container'>
         <div className='calls-table'>
           {this.state.currentData.length > 0 ? (
-            <table hover className='call-data'>
+            <table className='call-data'>
               <thead>
                 <tr className='text-center'>
                   <th scope='col'>ID</th>
@@ -80,15 +81,7 @@ class CallsView extends Component {
                   return (
                     <tr key={i} className='text-center'>
                       <th scope='row'>{c.id}</th>
-                      <td>
-                        TODO
-                        {/* {format(
-                                                    new Date(
-                                                        Date.parse(c.created_at)
-                                                    ),
-                                                    'dd.MM.yyyy'
-                                                )} */}
-                      </td>
+                      <td>TODO</td>
                       <td>{c.volunteerId}</td>
                     </tr>
                   );
@@ -109,20 +102,12 @@ class CallsView extends Component {
         <div className='calls-side-info'>
           <div style={{ flex: 1 }}>
             <CalendarNew
-              onDateSelect={(date) => this.handleChangeTableData(date)}
+              onDateSelect={(date: any) => this.handleChangeTableData(date)}
             />
           </div>
           <div className='calls-buttons'>
-            <button
-              className='btn-srce'
-              onClick={() => this.props.handleChangeLocation('call')}>
-              Snimi
-            </button>
-            <button
-              className='btn-srce'
-              onClick={() => this.props.handleChangeLocation('call')}>
-              Izmeni
-            </button>
+            <button className='btn-srce'>Snimi</button>
+            <button className='btn-srce'>Izmeni</button>
             <button className='btn-srce'>Kopiraj</button>
           </div>
         </div>
@@ -131,7 +116,7 @@ class CallsView extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppState) => ({
   calls: state.calls.calls,
 });
 

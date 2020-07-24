@@ -8,9 +8,30 @@ import { getInitialData } from '../store';
 import CallFormDropdown from './CallFormDropdown';
 import Dropdown from './Dropdown';
 
-function timeMask(value) {
+interface SingleCallViewPropsFromDispatch {
+  getInitialData: () => void;
+}
+
+const mapDispatchToProps: SingleCallViewPropsFromDispatch = {
+  getInitialData,
+};
+
+interface SingleCallViewProps extends SingleCallViewPropsFromDispatch {}
+
+interface SingleCallViewState {
+  call: any;
+  formData: {
+    volunteer?: any;
+    volunteers: Array<any>;
+  };
+}
+
+function timeMask(value: string) {
   const chars = value.split('');
-  const hours = [/[0-2]/, chars[0] === '2' ? /[0-3]/ : /[0-9]/];
+  const hours: Array<RegExp | string> = [
+    /[0-2]/,
+    chars[0] === '2' ? /[0-3]/ : /[0-9]/,
+  ];
 
   const minutes = [/[0-5]/, /[0-9]/];
 
@@ -22,8 +43,11 @@ const autoCorrectedDatePipe = createAutoCorrectedDatePipe('mm/dd/yyyy');
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
 
-class SingleCallView extends React.Component {
-  constructor(props) {
+class SingleCallView extends React.Component<
+  SingleCallViewProps,
+  SingleCallViewState
+> {
+  constructor(props: SingleCallViewProps) {
     super(props);
     this.state = {
       call: {},
@@ -31,7 +55,6 @@ class SingleCallView extends React.Component {
         volunteers: [],
       },
     };
-    this.handleChangeInput = this.handleChangeInput.bind(this);
   }
 
   componentDidMount() {
@@ -41,14 +64,6 @@ class SingleCallView extends React.Component {
       this.setState({ formData });
     });
   }
-
-  handleChangeInput = (event, data) => {
-    const target = event.target;
-    const name = target.name;
-    const value = target.value;
-
-    this.setState({ [name]: value });
-  };
 
   render() {
     const { volunteers } = this.state.formData;
@@ -212,11 +227,11 @@ class SingleCallView extends React.Component {
                 className='single-call-form-row'
                 style={{ marginBottom: '10px' }}>
                 <label className='form-label'>Kratak sadržaj</label>
-                <textarea name='content required' rows='5' />
+                <textarea name='content required' rows={5} />
               </div>
               <div className='single-call-form-row'>
                 <label className='form-label'>Napomena</label>
-                <textarea name='content' rows='3' />
+                <textarea name='content' rows={3} />
               </div>
             </div>
           </div>
@@ -234,25 +249,19 @@ class SingleCallView extends React.Component {
             <FaSave />
             &nbsp;Snimi
           </button>
-          <button className='btn-srce' onClick={this.handleUpdateData}>
+          <button className='btn-srce'>
             <FaPencilAlt />
             &nbsp;Izmeni
           </button>
-          <button className='btn-srce' onClick={this.handleCopyData}>
+          <button className='btn-srce'>
             <FaCopy />
             &nbsp;Kopiraj
           </button>
-          <button
-            className='btn-srce'
-            onClick={this.handleExportToExcel}
-            style={{ width: '135px' }}>
+          <button className='btn-srce' style={{ width: '135px' }}>
             <FaFileCsv />
             &nbsp;Prebaci u CSV
           </button>
-          <button
-            className='btn-srce'
-            style={{ backgroundColor: '#CC8066 ' }}
-            onClick={() => this.props.handleChangeLocation('calls')}>
+          <button className='btn-srce' style={{ backgroundColor: '#CC8066 ' }}>
             <IoIosExit />
             &nbsp;Izadji
           </button>
@@ -261,9 +270,5 @@ class SingleCallView extends React.Component {
     );
   }
 }
-
-const mapDispatchToProps = {
-  getInitialData,
-};
 
 export default connect(null, mapDispatchToProps)(SingleCallView);

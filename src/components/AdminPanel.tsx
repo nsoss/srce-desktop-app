@@ -7,11 +7,21 @@ import {
   deleteVolunteer,
   fetchVolunteers,
 } from '../actions/volunteersActions';
-import Modal from './Modal.js';
+import { AppState } from '../store';
+import Modal from './Modal';
 import Pagination from './Pagination';
 import ValidationForm from './ValidationForm';
 
-class Admin extends Component {
+interface AdminProps {
+  addVolunteer: (volunteer: any) => void;
+  admin: boolean;
+  deleteVolunteer: (id: any) => void;
+  fetchVolunteers: () => void;
+  setAdmin: (admin: boolean) => void;
+  volunteers: Array<any>;
+}
+
+class Admin extends Component<AdminProps> {
   state = {
     inputFirstName: '',
     inputLastName: '',
@@ -20,7 +30,7 @@ class Admin extends Component {
     inputPassword: '',
     dataPerPage: 9,
     currentData: [],
-  };
+  } as any;
 
   componentDidMount() {
     this.handleShowModal();
@@ -29,7 +39,7 @@ class Admin extends Component {
     this.props.fetchVolunteers();
   }
 
-  handleChangeInput = (event) => {
+  handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
     const name = target.name;
     const value = target.value;
@@ -37,7 +47,7 @@ class Admin extends Component {
     this.setState({ [name]: value });
   };
 
-  handleAddVolunteer = (newVolunteer) => {
+  handleAddVolunteer = (newVolunteer: any) => {
     this.props.addVolunteer(newVolunteer);
     this.setState({
       inputFirstName: '',
@@ -49,19 +59,19 @@ class Admin extends Component {
     return this.props.admin;
   };
 
-  handleClick = (data) => {
+  handleClick = (data: any) => {
     this.setState({
       currentData: data,
     });
   };
 
-  passwordCheck = (e) => {
+  passwordCheck = () => {
     if (this.state.inputPassword === this.state.password) {
       this.props.setAdmin(true);
     }
   };
 
-  handleDeleteVolunteer = (id) => {
+  handleDeleteVolunteer = (id: any) => {
     this.props.deleteVolunteer(id);
     this.setState({
       inputFirstName: '',
@@ -72,9 +82,7 @@ class Admin extends Component {
     return (
       <div className='admin-panel'>
         {false ? (
-          <Modal
-            onClose={this.passwordCheck}
-            onCancel={() => this.props.handleChangeLocation('calls')}>
+          <Modal onClose={this.passwordCheck}>
             <input
               className='form-input-modal'
               type='text'
@@ -91,7 +99,7 @@ class Admin extends Component {
 
         <div className='admin-table'>
           <table className='volunteer-data'>
-            <thead striped hover className='volunteer-data mt-3'>
+            <thead className='volunteer-data mt-3'>
               <tr>
                 <th scope='col'>ID</th>
                 <th scope='col'>Ime</th>
@@ -101,21 +109,13 @@ class Admin extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.currentData.map((v, i) => {
+              {this.state.currentData.map((v: any, i: number) => {
                 return (
                   <tr key={i}>
                     <td>{v.id}</td>
                     <td>{v.name}</td>
                     <td>TODO</td>
-                    <td>
-                      TODO
-                      {/* {format(
-                                                new Date(
-                                                    Date.parse(v.created_at)
-                                                ),
-                                                'dd.MM.yyyy'
-                                            )} */}
-                    </td>
+                    <td>TODO</td>
                     <td className='text-center'>
                       <button
                         className='btn-srce'
@@ -143,7 +143,7 @@ class Admin extends Component {
     );
   }
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppState) => ({
   volunteers: state.volunteers.volunteers,
   admin: state.admin.admin,
 });

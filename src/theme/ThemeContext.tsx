@@ -1,7 +1,4 @@
 import React, { useLayoutEffect, useState } from 'react';
-// import { fileWrite, fileRead } from '../user_settings/loadUserSettings';
-
-// let m = fileRead();
 
 const ThemeContext = React.createContext({
   dark: false,
@@ -10,8 +7,7 @@ const ThemeContext = React.createContext({
 
 export default ThemeContext;
 
-export function ThemeProvider(props) {
-  // const [dark, setDark] = useState(m.dark_theme);
+export const ThemeProvider: React.FunctionComponent = (props) => {
   const [dark, setDark] = useState(false);
 
   useLayoutEffect(() => {
@@ -26,7 +22,7 @@ export function ThemeProvider(props) {
     }
   }, [dark]);
 
-  const applyTheme = (theme) => {
+  const applyTheme = (theme: Array<string>) => {
     const root = document.getElementsByTagName('html')[0];
     root.style.cssText = theme.join(';');
   };
@@ -48,7 +44,7 @@ export function ThemeProvider(props) {
       {props.children}
     </ThemeContext.Provider>
   );
-}
+};
 
 const lightTheme = [
   '--text: #000000',

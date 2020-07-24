@@ -11,9 +11,10 @@ class CallsStatistic extends Component {
           width: '350px',
           top: '50px',
         }}>
-        <BarChart size={[500, 400]} />
+        <BarChart />
       </div>
     );
   }
 }
+
 export default CallsStatistic;

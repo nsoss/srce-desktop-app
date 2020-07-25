@@ -3,7 +3,7 @@ import Call from './Call';
 import CallField from './CallField';
 
 @Entity('CallOrdinalities')
-export default class CallType extends CallField {
+export default class CallOrdinality extends CallField {
   @Column('varchar')
   value: string;
   @OneToMany((type) => Call, (call) => call.callOrdinality)

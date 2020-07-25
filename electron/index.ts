@@ -1,13 +1,9 @@
-import { app, BrowserWindow, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import isDev from 'electron-is-dev';
 import fs from 'fs';
 import path from 'path';
-import { createConnection, QueryRunner, Table, TableForeignKey } from 'typeorm';
 import url from 'url';
-import CreateVolunteer1595152988343 from './migrations/1595152988343-CreateVolunteer';
-import CreateCall1595156477733 from './migrations/1595156477733-CreateCall';
-import AddCallDataToCall1595157453390 from './migrations/1595157453390-AddCallDataToCall';
-import AddBasicInfoToCall1595170680596 from './migrations/1595170680596-AddBasicInfoToCall';
+import initializeDatabase from './initializeDatabase';
 import Call from './models/Call';
 import CallOrdinality from './models/CallOrdinality';
 import CallType from './models/CallType';
@@ -20,22 +16,7 @@ import SuicideRisk from './models/SuicideRisk';
 import Volunteer from './models/Volunteer';
 import registerIpcListeners from './registerIpcListeners';
 
-/********************************** dbHelper **********************************/
-
 const getVolunteers = async (): Promise<Volunteer[]> => await Volunteer.find();
-
-const deleteVolunteer = async (id: number): Promise<void> => {
-  await Volunteer.delete({ id });
-};
-
-// TODO
-const insertVolunteer = async (): Promise<void> => {
-  const volunteer = new Volunteer();
-
-  volunteer.name = 'TEST_VOLUNTEER';
-
-  await volunteer.save();
-};
 
 const getCalls = async (): Promise<Call[]> => await Call.find();
 
@@ -133,109 +114,6 @@ const getFormData = async () => {
   };
 };
 
-/******************************************************************************/
-
-let window;
-
-function createWindow() {
-  // Menu
-  const menu = Menu.buildFromTemplate([
-    {
-      // TODO: Remove duplicate object keys.
-      // label: 'Main',
-      // submenu: [
-      //     {
-      //         label: 'Exit',
-      //         click() {
-      //             app.quit();
-      //         },
-      //     },
-      // ],
-      label: 'Tools',
-      submenu: [
-        {
-          label: 'Toggle Developer Tools',
-          accelerator: 'Ctrl+Shift+I',
-          click: (item, focusedWindow) => {
-            if (focusedWindow) {
-              // @ts-ignore
-              focusedWindow.toggleDevTools();
-            }
-          },
-        },
-      ],
-    },
-  ]);
-
-  Menu.setApplicationMenu(menu);
-
-  window = new BrowserWindow({
-    webPreferences: {
-      nodeIntegration: true,
-    },
-  });
-  window.maximize();
-  window.loadURL('http://localhost:3000');
-
-  window.on('closed', () => {
-    window = null;
-  });
-
-  ipcMain.on('getVolunteers', async function () {
-    const result = await getVolunteers();
-    window.webContents.send('volunteersSent', result);
-  });
-
-  ipcMain.on('deleteVolunteer', async (event, id) => {
-    const result = await deleteVolunteer(id);
-    window.webContents.send('volunteerDeleted', result);
-  });
-
-  ipcMain.on('insertVolunteer', async (event, volunteer) => {
-    const insertedID = await insertVolunteer();
-    window.webContents.send('volunteerInserted', insertedID);
-  });
-
-  ipcMain.on('getCalls', async function () {
-    const results = await getCalls();
-    window.webContents.send('callsSent', results);
-  });
-
-  window.setMenu(menu);
-}
-
-const createDropdownTable = async (
-  queryRunner: QueryRunner,
-  tableName: string,
-  foreignKeyName: string
-): Promise<void> => {
-  await queryRunner.createTable(
-    new Table({
-      name: tableName,
-      columns: [
-        {
-          name: 'id',
-          type: 'integer',
-          isPrimary: true,
-        },
-        {
-          name: 'name',
-          type: 'text',
-          isNullable: false,
-        },
-      ],
-    })
-  );
-  await queryRunner.createForeignKey(
-    'Calls',
-    new TableForeignKey({
-      columnNames: [foreignKeyName],
-      referencedColumnNames: ['id'],
-      referencedTableName: tableName,
-    })
-  );
-};
-
 const appDir = path.dirname(app.getAppPath());
 
 let mainWindow: BrowserWindow;
@@ -290,30 +168,7 @@ const run = async () => {
             slashes: true,
           })
     );
-    const connection = await createConnection({
-      type: 'sqlite',
-      database: isDev ? 'srce.db' : path.join(appDir, 'srce.db'),
-      entities: [
-        Call,
-        CallOrdinality,
-        CallType,
-        Gender,
-        MaritalStatus,
-        PostCallState,
-        ProblemType,
-        SuicideFactor,
-        SuicideRisk,
-        Volunteer,
-      ],
-      migrations: [
-        CreateVolunteer1595152988343,
-        CreateCall1595156477733,
-        AddCallDataToCall1595157453390,
-        AddBasicInfoToCall1595170680596,
-      ],
-      migrationsTableName: 'Migrations',
-    });
-    await connection.runMigrations();
+    await initializeDatabase();
     const testVolunteer = new Volunteer();
     testVolunteer.name = 'EXAMPLE';
     testVolunteer.createdAt = new Date();

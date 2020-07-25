@@ -33,10 +33,8 @@ class Admin extends Component<AdminProps> {
   } as any;
 
   componentDidMount() {
-    this.handleShowModal();
-  }
-  componentWillMount() {
     this.props.fetchVolunteers();
+    this.handleShowModal();
   }
 
   handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {

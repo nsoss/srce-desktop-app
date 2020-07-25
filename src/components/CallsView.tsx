@@ -26,7 +26,7 @@ class CallsView extends Component<CallsViewProps> {
     currentData: [],
   } as any;
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchCalls();
   }
 

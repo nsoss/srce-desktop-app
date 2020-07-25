@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaUserPlus } from 'react-icons/fa';
+import Icons from './Icons';
 import Input from './Input';
 
 class ValidationForm extends React.Component<any, any> {
@@ -71,7 +71,7 @@ class ValidationForm extends React.Component<any, any> {
           }}>
           {' '}
           Dodaj &nbsp;
-          <FaUserPlus />
+          <Icons.AddVolunteer />
         </button>
       </form>
     );

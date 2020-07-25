@@ -1,10 +1,10 @@
 import formatDate from 'date-fns/format';
 import React, { Component } from 'react';
-import { FaUserMinus } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import { setAdmin } from '../actions/adminActions';
 import { addVolunteer, deleteVolunteer } from '../actions/volunteersActions';
 import { AppState } from '../store';
+import Icons from './Icons';
 import Modal from './Modal';
 import Pagination from './Pagination';
 import ValidationForm from './ValidationForm';
@@ -100,7 +100,7 @@ class Admin extends Component<AdminProps> {
                         }>
                         {' '}
                         Izbriši &nbsp;
-                        <FaUserMinus />
+                        <Icons.DeleteVolunteer />
                       </button>
                     </td>
                   </tr>

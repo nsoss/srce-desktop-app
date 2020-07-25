@@ -16,8 +16,8 @@ import {
   subYears,
 } from 'date-fns';
 import React, { Component } from 'react';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Dropdown from './Dropdown';
+import Icons from './Icons';
 
 const months = [
   'Jan',
@@ -226,7 +226,7 @@ class Calendar extends Component<any, any> {
             <thead>
               <tr>
                 <td onClick={this.handleMonthBackward} className='text-center'>
-                  <IoIosArrowBack />
+                  <Icons.Back />
                 </td>
                 <td className='text-center justify-content-center' colSpan={5}>
                   <form>
@@ -251,7 +251,7 @@ class Calendar extends Component<any, any> {
                   </form>
                 </td>
                 <td onClick={this.handleMonthForward} className='text-center'>
-                  <IoIosArrowForward />
+                  <Icons.Forward />
                 </td>
               </tr>
               <tr className='text-center'>

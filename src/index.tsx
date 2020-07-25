@@ -11,7 +11,7 @@ import { ThemeProvider } from './theme/ThemeContext';
 const { ipcRenderer } = window.require('electron');
 
 ipcRenderer.send('get_version_string');
-ipcRenderer.once('get_version_string', (_, version) => {
+ipcRenderer.once('get_version_string', (_: any, version: any) => {
   document.title += ' ' + version;
 });
 

@@ -1,4 +1,4 @@
-import { select } from 'd3-selection';
+import { select } from 'd3';
 import React, { Component } from 'react';
 
 const chartSize = 500;

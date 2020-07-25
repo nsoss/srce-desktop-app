@@ -1,12 +1,11 @@
 import React from 'react';
-import { FaCopy, FaFileCsv, FaPencilAlt, FaSave } from 'react-icons/fa';
-import { IoIosExit } from 'react-icons/io';
 import { connect } from 'react-redux';
 import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
 import { getInitialData } from '../store';
 import CallFormDropdown from './CallFormDropdown';
 import Dropdown from './Dropdown';
+import Icons from './Icons';
 
 interface SingleCallViewPropsFromDispatch {
   getInitialData: () => void;
@@ -60,7 +59,7 @@ class SingleCallView extends React.Component<
   componentDidMount() {
     this.props.getInitialData();
     ipcRenderer.send('getFormData');
-    ipcRenderer.once('formDataSent', (_, formData) => {
+    ipcRenderer.once('formDataSent', (_: any, formData: any) => {
       this.setState({ formData });
     });
   }
@@ -246,23 +245,23 @@ class SingleCallView extends React.Component<
               event.preventDefault();
               ipcRenderer.send('insertCall', this.state.call);
             }}>
-            <FaSave />
+            <Icons.Save />
             &nbsp;Snimi
           </button>
           <button className='btn-srce'>
-            <FaPencilAlt />
+            <Icons.Edit />
             &nbsp;Izmeni
           </button>
           <button className='btn-srce'>
-            <FaCopy />
+            <Icons.Copy />
             &nbsp;Kopiraj
           </button>
           <button className='btn-srce' style={{ width: '135px' }}>
-            <FaFileCsv />
+            <Icons.Export />
             &nbsp;Prebaci u CSV
           </button>
           <button className='btn-srce' style={{ backgroundColor: '#CC8066 ' }}>
-            <IoIosExit />
+            <Icons.Exit />
             &nbsp;Izadji
           </button>
         </div>

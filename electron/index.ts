@@ -7,6 +7,7 @@ import url from 'url';
 import CreateVolunteer1595152988343 from './migrations/1595152988343-CreateVolunteer';
 import CreateCall1595156477733 from './migrations/1595156477733-CreateCall';
 import AddCallDataToCall1595157453390 from './migrations/1595157453390-AddCallDataToCall';
+import AddBasicInfoToCall1595170680596 from './migrations/1595170680596-AddBasicInfoToCall';
 import Call from './models/Call';
 import CallOrdinality from './models/CallOrdinality';
 import CallType from './models/CallType';
@@ -308,6 +309,7 @@ const run = async () => {
         CreateVolunteer1595152988343,
         CreateCall1595156477733,
         AddCallDataToCall1595157453390,
+        AddBasicInfoToCall1595170680596,
       ],
       migrationsTableName: 'Migrations',
     });

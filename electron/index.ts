@@ -136,11 +136,6 @@ const run = async () => {
       mainWindow.webContents.send('formDataSent', formData);
     });
 
-    ipcMain.on('getVolunteers', async () => {
-      const volunteers = await getVolunteers();
-      mainWindow.webContents.send('volunteersSent', volunteers);
-    });
-
     ipcMain.on('insertCall', async (_, call) => {
       const insertedCall = await insertCall(call);
       mainWindow.webContents.send('callInserted', insertedCall);
@@ -169,10 +164,6 @@ const run = async () => {
           })
     );
     await initializeDatabase();
-    const testVolunteer = new Volunteer();
-    testVolunteer.name = 'EXAMPLE';
-    testVolunteer.createdAt = new Date();
-    testVolunteer.save();
   } catch (error) {
     fs.writeFileSync(path.join(appDir, 'error.log'), error);
     process.exit(1);

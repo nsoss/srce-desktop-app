@@ -8,11 +8,24 @@ import PostCallState from './models/PostCallState';
 import ProblemType from './models/ProblemType';
 import SuicideFactor from './models/SuicideFactor';
 import SuicideRisk from './models/SuicideRisk';
+import VolunteerModel from './models/Volunteer';
 
 function callFieldModelToCallField(callFieldModel: CallFieldModel): CallField {
   return {
     id: callFieldModel.id.toString(),
     value: callFieldModel.value,
+  };
+}
+
+function volunteerModelToVolunteer({
+  id,
+  name,
+  createdAt,
+}: VolunteerModel): Volunteer {
+  return {
+    id: String(id),
+    name,
+    joinedOn: createdAt,
   };
 }
 
@@ -26,6 +39,7 @@ async function getInitialData(): Promise<InitialData> {
     problemTypes,
     suicideFactors,
     suicideRisks,
+    volunteers,
   ] = await Promise.all([
     CallOrdinality.find(),
     CallType.find(),
@@ -35,6 +49,7 @@ async function getInitialData(): Promise<InitialData> {
     ProblemType.find(),
     SuicideFactor.find(),
     SuicideRisk.find(),
+    VolunteerModel.find(),
   ]);
 
   return {
@@ -46,6 +61,7 @@ async function getInitialData(): Promise<InitialData> {
     problemTypes: problemTypes.map(callFieldModelToCallField),
     suicideFactors: suicideFactors.map(callFieldModelToCallField),
     suicideRisks: suicideRisks.map(callFieldModelToCallField),
+    volunteers: volunteers.map(volunteerModelToVolunteer),
   };
 }
 

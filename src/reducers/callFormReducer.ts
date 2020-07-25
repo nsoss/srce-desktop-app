@@ -14,6 +14,16 @@ interface FormState {
   };
 }
 
+interface DropdownItem {
+  id: string;
+  label: string;
+}
+
+export interface DropdownData {
+  items: Array<DropdownItem>;
+  selectedId?: string;
+}
+
 function createFakeDropdownData(label: string): DropdownData {
   const items: Array<DropdownItem> = [];
   for (let i = 1; i <= 3; ++i) {

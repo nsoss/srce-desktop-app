@@ -1,9 +1,24 @@
-type DropdownItem = {
-  id: string;
-  label: string;
-};
+interface InitialData {
+  callOrdinalities: CallField[];
+  callTypes: CallField[];
+  genders: CallField[];
+  maritalStatuses: CallField[];
+  postCallStates: CallField[];
+  problemTypes: CallField[];
+  suicideFactors: CallField[];
+  suicideRisks: CallField[];
+  volunteers: Volunteer[];
+}
 
-type DropdownData = {
-  items: Array<DropdownItem>;
-  selectedId?: string;
-};
+interface CallField {
+  id: string;
+  value: string;
+}
+
+interface Volunteer {
+  id: string;
+  name: string;
+  joinedOn: Date;
+}
+
+type IpcChannel = 'get_initial_data';

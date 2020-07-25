@@ -1,12 +1,9 @@
+import formatDate from 'date-fns/format';
 import React, { Component } from 'react';
 import { FaUserMinus } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import { setAdmin } from '../actions/adminActions';
-import {
-  addVolunteer,
-  deleteVolunteer,
-  fetchVolunteers,
-} from '../actions/volunteersActions';
+import { addVolunteer, deleteVolunteer } from '../actions/volunteersActions';
 import { AppState } from '../store';
 import Modal from './Modal';
 import Pagination from './Pagination';
@@ -16,24 +13,12 @@ interface AdminProps {
   addVolunteer: (volunteer: any) => void;
   admin: boolean;
   deleteVolunteer: (id: any) => void;
-  fetchVolunteers: () => void;
   setAdmin: (admin: boolean) => void;
-  volunteers: Array<any>;
+  volunteers: Volunteer[];
 }
 
 class Admin extends Component<AdminProps> {
-  state = {
-    inputFirstName: '',
-    inputLastName: '',
-    isSaveButtonEnabled: false,
-    password: '123',
-    inputPassword: '',
-    dataPerPage: 9,
-    currentData: [],
-  } as any;
-
   componentDidMount() {
-    this.props.fetchVolunteers();
     this.handleShowModal();
   }
 
@@ -63,12 +48,6 @@ class Admin extends Component<AdminProps> {
     });
   };
 
-  passwordCheck = () => {
-    if (this.state.inputPassword === this.state.password) {
-      this.props.setAdmin(true);
-    }
-  };
-
   handleDeleteVolunteer = (id: any) => {
     this.props.deleteVolunteer(id);
     this.setState({
@@ -80,14 +59,12 @@ class Admin extends Component<AdminProps> {
     return (
       <div className='admin-panel'>
         {false ? (
-          <Modal onClose={this.passwordCheck}>
+          <Modal>
             <input
               className='form-input-modal'
               type='text'
               name='inputPassword'
-              value={this.state.inputPassword}
               onChange={this.handleChangeInput}
-              onKeyDown={this.passwordCheck}
               id='examplePassword'
             />
           </Modal>
@@ -101,26 +78,26 @@ class Admin extends Component<AdminProps> {
               <tr>
                 <th scope='col'>ID</th>
                 <th scope='col'>Ime</th>
-                <th scope='col'>Prezime</th>
                 <th scope='col'>Datum dodavanja</th>
-                <th scope='col'> </th>
+                <th scope='col'></th>
               </tr>
             </thead>
             <tbody>
-              {this.state.currentData.map((v: any, i: number) => {
+              {this.props.volunteers.map((volunteer) => {
                 return (
-                  <tr key={i}>
-                    <td>{v.id}</td>
-                    <td>{v.name}</td>
-                    <td>TODO</td>
-                    <td>TODO</td>
+                  <tr key={volunteer.id}>
+                    <td>{volunteer.id}</td>
+                    <td>{volunteer.name}</td>
+                    <td>{formatDate(volunteer.joinedOn, 'dd.MM.yyyy')}</td>
                     <td className='text-center'>
                       <button
                         className='btn-srce'
                         style={{
                           backgroundColor: '#CC8066',
                         }}
-                        onClick={() => this.handleDeleteVolunteer(v.id)}>
+                        onClick={() =>
+                          this.handleDeleteVolunteer(volunteer.id)
+                        }>
                         {' '}
                         Izbriši &nbsp;
                         <FaUserMinus />
@@ -133,7 +110,6 @@ class Admin extends Component<AdminProps> {
           </table>
           <Pagination
             allData={this.props.volunteers}
-            dataPerPage={this.state.dataPerPage}
             handleClick={this.handleClick}
           />
         </div>
@@ -147,7 +123,6 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 export default connect(mapStateToProps, {
-  fetchVolunteers,
   addVolunteer,
   deleteVolunteer,
   setAdmin,

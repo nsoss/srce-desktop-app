@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 interface ModalProps {
   onCancel?: () => void;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 const modal = document.getElementById('modal');

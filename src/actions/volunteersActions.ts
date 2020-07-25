@@ -3,13 +3,6 @@ import { AppDispatch } from '../store';
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
 
-export const fetchVolunteers = () => (dispatch: AppDispatch) => {
-  ipcRenderer.send('getVolunteers');
-  ipcRenderer.once('volunteersSent', (event: any, volunteers: any) => {
-    dispatch(fetchVolunteersAction(volunteers));
-  });
-};
-
 const fetchVolunteersAction = (volunteers: any) =>
   ({
     type: 'FETCH_VOLUNTEERS',

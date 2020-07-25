@@ -2,7 +2,7 @@ import React from 'react';
 
 interface PaginationProps {
   allData: any;
-  dataPerPage: number;
+  dataPerPage?: number;
   handleClick: any;
 }
 
@@ -20,7 +20,7 @@ class Pagination extends React.Component<PaginationProps, PaginationState> {
     this.state = {
       data: props.allData,
       currentPage: 1,
-      dataPerPage: props.dataPerPage,
+      dataPerPage: props.dataPerPage || 10,
       pageNumbers: [],
       currentData: [],
     };

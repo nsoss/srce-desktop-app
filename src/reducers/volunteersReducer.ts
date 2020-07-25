@@ -1,7 +1,7 @@
 import { AppAction } from '../store';
 
 interface VolunteersState {
-  volunteers: Array<any>;
+  volunteers: Volunteer[];
 }
 
 const initialState: VolunteersState = {
@@ -13,6 +13,11 @@ export default function volunteersReducer(
   action: AppAction
 ) {
   switch (action.type) {
+    case 'INITIAL_DATA_RECEIVED':
+      return {
+        ...state,
+        volunteers: action.initialData.volunteers,
+      };
     case 'FETCH_VOLUNTEERS':
       return {
         ...state,

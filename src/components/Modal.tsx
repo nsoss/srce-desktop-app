@@ -6,11 +6,11 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const modalRoot = document.getElementById('modal-root');
+const modal = document.getElementById('modal');
 
 export default class Modal extends React.Component<ModalProps> {
   render() {
-    if (modalRoot === null) {
+    if (modal === null) {
       return null;
     }
 
@@ -34,7 +34,7 @@ export default class Modal extends React.Component<ModalProps> {
           </button>
         </div>
       </div>,
-      modalRoot
+      modal
     );
   }
 }

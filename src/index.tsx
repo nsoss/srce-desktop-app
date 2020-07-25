@@ -15,7 +15,7 @@ ipcRenderer.once('get_version_string', (_, version) => {
   document.title += ' ' + version;
 });
 
-const app = document.getElementById('app');
+const root = document.getElementById('root');
 ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider>
@@ -24,5 +24,5 @@ ReactDOM.render(
       </NavigationProvider>
     </ThemeProvider>
   </Provider>,
-  app
+  root
 );

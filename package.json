@@ -19,7 +19,8 @@
     "typeorm": "TS_NODE_PROJECT=./electron/tsconfig.json node --require ts-node/register ./node_modules/typeorm/cli.js",
     "lint": "prettier --check \"./{src,electron}/**/*.{json,ts,tsx}\"",
     "format": "prettier --write \"./{src,electron}/**/*.{json,ts,tsx}\"",
-    "package": "electron-builder --win -c.extraMetadata.main=build/index.js --publish never",
+    "package": "electron-builder -c.extraMetadata.main=build/index.js --publish never",
+    "package:win": "electron-builder --win -c.extraMetadata.main=build/index.js --publish never",
     "deploy": "electron-builder --win -c.extraMetadata.main=build/index.js --publish always"
   },
   "dependencies": {

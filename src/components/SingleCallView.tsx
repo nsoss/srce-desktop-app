@@ -1,7 +1,7 @@
 import React from 'react';
 import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
-import * as strings from '../strings';
+import labels, * as strings from '../strings';
 import Button from './Button';
 import Dropdown from './Dropdown';
 import Icons from './Icons';
@@ -80,29 +80,29 @@ class SingleCallView extends React.Component<
             marginBottom: '30px',
           }}>
           <div className='single-call-area ' style={{ marginRight: '30px' }}>
-            <p className='single-call-area-label'>Poziv</p>
+            <p className='single-call-area-label'>{labels.call}</p>
             <div className='single-call-form-row'>
-              <label className='form-label'>Redni broj</label>
+              <label className='form-label'>{labels.ordinalNumber}</label>
               <input
                 type='text'
                 name='call-number'
-                placeholder='Redni broj'
+                placeholder={labels.ordinalNumber}
                 style={{ marginTop: '0' }}
               />
             </div>
             <div className='single-call-form-row'>
-              <label className='form-label'>Vrsta kontakta</label>
+              <label className='form-label'>{labels.contactType}</label>
               <PlaceholderDropdown />
             </div>
             <div className='single-call-form-row'>
-              <label className='form-label'>Vrsta poziva *</label>
+              <label className='form-label'>{labels.callType}</label>
               <Dropdown
                 items={callTypes}
                 itemToLabel={(item) => strings.callTypes[item.value]}
               />
             </div>
             <div className='single-call-form-row'>
-              <label className='form-label'>Datum</label> <br />
+              <label className='form-label'>{labels.date}</label> <br />
               <MaskedInput
                 name='date'
                 className='input required'
@@ -124,7 +124,7 @@ class SingleCallView extends React.Component<
               />
             </div>
             <div className='single-call-form-row'>
-              <label className='form-label'>Vreme</label> <br />
+              <label className='form-label'>{labels.time}</label> <br />
               <MaskedInput
                 name='time'
                 className='input required'
@@ -133,11 +133,11 @@ class SingleCallView extends React.Component<
               />
             </div>
             <div className='single-call-form-row'>
-              <label className='form-label'>Dan</label> <br />
+              <label className='form-label'>{labels.day}</label> <br />
               <PlaceholderDropdown />
             </div>
             <div className='single-call-form-row'>
-              <label className='form-label '>Trajanje</label>
+              <label className='form-label'>{labels.duration}</label>
               <MaskedInput
                 name='duration'
                 className='input required'
@@ -147,47 +147,47 @@ class SingleCallView extends React.Component<
             </div>
           </div>
           <div className='single-call-area '>
-            <p className='single-call-area-label'>Pozivar</p>
+            <p className='single-call-area-label'>{labels.caller}</p>
             <div className='single-call-form-row'>
-              <label className='form-label'>Ime ili nadimak</label>
+              <label className='form-label'>{labels.nameOrNickname}</label>
               <Input
                 type='text'
                 name='caller-name'
-                placeholder='Ime ili nadimak'
+                placeholder={labels.nameOrNickname}
                 style={{ marginTop: '0' }}
               />
             </div>
             <div className='single-call-form-row'>
-              <label className='form-label'>Pol</label>
+              <label className='form-label'>{labels.gender}</label>
               <Dropdown
                 items={genders}
                 itemToLabel={(item) => strings.genders[item.value]}
               />
             </div>
             <div className='single-call-form-row'>
-              <label className='form-label'>Starost</label>
+              <label className='form-label'>{labels.age}</label>
               <PlaceholderDropdown />
             </div>
             <div className='single-call-form-row'>
-              <label className='form-label'>Bračno stanje</label>
+              <label className='form-label'>{labels.maritalStatus}</label>
               <Dropdown
                 items={maritalStatuses}
                 itemToLabel={(item) => strings.maritalStatuses[item.value]}
               />
             </div>
             <div className='single-call-form-row'>
-              <label className='form-label'>Koji put zove</label>
+              <label className='form-label'>{labels.callOrdinality}</label>
               <Dropdown
                 items={callOrdinalities}
                 itemToLabel={(item) => strings.callOrdinalities[item.value]}
               />
             </div>
             <div className='single-call-form-row'>
-              <label className='form-label'>Uključenost u plan</label>
+              <label className='form-label'>{labels.planInvolvement}</label>
               <PlaceholderDropdown />
             </div>
             <div className='single-call-form-row'>
-              <label className='form-label'>Volonter *</label>
+              <label className='form-label'>{labels.volunteer}</label>
               <Dropdown
                 items={volunteers}
                 itemToLabel={(volunteer) => volunteer.name}
@@ -197,11 +197,11 @@ class SingleCallView extends React.Component<
         </div>
         <div style={{ display: 'flex' }}>
           <div className='single-call-coversation-details '>
-            <p className='single-call-area-label'>Opis razgovora</p>
+            <p className='single-call-area-label'>{labels.callDescription}</p>
             <div className='column-details'>
               <div className='single-call-form-row'>
                 <label className='form-label' style={{ marginTop: '8px' }}>
-                  Vrsta problema *
+                  {labels.problemType}
                 </label>
                 <Dropdown
                   items={problemTypes}
@@ -209,21 +209,21 @@ class SingleCallView extends React.Component<
                 />
               </div>
               <div className='single-call-form-row'>
-                <label className='form-label'>Suicidalni rizik *</label>
+                <label className='form-label'>{labels.suicideRisk}</label>
                 <Dropdown
                   items={suicideRisks}
                   itemToLabel={(item) => strings.suicideRisks[item.value]}
                 />
               </div>
               <div className='single-call-form-row'>
-                <label className='form-label'>Suicidalni faktor *</label>
+                <label className='form-label'>{labels.suicideFactor}</label>
                 <Dropdown
                   items={suicideFactors}
                   itemToLabel={(item) => strings.suicideFactors[item.value]}
                 />
               </div>
               <div className='single-call-form-row'>
-                <label className='form-label'>Stanje na kraju poziva</label>
+                <label className='form-label'>{labels.postCallState}</label>
                 <Dropdown
                   items={postCallStates}
                   itemToLabel={(item) => strings.postCallStates[item.value]}
@@ -234,11 +234,11 @@ class SingleCallView extends React.Component<
               <div
                 className='single-call-form-row'
                 style={{ marginBottom: '10px' }}>
-                <label className='form-label'>Kratak sadržaj</label>
+                <label className='form-label'>{labels.summary}</label>
                 <textarea name='content required' rows={5} />
               </div>
               <div className='single-call-form-row'>
-                <label className='form-label'>Napomena</label>
+                <label className='form-label'>{labels.note}</label>
                 <textarea name='content' rows={3} />
               </div>
             </div>
@@ -249,23 +249,23 @@ class SingleCallView extends React.Component<
           className='single-call-buttons'>
           <Button>
             <Icons.Save />
-            Snimi
+            {labels.save}
           </Button>
           <Button>
             <Icons.Edit />
-            Izmeni
+            {labels.edit}
           </Button>
           <Button>
             <Icons.Copy />
-            Kopiraj
+            {labels.copy}
           </Button>
           <Button>
             <Icons.Export />
-            Prebaci u CSV
+            {labels.exportToCsv}
           </Button>
           <Button danger>
             <Icons.Exit />
-            Izadji
+            {labels.exit}
           </Button>
         </div>
       </form>

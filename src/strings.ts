@@ -71,3 +71,37 @@ export const suicideRisks: Record<SuicideRisk, string> = {
   PLAN: 'Ima plan samoubistva i ozbiljno razmišlja o tome',
   IMMEDIATE: 'Postoji neposredan rizik da će osoba izvršiti samoubistvo',
 } as const;
+
+const strings = {
+  save: 'Snimi',
+  edit: 'Izmeni',
+  copy: 'Kopiraj',
+  exportToCsv: 'Prebaci u CSV',
+  exit: 'Izađi',
+  call: 'Poziv',
+  ordinalNumber: 'Redni broj',
+  contactType: 'Vrsta kontakta',
+  callType: 'Vrsta poziva',
+  date: 'Datum',
+  time: 'Vreme',
+  day: 'Dan',
+  duration: 'Trajanje',
+  caller: 'Pozivar',
+  nameOrNickname: 'Ime ili nadimak',
+  gender: 'Pol',
+  age: 'Starost',
+  maritalStatus: 'Bračno stanje',
+  callOrdinality: 'Koji put zove',
+  planInvolvement: 'Uključenost u plan',
+  volunteer: 'Volonter',
+  callDescription: 'Opis razgovora',
+  problemType: 'Vrsta problema',
+  suicideRisk: 'Suicidalni rizik',
+  suicideFactor: 'Suicidalni faktor',
+  attempts: 'Pokušaji',
+  summary: 'Kratak sadržaj',
+  note: 'Napomena',
+  postCallState: 'Stanje na kraju poziva',
+} as const;
+
+export default strings;

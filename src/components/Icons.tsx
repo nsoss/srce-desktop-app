@@ -81,7 +81,7 @@ function Stats() {
   return <StatsChartIcon className='icon' />;
 }
 
-export default {
+const Icons = {
   AddVolunteer,
   Admin,
   Back,
@@ -99,3 +99,5 @@ export default {
   Settings,
   Stats,
 };
+
+export default Icons;

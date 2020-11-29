@@ -24,11 +24,11 @@ automatic code formatting.
 * `npm run start:main` Build and run the Electron application. Make sure that
   the React application is being served in the background. If you see a blank
   screen, you probably forgot to run `npm start:renderer`.
-* `npm run typeorm migration:run` Execute all pending database migrations.
-* `npm run typeorm migration:revert` Revert the last executed migration. Use
-  this command to test your `down()` method.
-* `npm run typeorm schema:drop` ☢️ the database schema. Can come in handy if
-  something goes wrong while developing migrations.
+* `npm run db:migrate` Execute all pending database migrations.
+* `npm run db:rollback` Revert the last executed migration. Use this command to
+  test your `down()` method.
+* `npm run db:drop` ☢️ the database. Can come in handy if something goes wrong
+  while developing migrations.
 * `npm run lint` Check the codebase for linter errors. Used by CI.
 * `npm run format` Format the codebase using Prettier. Use this script if CI
   complains.

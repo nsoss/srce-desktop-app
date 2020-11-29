@@ -1,62 +1,72 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import './Dropdown.styles.css';
+import Icons from './Icons';
+import Input from './Input';
 
 interface DropdownProps<TItem> {
-  label: string;
-  items: Array<TItem>;
+  items: TItem[];
   itemToLabel: (item: TItem) => string;
-  onSelect: (item: TItem) => void;
+  onSelect?: (item: TItem) => void;
+  value?: TItem;
 }
 
 export default function Dropdown<TItem>({
-  label,
   items,
   itemToLabel,
   onSelect,
+  value,
 }: DropdownProps<TItem>) {
   const [dropped, setDropped] = useState(false);
   const container = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = (event: Event) => {
-    if (!container.current?.contains(event.target as HTMLDivElement)) {
-      setDropped(false);
-    }
-  };
+  const handleClickOutside = useCallback(
+    (event: Event) => {
+      if (!container.current?.contains(event.target as HTMLDivElement)) {
+        setDropped(false);
+      }
+    },
+    [container, setDropped]
+  );
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   return (
-    <div className='Dropdown' ref={container}>
-      <input
-        className='form-input toggle-popup'
+    <div className='dropdown' ref={container}>
+      <Input
         onClick={() => {
           setDropped(true);
         }}
         readOnly
-        type='text'
-        value={label || 'Izaberi'}
+        value={value ? itemToLabel(value) : 'Izaberi'}
       />
+      <div className='dropdown__icon-container'>
+        {dropped ? <Icons.ChevronUp /> : <Icons.ChevronDown />}
+      </div>
       {dropped && (
-        <div className='Dropdown-list'>
-          <ul>
-            {items.map((item, index) => (
+        <ul>
+          {items.map((item, index) => (
+            <React.Fragment>
               <li
                 key={index}
-                className='Dropdown-list-items'
                 onClick={() => {
-                  onSelect(item);
+                  if (onSelect !== undefined) {
+                    onSelect(item);
+                  }
                   setDropped(false);
                 }}>
-                {itemToLabel ? itemToLabel(item) : (item as any).toString()}
+                {itemToLabel(item)}
               </li>
-            ))}
-          </ul>
-        </div>
+              {index !== items.length - 1 && (
+                <div className='dropdown__separator' />
+              )}
+            </React.Fragment>
+          ))}
+        </ul>
       )}
     </div>
   );

@@ -1,0 +1,18 @@
+.form-label {
+  display: flex;
+}
+
+.form-label label {
+  margin-right: 8px;
+  overflow: hidden;
+  padding-top: 4px;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 160px;
+}
+
+.form-label span {
+  color: var(--primary);
+  padding: 0 2px;
+}

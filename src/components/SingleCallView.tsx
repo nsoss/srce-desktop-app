@@ -2,9 +2,10 @@ import React from 'react';
 import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
 import * as strings from '../strings';
-import CallFormDropdown from './CallFormDropdown';
+import Button from './Button';
 import Dropdown from './Dropdown';
 import Icons from './Icons';
+import Input from './Input';
 
 const electron = window.require('electron');
 const ipcRenderer = electron.ipcRenderer;
@@ -85,29 +86,26 @@ class SingleCallView extends React.Component<
               <input
                 type='text'
                 name='call-number'
-                className='form-input '
                 placeholder='Redni broj'
                 style={{ marginTop: '0' }}
               />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Vrsta kontakta</label>
-              <CallFormDropdown items={[]} />
+              <PlaceholderDropdown />
             </div>
-
             <div className='single-call-form-row'>
               <label className='form-label'>Vrsta poziva *</label>
-              <CallFormDropdown
+              <Dropdown
                 items={callTypes}
-                dictionary={strings.callTypes}
+                itemToLabel={(item) => strings.callTypes[item.value]}
               />
             </div>
-
             <div className='single-call-form-row'>
               <label className='form-label'>Datum</label> <br />
               <MaskedInput
                 name='date'
-                className='form-input required'
+                className='input required'
                 pipe={autoCorrectedDatePipe}
                 keepCharPositions={true}
                 mask={[
@@ -129,76 +127,74 @@ class SingleCallView extends React.Component<
               <label className='form-label'>Vreme</label> <br />
               <MaskedInput
                 name='time'
-                className='form-input required'
+                className='input required'
                 mask={timeMask}
                 placeholder='10:00'
               />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Dan</label> <br />
-              <CallFormDropdown items={[]} />
+              <PlaceholderDropdown />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label '>Trajanje</label>
               <MaskedInput
                 name='duration'
-                className='form-input required'
+                className='input required'
                 mask={[/\d/, /\d/, ':', /[1-5]/, /\d/]}
                 placeholder='10:00'
               />
             </div>
           </div>
-
           <div className='single-call-area '>
             <p className='single-call-area-label'>Pozivar</p>
             <div className='single-call-form-row'>
               <label className='form-label'>Ime ili nadimak</label>
-              <input
+              <Input
                 type='text'
                 name='caller-name'
-                className='form-input'
                 placeholder='Ime ili nadimak'
                 style={{ marginTop: '0' }}
               />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Pol</label>
-              <CallFormDropdown items={genders} dictionary={strings.genders} />
+              <Dropdown
+                items={genders}
+                itemToLabel={(item) => strings.genders[item.value]}
+              />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Starost</label>
-              <CallFormDropdown items={[]} />
+              <PlaceholderDropdown />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Bračno stanje</label>
-              <CallFormDropdown
+              <Dropdown
                 items={maritalStatuses}
-                dictionary={strings.maritalStatuses}
+                itemToLabel={(item) => strings.maritalStatuses[item.value]}
               />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Koji put zove</label>
-              <CallFormDropdown
+              <Dropdown
                 items={callOrdinalities}
-                dictionary={strings.callOrdinalities}
+                itemToLabel={(item) => strings.callOrdinalities[item.value]}
               />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Uključenost u plan</label>
-              <CallFormDropdown items={[]} />
+              <PlaceholderDropdown />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Volonter *</label>
               <Dropdown
-                label='Izaberi'
                 items={volunteers}
                 itemToLabel={(volunteer) => volunteer.name}
-                onSelect={() => {}}
               />
             </div>
           </div>
         </div>
-
         <div style={{ display: 'flex' }}>
           <div className='single-call-coversation-details '>
             <p className='single-call-area-label'>Opis razgovora</p>
@@ -207,30 +203,30 @@ class SingleCallView extends React.Component<
                 <label className='form-label' style={{ marginTop: '8px' }}>
                   Vrsta problema *
                 </label>
-                <CallFormDropdown
+                <Dropdown
                   items={problemTypes}
-                  dictionary={strings.problemTypes}
+                  itemToLabel={(item) => strings.problemTypes[item.value]}
                 />
               </div>
               <div className='single-call-form-row'>
                 <label className='form-label'>Suicidalni rizik *</label>
-                <CallFormDropdown
+                <Dropdown
                   items={suicideRisks}
-                  dictionary={strings.suicideRisks}
+                  itemToLabel={(item) => strings.suicideRisks[item.value]}
                 />
               </div>
               <div className='single-call-form-row'>
                 <label className='form-label'>Suicidalni faktor *</label>
-                <CallFormDropdown
+                <Dropdown
                   items={suicideFactors}
-                  dictionary={strings.suicideFactors}
+                  itemToLabel={(item) => strings.suicideFactors[item.value]}
                 />
               </div>
               <div className='single-call-form-row'>
                 <label className='form-label'>Stanje na kraju poziva</label>
-                <CallFormDropdown
+                <Dropdown
                   items={postCallStates}
-                  dictionary={strings.postCallStates}
+                  itemToLabel={(item) => strings.postCallStates[item.value]}
                 />
               </div>
             </div>
@@ -248,34 +244,37 @@ class SingleCallView extends React.Component<
             </div>
           </div>
         </div>
-
         <div
           style={{ display: 'flex', flexDirection: 'row' }}
           className='single-call-buttons'>
-          <button className='btn-srce'>
+          <Button>
             <Icons.Save />
-            &nbsp;Snimi
-          </button>
-          <button className='btn-srce'>
+            Snimi
+          </Button>
+          <Button>
             <Icons.Edit />
-            &nbsp;Izmeni
-          </button>
-          <button className='btn-srce'>
+            Izmeni
+          </Button>
+          <Button>
             <Icons.Copy />
-            &nbsp;Kopiraj
-          </button>
-          <button className='btn-srce' style={{ width: '135px' }}>
+            Kopiraj
+          </Button>
+          <Button>
             <Icons.Export />
-            &nbsp;Prebaci u CSV
-          </button>
-          <button className='btn-srce' style={{ backgroundColor: '#CC8066 ' }}>
+            Prebaci u CSV
+          </Button>
+          <Button danger>
             <Icons.Exit />
-            &nbsp;Izadji
-          </button>
+            Izadji
+          </Button>
         </div>
       </form>
     );
   }
+}
+
+function PlaceholderDropdown() {
+  return <Dropdown items={[]} itemToLabel={() => ''} />;
 }
 
 export default SingleCallView;

@@ -236,16 +236,16 @@ class Calendar extends Component<any, any> {
                         alignItems: 'center',
                       }}>
                       <Dropdown
-                        label={format(this.state.selectedDate, 'MMM')}
                         items={months}
                         itemToLabel={(month) => month}
                         onSelect={this.handleChangeInputMonth}
+                        value={format(this.state.selectedDate, 'MMM')}
                       />
                       <Dropdown
-                        label={this.state.selectedDate.getFullYear()}
                         items={years}
                         itemToLabel={(year) => year.toString()}
                         onSelect={this.handleChangeInputYear}
+                        value={this.state.selectedDate.getFullYear()}
                       />
                     </div>
                   </form>

@@ -32,6 +32,7 @@ automatic code formatting.
 * `npm run lint` Check the codebase for linter errors. Used by CI.
 * `npm run format` Format the codebase using Prettier. Use this script if CI
   complains.
+* `npm run storybook` Start [Storybook] on [localhost:9000].
 * `scripts/build.sh` Package the application for your local development OS. If
   you're integrating with native modules, this will come in handy as a preflight
   check.
@@ -63,5 +64,7 @@ Type ".help" for more information.
 [Visual Studio Code]:https://code.visualstudio.com/
 [Prettier extension]:https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 [localhost:3000]:http://localhost:3000/
+[Storybook]:https://storybook.js.org/
+[localhost:9000]:http://localhost:9000/
 [Node.js REPL]:https://nodejs.dev/learn/how-to-use-the-nodejs-repl
 [Figma]:https://www.figma.com/file/3GkovVdGabhJmCOXC4X5Pi/srce-desktop-app?node-id=1%3A14

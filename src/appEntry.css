@@ -224,52 +224,6 @@ button {
     height: calc(100vh - 290px - 64px);
 }
 
-.btn-srce {
-    position: relative;
-    margin: 0;
-    /* margin-right: 10px; */
-    background-color: var(--btn-bg);
-    user-select: none;
-    border: none;
-    border-radius: 3px;
-    color: white;
-    width: 85px;
-    height: 32px;
-    font-size: inherit;
-}
-
-.btn-srce:not(:last-child) {
-    margin-bottom: 32px;
-}
-
-@media screen and (max-height: 540px) {
-    .calls-buttons {
-        flex-direction: row;
-    }
-    .btn-srce:not(:last-child) {
-        margin-right: 10px;
-        margin-bottom: 0;
-    }
-}
-
-.btn-srce:focus {
-    outline: 0;
-}
-
-.btn-srce:hover {
-    cursor: pointer;
-    opacity: 0.6;
-    background-color: var(--btn-selected);
-    top: -2px;
-    box-shadow: 1px 8px 22px -9px rgba(0, 0, 0, 0.55);
-    transition: box-shadow 0.2s ease-out;
-}
-
-.btn-srce[disabled] {
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
 .admin-table {
     padding: 20px;
     background-color: var(--admin-accent);
@@ -382,17 +336,6 @@ th {
     margin: 0;
 }
 
-.form-input {
-    height: 32px;
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid var(--form-input-border);
-    font-size: 14px;
-    padding-left: 3px;
-    background-color: var(--single-call-panels-bg);
-    flex: 2;
-}
-
 textarea {
     border: 1px solid var(--form-input-border);
     font-size: 14px;
@@ -406,18 +349,6 @@ textarea {
 textarea:focus {
     outline: 0;
     border-color: var(--single-call-panels-border);
-}
-
-.form-input:hover,
-.form-input:focus {
-    background-color: var(--form-input-bg);
-    outline: 0;
-    border-radius: 3px;
-}
-.form-input:focus {
-    border-color: var(--single-call-panels-border);
-    border-width: 0.08rem;
-    transition: border 0.2s ease-out;
 }
 
 .single-call-buttons {
@@ -440,39 +371,6 @@ textarea:focus {
     top: 424px;
     left: 1266px;
     width: 95px;
-}
-
-.btn-srce {
-    position: relative;
-    margin: 0;
-    margin-right: 10px;
-    background-color: var(--btn-bg);
-    user-select: none;
-    border: none;
-    border-radius: 3px;
-    color: white;
-    width: 85px;
-    height: 32px;
-    font-size: inherit;
-    min-width: 85px;
-}
-
-.btn-srce:focus {
-    outline: 0;
-}
-
-.btn-srce:hover {
-    cursor: pointer;
-    opacity: 0.6;
-    background-color: var(--btn-selected);
-    top: -2px;
-    box-shadow: 1px 8px 22px -9px rgba(0, 0, 0, 0.55);
-    transition: box-shadow 0.2s ease-out;
-}
-
-.btn-srce[disabled] {
-    cursor: not-allowed;
-    opacity: 0.6;
 }
 
 .admin-panel {

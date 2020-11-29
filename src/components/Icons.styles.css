@@ -7,3 +7,12 @@
 .icon > * {
   stroke: #ffffff !important;
 }
+
+.icon-chevron {
+  height: 16px;
+  width: 16px;
+}
+
+.icon-chevron > * {
+  stroke: #000000 !important;
+}

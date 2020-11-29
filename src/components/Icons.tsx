@@ -2,6 +2,8 @@ import { ReactComponent as ArrowBackIcon } from 'ionicons/dist/svg/arrow-back-ou
 import { ReactComponent as ArrowForwardIcon } from 'ionicons/dist/svg/arrow-forward-outline.svg';
 import { ReactComponent as CalendarIcon } from 'ionicons/dist/svg/calendar-outline.svg';
 import { ReactComponent as CallIcon } from 'ionicons/dist/svg/call-outline.svg';
+import { ReactComponent as ChevronDownIcon } from 'ionicons/dist/svg/chevron-down-outline.svg';
+import { ReactComponent as ChevronUpIcon } from 'ionicons/dist/svg/chevron-up-outline.svg';
 import { ReactComponent as CopyIcon } from 'ionicons/dist/svg/copy-outline.svg';
 import { ReactComponent as DocumentIcon } from 'ionicons/dist/svg/document-outline.svg';
 import { ReactComponent as ExitIcon } from 'ionicons/dist/svg/exit-outline.svg';
@@ -33,6 +35,14 @@ function Calendar() {
 
 function Call() {
   return <CallIcon className='icon' />;
+}
+
+function ChevronDown() {
+  return <ChevronDownIcon className='icon-chevron' fill='#000000' />;
+}
+
+function ChevronUp() {
+  return <ChevronUpIcon className='icon-chevron' />;
 }
 
 function Copy() {
@@ -77,6 +87,8 @@ export default {
   Back,
   Calendar,
   Call,
+  ChevronDown,
+  ChevronUp,
   Copy,
   DeleteVolunteer,
   Edit,

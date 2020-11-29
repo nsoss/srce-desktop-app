@@ -1,37 +1,21 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { dropdownItemSelected } from '../actions/callFormActions';
-import { DropdownData } from '../reducers/callFormReducer';
-import { AppDispatch, AppState } from '../store';
 import Dropdown from './Dropdown';
 
-interface CallFormDropdownProps {
-  dropdownKey: string;
+interface CallFormDropdownProps<T extends string> {
+  items: Array<EnumOf<T>>;
+  dictionary?: Record<T, string>;
 }
 
-export default function CallFormDropdown({
-  dropdownKey: key,
-}: CallFormDropdownProps) {
-  const { items, selectedId } = useSelector<AppState, DropdownData>(
-    (state) => state.callForm.dropdowns[key] || emptyDropdown
-  );
-  const dispatch = useDispatch<AppDispatch>();
-
-  const selectedItem = items.find((item) => item.id === selectedId);
-  const label = selectedItem?.label || 'Izaberi';
-
+export default function CallFormDropdown<T extends string>({
+  items,
+  dictionary,
+}: CallFormDropdownProps<T>) {
   return (
     <Dropdown
-      label={label}
+      label='Izaberi'
       items={items}
-      itemToLabel={(item) => item.label}
-      onSelect={(item) => {
-        dispatch(dropdownItemSelected(key, item.id));
-      }}
+      itemToLabel={(item) => (dictionary ? dictionary[item.value] : '')}
+      onSelect={() => {}}
     />
   );
 }
-
-const emptyDropdown: DropdownData = {
-  items: [],
-};

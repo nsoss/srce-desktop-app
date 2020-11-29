@@ -1,29 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
-import { getInitialData } from '../store';
+import * as strings from '../strings';
 import CallFormDropdown from './CallFormDropdown';
 import Dropdown from './Dropdown';
 import Icons from './Icons';
 
-interface SingleCallViewPropsFromDispatch {
-  getInitialData: () => void;
-}
-
-const mapDispatchToProps: SingleCallViewPropsFromDispatch = {
-  getInitialData,
-};
-
-interface SingleCallViewProps extends SingleCallViewPropsFromDispatch {}
-
-interface SingleCallViewState {
-  call: any;
-  formData: {
-    volunteer?: any;
-    volunteers: Array<any>;
-  };
-}
+const electron = window.require('electron');
+const ipcRenderer = electron.ipcRenderer;
 
 function timeMask(value: string) {
   const chars = value.split('');
@@ -39,8 +23,11 @@ function timeMask(value: string) {
 
 const autoCorrectedDatePipe = createAutoCorrectedDatePipe('mm/dd/yyyy');
 
-const electron = window.require('electron');
-const ipcRenderer = electron.ipcRenderer;
+interface SingleCallViewProps {}
+
+interface SingleCallViewState {
+  initialData: InitialData;
+}
 
 class SingleCallView extends React.Component<
   SingleCallViewProps,
@@ -49,23 +36,39 @@ class SingleCallView extends React.Component<
   constructor(props: SingleCallViewProps) {
     super(props);
     this.state = {
-      call: {},
-      formData: {
+      initialData: {
         volunteers: [],
+        callTypes: [],
+        genders: [],
+        maritalStatuses: [],
+        callOrdinalities: [],
+        problemTypes: [],
+        suicideRisks: [],
+        suicideFactors: [],
+        postCallStates: [],
       },
     };
   }
 
   componentDidMount() {
-    this.props.getInitialData();
-    ipcRenderer.send('getFormData');
-    ipcRenderer.once('formDataSent', (_: any, formData: any) => {
-      this.setState({ formData });
+    ipcRenderer.send('get_initial_data');
+    ipcRenderer.once('get_initial_data', (_: any, initialData: InitialData) => {
+      this.setState({ initialData });
     });
   }
 
   render() {
-    const { volunteers } = this.state.formData;
+    const {
+      volunteers,
+      callTypes,
+      genders,
+      maritalStatuses,
+      callOrdinalities,
+      problemTypes,
+      suicideRisks,
+      suicideFactors,
+      postCallStates,
+    } = this.state.initialData;
 
     return (
       <form className='single-call-container'>
@@ -89,12 +92,15 @@ class SingleCallView extends React.Component<
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Vrsta kontakta</label>
-              <CallFormDropdown dropdownKey='contactTypes' />
+              <CallFormDropdown items={[]} />
             </div>
 
             <div className='single-call-form-row'>
               <label className='form-label'>Vrsta poziva *</label>
-              <CallFormDropdown dropdownKey='callTypes' />
+              <CallFormDropdown
+                items={callTypes}
+                dictionary={strings.callTypes}
+              />
             </div>
 
             <div className='single-call-form-row'>
@@ -130,7 +136,7 @@ class SingleCallView extends React.Component<
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Dan</label> <br />
-              <CallFormDropdown dropdownKey='days' />
+              <CallFormDropdown items={[]} />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label '>Trajanje</label>
@@ -157,42 +163,37 @@ class SingleCallView extends React.Component<
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Pol</label>
-              <CallFormDropdown dropdownKey='genders' />
+              <CallFormDropdown items={genders} dictionary={strings.genders} />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Starost</label>
-              <CallFormDropdown dropdownKey='ages' />
+              <CallFormDropdown items={[]} />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Bračno stanje</label>
-              <CallFormDropdown dropdownKey='maritalStatuses' />
+              <CallFormDropdown
+                items={maritalStatuses}
+                dictionary={strings.maritalStatuses}
+              />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Koji put zove</label>
-              <CallFormDropdown dropdownKey='callOrdinalities' />
+              <CallFormDropdown
+                items={callOrdinalities}
+                dictionary={strings.callOrdinalities}
+              />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Uključenost u plan</label>
-              <CallFormDropdown dropdownKey='planInvolvements' />
+              <CallFormDropdown items={[]} />
             </div>
             <div className='single-call-form-row'>
               <label className='form-label'>Volonter *</label>
               <Dropdown
-                label={
-                  this.state.formData.volunteers
-                    ? this.state.formData.volunteer?.name
-                    : 'Izaberi'
-                }
+                label='Izaberi'
                 items={volunteers}
                 itemToLabel={(volunteer) => volunteer.name}
-                onSelect={(item) => {
-                  this.setState({
-                    formData: {
-                      ...this.state.formData,
-                      volunteer: item,
-                    },
-                  });
-                }}
+                onSelect={() => {}}
               />
             </div>
           </div>
@@ -206,19 +207,31 @@ class SingleCallView extends React.Component<
                 <label className='form-label' style={{ marginTop: '8px' }}>
                   Vrsta problema *
                 </label>
-                <CallFormDropdown dropdownKey='problemTypes' />
+                <CallFormDropdown
+                  items={problemTypes}
+                  dictionary={strings.problemTypes}
+                />
               </div>
               <div className='single-call-form-row'>
                 <label className='form-label'>Suicidalni rizik *</label>
-                <CallFormDropdown dropdownKey='suicideRisks' />
+                <CallFormDropdown
+                  items={suicideRisks}
+                  dictionary={strings.suicideRisks}
+                />
               </div>
               <div className='single-call-form-row'>
                 <label className='form-label'>Suicidalni faktor *</label>
-                <CallFormDropdown dropdownKey='suicideFactors' />
+                <CallFormDropdown
+                  items={suicideFactors}
+                  dictionary={strings.suicideFactors}
+                />
               </div>
               <div className='single-call-form-row'>
-                <label className='form-label'>Pokušaji</label>
-                <CallFormDropdown dropdownKey='postCallStates' />
+                <label className='form-label'>Stanje na kraju poziva</label>
+                <CallFormDropdown
+                  items={postCallStates}
+                  dictionary={strings.postCallStates}
+                />
               </div>
             </div>
             <div className='column-details' style={{ marginLeft: '30px' }}>
@@ -239,12 +252,7 @@ class SingleCallView extends React.Component<
         <div
           style={{ display: 'flex', flexDirection: 'row' }}
           className='single-call-buttons'>
-          <button
-            className='btn-srce'
-            onClick={(event) => {
-              event.preventDefault();
-              ipcRenderer.send('insertCall', this.state.call);
-            }}>
+          <button className='btn-srce'>
             <Icons.Save />
             &nbsp;Snimi
           </button>
@@ -270,4 +278,4 @@ class SingleCallView extends React.Component<
   }
 }
 
-export default connect(null, mapDispatchToProps)(SingleCallView);
+export default SingleCallView;

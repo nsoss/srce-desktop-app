@@ -88,7 +88,7 @@ class Admin extends Component<AdminProps> {
                   <tr key={volunteer.id}>
                     <td>{volunteer.id}</td>
                     <td>{volunteer.name}</td>
-                    <td>{formatDate(volunteer.joinedOn, 'dd.MM.yyyy')}</td>
+                    <td>{formatDate(volunteer.createdAt, 'dd.MM.yyyy')}</td>
                     <td className='text-center'>
                       <button
                         className='btn-srce'

@@ -1,67 +1,67 @@
 import { ipcMain } from 'electron';
-import CallFieldModel from './models/CallField';
-import CallOrdinality from './models/CallOrdinality';
-import CallType from './models/CallType';
-import Gender from './models/Gender';
-import MaritalStatus from './models/MaritalStatus';
-import PostCallState from './models/PostCallState';
-import ProblemType from './models/ProblemType';
-import SuicideFactor from './models/SuicideFactor';
-import SuicideRisk from './models/SuicideRisk';
-import VolunteerModel from './models/Volunteer';
+import CallOrdinalityEntity from './entities/CallOrdinalityEntity';
+import CallTypeEntity from './entities/CallTypeEntity';
+import EnumEntity from './entities/EnumEntity';
+import GenderEntity from './entities/GenderEntity';
+import MaritalStatusEntity from './entities/MaritalStatusEntity';
+import PostCallStateEntity from './entities/PostCallStateEntity';
+import ProblemTypeEntity from './entities/ProblemTypeEntity';
+import SuicideFactorEntity from './entities/SuicideFactorEntity';
+import SuicideRiskEntity from './entities/SuicideRiskEntity';
+import VolunteerEntity from './entities/VolunteerEntity';
 
-function callFieldModelToCallField(callFieldModel: CallFieldModel): CallField {
+function enumEntityToEnumOf<TEnum>(
+  enumEntity: EnumEntity<TEnum>
+): EnumOf<TEnum> {
   return {
-    id: callFieldModel.id.toString(),
-    value: callFieldModel.value,
+    id: enumEntity.id,
+    value: enumEntity.value,
   };
 }
 
-function volunteerModelToVolunteer({
-  id,
-  name,
-  createdAt,
-}: VolunteerModel): Volunteer {
+function volunteerEntityToVolunteer(
+  volunteerEntity: VolunteerEntity
+): Volunteer {
   return {
-    id: String(id),
-    name,
-    joinedOn: createdAt,
+    id: volunteerEntity.id,
+    name: volunteerEntity.name,
+    createdAt: volunteerEntity.createdAt,
   };
 }
 
 async function getInitialData(): Promise<InitialData> {
   const [
-    callOrdinalities,
+    volunteers,
     callTypes,
     genders,
     maritalStatuses,
-    postCallStates,
+    callOrdinalities,
     problemTypes,
-    suicideFactors,
     suicideRisks,
-    volunteers,
+    suicideFactors,
+    postCallStates,
   ] = await Promise.all([
-    CallOrdinality.find(),
-    CallType.find(),
-    Gender.find(),
-    MaritalStatus.find(),
-    PostCallState.find(),
-    ProblemType.find(),
-    SuicideFactor.find(),
-    SuicideRisk.find(),
-    VolunteerModel.find(),
+    (await VolunteerEntity.find()).map(volunteerEntityToVolunteer),
+    (await CallTypeEntity.find()).map(enumEntityToEnumOf),
+    (await GenderEntity.find()).map(enumEntityToEnumOf),
+    (await MaritalStatusEntity.find()).map(enumEntityToEnumOf),
+    (await CallOrdinalityEntity.find()).map(enumEntityToEnumOf),
+    (await ProblemTypeEntity.find()).map(enumEntityToEnumOf),
+    (await SuicideRiskEntity.find()).map(enumEntityToEnumOf),
+    (await SuicideFactorEntity.find()).map(enumEntityToEnumOf),
+    (await PostCallStateEntity.find()).map(enumEntityToEnumOf),
   ]);
 
   return {
-    callOrdinalities: callOrdinalities.map(callFieldModelToCallField),
-    callTypes: callTypes.map(callFieldModelToCallField),
-    genders: genders.map(callFieldModelToCallField),
-    maritalStatuses: maritalStatuses.map(callFieldModelToCallField),
-    postCallStates: postCallStates.map(callFieldModelToCallField),
-    problemTypes: problemTypes.map(callFieldModelToCallField),
-    suicideFactors: suicideFactors.map(callFieldModelToCallField),
-    suicideRisks: suicideRisks.map(callFieldModelToCallField),
-    volunteers: volunteers.map(volunteerModelToVolunteer),
+    volunteers,
+    callTypes,
+    genders,
+    maritalStatuses,
+    callOrdinalities,
+    problemTypes,
+    suicideRisks,
+    suicideFactors,
+    postCallStates,
   };
 }
 

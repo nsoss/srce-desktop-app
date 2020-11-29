@@ -7,7 +7,6 @@ import { CallsAction } from './actions/callsActions';
 import { FormAction } from './actions/formActions';
 import { VolunteersAction } from './actions/volunteersActions';
 import adminReducer from './reducers/adminReducer';
-import callFormReducer from './reducers/callFormReducer';
 import callsReducer from './reducers/callsReducer';
 import formReducer from './reducers/formReducer';
 import volunteersReducer from './reducers/volunteersReducer';
@@ -26,7 +25,6 @@ function invokeIpc<TResult>(
 
 const rootReducer = combineReducers({
   admin: adminReducer,
-  callForm: callFormReducer,
   calls: callsReducer,
   form: formReducer,
   volunteers: volunteersReducer,

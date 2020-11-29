@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import classNames from 'classnames';
 import React, { ReactNode } from 'react';
 import { Location } from '../contexts/NavigationContext';
 import useNavigation from '../hooks/useNavigation';
@@ -36,7 +36,7 @@ const locationToIcon: Record<Location, ReactNode> = {
 function Item({ location }: ItemProps) {
   const { location: currentLocation, navigate } = useNavigation();
 
-  const className = clsx({
+  const className = classNames({
     'navigation-bar__item': true,
     'navigation-bar__item--active': currentLocation === location,
   });

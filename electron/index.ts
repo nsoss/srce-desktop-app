@@ -1,10 +1,10 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import isDev from 'electron-is-dev';
 import fs from 'fs';
 import path from 'path';
 import url from 'url';
 import initializeDatabase from './initializeDatabase';
-import registerIpcListeners from './registerIpcListeners';
+import { registerHandlers as registerIpcHandlers } from './ipc';
 
 const appDir = path.dirname(app.getAppPath());
 
@@ -13,16 +13,13 @@ const run = async () => {
   try {
     await app.whenReady();
     mainWindow = new BrowserWindow({
+      title: `Registar ${app.getVersion()}`,
       webPreferences: {
         nodeIntegration: true,
       },
     });
 
-    ipcMain.on('get_version_string', (event) => {
-      event.sender.send('get_version_string', app.getVersion());
-    });
-
-    registerIpcListeners();
+    registerIpcHandlers();
 
     mainWindow.loadURL(
       isDev

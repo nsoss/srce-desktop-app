@@ -9,13 +9,6 @@ import store from './store';
 import './styles/adminStyles.css';
 import { ThemeProvider } from './theme/ThemeContext';
 
-const { ipcRenderer } = window.require('electron');
-
-ipcRenderer.send('get_version_string');
-ipcRenderer.once('get_version_string', (_: any, version: any) => {
-  document.title += ' ' + version;
-});
-
 const root = document.getElementById('root');
 ReactDOM.render(
   <Provider store={store}>

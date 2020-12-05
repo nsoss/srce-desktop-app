@@ -105,5 +105,3 @@ interface InitialData {
   suicideFactors: Array<EnumOf<SuicideFactor>>;
   postCallStates: Array<EnumOf<PostCallState>>;
 }
-
-type IpcChannel = 'get_initial_data';

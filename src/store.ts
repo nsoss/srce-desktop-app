@@ -1,4 +1,3 @@
-import { IpcRendererEvent } from 'electron';
 import { applyMiddleware, combineReducers, createStore, Dispatch } from 'redux';
 import thunk from 'redux-thunk';
 import { AdminAction } from './actions/adminActions';
@@ -6,22 +5,11 @@ import { CallFormAction } from './actions/callFormActions';
 import { CallsAction } from './actions/callsActions';
 import { FormAction } from './actions/formActions';
 import { VolunteersAction } from './actions/volunteersActions';
+import { fetchInitialData } from './ipc';
 import adminReducer from './reducers/adminReducer';
 import callsReducer from './reducers/callsReducer';
 import formReducer from './reducers/formReducer';
 import volunteersReducer from './reducers/volunteersReducer';
-
-const { ipcRenderer } = window.require('electron');
-
-function invokeIpc<TResult>(
-  channel: IpcChannel,
-  handler: (result: TResult) => void
-) {
-  ipcRenderer.send(channel);
-  ipcRenderer.once(channel, (_: IpcRendererEvent, result: TResult) => {
-    handler(result);
-  });
-}
 
 const rootReducer = combineReducers({
   admin: adminReducer,
@@ -37,7 +25,7 @@ const initialDataReceived = (initialData: InitialData) =>
   } as const);
 
 export const getInitialData = () => (dispatch: AppDispatch) => {
-  invokeIpc<InitialData>('get_initial_data', (initialData) => {
+  fetchInitialData((initialData) => {
     dispatch(initialDataReceived(initialData));
   });
 };

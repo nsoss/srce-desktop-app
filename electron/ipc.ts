@@ -10,15 +10,6 @@ import SuicideFactorEntity from './entities/SuicideFactorEntity';
 import SuicideRiskEntity from './entities/SuicideRiskEntity';
 import VolunteerEntity from './entities/VolunteerEntity';
 
-function enumEntityToEnumOf<TEnum>(
-  enumEntity: EnumEntity<TEnum>
-): EnumOf<TEnum> {
-  return {
-    id: enumEntity.id,
-    value: enumEntity.value,
-  };
-}
-
 function volunteerEntityToVolunteer(
   volunteerEntity: VolunteerEntity
 ): Volunteer {
@@ -29,7 +20,16 @@ function volunteerEntityToVolunteer(
   };
 }
 
-async function getInitialData(): Promise<InitialData> {
+function enumEntityToEnumOf<TEnum>(
+  enumEntity: EnumEntity<TEnum>
+): EnumOf<TEnum> {
+  return {
+    id: enumEntity.id,
+    value: enumEntity.value,
+  };
+}
+
+async function fetchInitialData(): Promise<InitialData> {
   const [
     volunteers,
     callTypes,
@@ -65,15 +65,9 @@ async function getInitialData(): Promise<InitialData> {
   };
 }
 
-function registerListener<TArgs, TResult>(
-  channel: IpcChannel,
-  handler: (args: TArgs) => Promise<TResult>
-) {
-  ipcMain.on(channel, async (event, args: TArgs) => {
-    event.sender.send(channel, await handler(args));
+export function registerHandlers() {
+  ipcMain.on('fetch_initial_data', async function (event) {
+    const initialData = await fetchInitialData();
+    event.sender.send('fetch_initial_data', initialData);
   });
-}
-
-export default function registerIpcListeners() {
-  registerListener('get_initial_data', getInitialData);
 }

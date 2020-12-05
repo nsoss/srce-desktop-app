@@ -6,3 +6,13 @@ export function fetchInitialData(cb: (initialData: InitialData) => void) {
     cb(initialData);
   });
 }
+
+export function addVolunteer(
+  payload: VolunteerPayload,
+  cb: (volunteer: Volunteer) => void
+) {
+  ipcRenderer.send('add_volunteer', payload);
+  ipcRenderer.once('add_volunteer', (_: any, volunteer: Volunteer) => {
+    cb(volunteer);
+  });
+}

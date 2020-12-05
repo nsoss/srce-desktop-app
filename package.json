@@ -33,6 +33,7 @@
     "typeorm": "0.2.25"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "6.1.10",
     "@storybook/preset-create-react-app": "3.1.5",
     "@storybook/react": "6.1.9",
     "@types/classnames": "2.2.11",

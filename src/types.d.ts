@@ -14,6 +14,8 @@ interface Volunteer {
   createdAt: Date;
 }
 
+type VolunteerPayload = Omit<Volunteer, 'id' | 'createdAt'>;
+
 interface Call {
   type: CallType;
   contactType?: ContactType;

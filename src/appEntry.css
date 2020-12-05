@@ -2,7 +2,6 @@ body {
     margin: 0;
     padding: 0;
     color: var(--text);
-    background-color: var(--color-bg);
     font-size: 14px;
     padding: 0;
     margin: 0;
@@ -224,26 +223,9 @@ button {
     height: calc(100vh - 290px - 64px);
 }
 
-.admin-table {
-    padding: 20px;
-    background-color: var(--admin-accent);
-    height: 500px;
-    width: 1132px;
-}
-
 .call-data td,
 .call-data th {
     width: 190px !important;
-}
-
-.volunteer-data td,
-.volunteer-data th {
-    width: 200px !important;
-}
-
-.volunteer-data {
-    width: 1132px;
-    color: var(--text);
 }
 
 td,
@@ -371,69 +353,6 @@ textarea:focus {
     top: 424px;
     left: 1266px;
     width: 95px;
-}
-
-.admin-panel {
-    height: 100vh;
-    box-sizing: border-box;
-    padding: 90px 190px 32px 224px;
-    min-width: 337px;
-}
-
-.admin-table {
-    padding: 20px;
-    background-color: var(--admin-accent);
-    width: 100%;
-    min-width: 337px;
-    height: 100%;
-    height: calc(100% - 60px);
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.admin-add-volunteer-form {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 10px;
-    min-width: 337px;
-}
-
-.admin-add-volunteer-form label {
-    margin-left: 3px;
-}
-
-.admin-add-volunteer-form input {
-    background-color: var(--admin-accent);
-    border: none;
-    height: 32px;
-    flex: 4;
-    margin-left: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-.volunteer-data {
-    color: var(--text);
-    width: 100%;
-}
-
-.volunteer-data td,
-.volunteer-data th {
-    text-align: center;
-}
-
-.form-input-modal {
-    height: 32px;
-    border: none;
-    border-bottom: 1px solid #cccccc;
-    font-size: 14px;
-    margin-bottom: 8px;
-    padding-left: 3px;
-    border-radius: 3px;
-    background-color: var(--admin-accent);
-    color: var(--text);
 }
 
 .calls-table .pagination {

@@ -65,9 +65,21 @@ async function fetchInitialData(): Promise<InitialData> {
   };
 }
 
+async function insertVolunteer(payload: VolunteerPayload): Promise<Volunteer> {
+  const volunteer = new VolunteerEntity();
+  volunteer.name = payload.name;
+  volunteer.createdAt = new Date();
+  return volunteerEntityToVolunteer(await volunteer.save());
+}
+
 export function registerHandlers() {
   ipcMain.on('fetch_initial_data', async function (event) {
     const initialData = await fetchInitialData();
     event.sender.send('fetch_initial_data', initialData);
+  });
+
+  ipcMain.on('add_volunteer', async function (event, ...args) {
+    const volunteer = await insertVolunteer(args[0]);
+    event.sender.send('add_volunteer', volunteer);
   });
 }

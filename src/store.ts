@@ -4,12 +4,13 @@ import { AdminAction } from './actions/adminActions';
 import { CallFormAction } from './actions/callFormActions';
 import { CallsAction } from './actions/callsActions';
 import { FormAction } from './actions/formActions';
-import { VolunteersAction } from './actions/volunteersActions';
 import { fetchInitialData } from './ipc';
 import adminReducer from './reducers/adminReducer';
 import callsReducer from './reducers/callsReducer';
 import formReducer from './reducers/formReducer';
-import volunteersReducer from './reducers/volunteersReducer';
+import volunteersReducer, {
+  VolunteersAction,
+} from './reducers/volunteersReducer';
 
 const rootReducer = combineReducers({
   admin: adminReducer,

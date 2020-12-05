@@ -1,9 +1,15 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import EntryEntity from './EntryEntity';
 
 @Entity('Volunteers')
 export default class VolunteerEntity extends BaseEntity {
-  @PrimaryColumn('integer')
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column('text')
